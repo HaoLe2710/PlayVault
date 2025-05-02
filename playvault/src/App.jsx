@@ -1,12 +1,17 @@
-import { Button } from "./components/ui/Button"
-
+import { Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import GameDetail from './pages/GameDetail'
+import NotFound from './pages/NotFound'
 
 function App() {
-
   return (
-    <>
-      <Button>Hello</Button>
-    </>
+    <div className="">
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/game/:id" element={<GameDetail />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
   )
 }
 
