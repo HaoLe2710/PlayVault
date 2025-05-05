@@ -55,6 +55,14 @@
                 "describe": "The Witcher 3: Wild Hunt là đỉnh cao của dòng game nhập vai hành động thế giới mở, được phát triển bởi CD Projekt Red. Người chơi hóa thân thành Geralt of Rivia, một thợ săn quái vật chuyên nghiệp (Witcher), trong hành trình tìm kiếm Ciri, cô con gái nuôi có sức mạnh đặc biệt, giữa bối cảnh thế giới giả tưởng đậm chất Trung Âu đang bị tàn phá bởi chiến tranh và các thế lực siêu nhiên. Trò chơi diễn ra trên một bản đồ rộng lớn bao gồm các vùng đất như Velen hoang tàn, quần đảo Skellige đầy gió, và thành phố Novigrad nhộn nhịp. Lối chơi của The Witcher 3 kết hợp chiến đấu thời gian thực với kiếm thuật, phép thuật, và các kỹ năng Witcher độc đáo, cùng với hệ thống lựa chọn cốt truyện phân nhánh, nơi mỗi quyết định của người chơi có thể thay đổi số phận của nhân vật và thế giới. Ngoài các nhiệm vụ chính, game cung cấp hàng trăm nhiệm vụ phụ được xây dựng công phu, từ săn quái vật huyền thoại đến giải quyết các mâu thuẫn xã hội phức tạp. Hai bản mở rộng Blood and Wine và Hearts of Stone bổ sung thêm hàng chục giờ chơi với cốt truyện và khu vực mới. Với đồ họa tuyệt đẹp, âm nhạc hùng tráng, và một câu chuyện giàu cảm xúc, The Witcher 3 được coi là một kiệt tác của ngành công nghiệp game.",
                 "age-limit": "16+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377062/w_2_tfo35u.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377062/w_1_hv9xms.webp",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377062/w_3_phd89o.webp",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377061/w_4_fkaxea.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377061/w_5_w1d1es.jpg"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377062/w_2_tfo35u.jpg",
             "minimum_configuration": {
                 "os": "Windows 7 64 Bit, Windows 8.1 64 Bit.",
                 "cpu": "Intel Core i5-2500K 3.3GHz / AMD Phenom II X4 940.",
@@ -87,6 +95,14 @@
                 "describe": "Cyberpunk 2077 là một game nhập vai hành động thế giới mở lấy bối cảnh tại Night City, một siêu đô thị dystopian năm 2077, nơi công nghệ tiên tiến và bất bình đẳng xã hội hòa quyện. Người chơi hóa thân thành V, một lính đánh thuê có thể tùy chỉnh giới tính, ngoại hình, và kỹ năng, bắt đầu hành trình từ một kẻ vô danh đến một huyền thoại đô thị. Cốt truyện xoay quanh một con chip bí ẩn chứa đựng ý thức của Johnny Silverhand, một rockerboy nổi loạn do Keanu Reeves thủ vai, khiến V bị cuốn vào các âm mưu giữa các tập đoàn quyền lực và băng đảng đường phố. Lối chơi của Cyberpunk 2077 cho phép người chơi lựa chọn phong cách chiến đấu đa dạng: từ bắn súng, cận chiến, đến sử dụng hack công nghệ để điều khiển kẻ thù hoặc môi trường. Hệ thống lựa chọn đối thoại phân nhánh ảnh hưởng lớn đến cốt truyện, mang đến nhiều kết thúc khác nhau. Night City được xây dựng chi tiết với sáu khu vực độc đáo, từ trung tâm hào nhoáng đến các khu ổ chuột nguy hiểm, cùng hàng trăm hoạt động phụ như đua xe, săn tiền thưởng, và khám phá các bí mật công nghệ. Dù gặp nhiều tranh cãi khi ra mắt, các bản cập nhật lớn và bản mở rộng Phantom Liberty đã cải thiện đáng kể trải nghiệm, mang đến một thế giới sống động với đồ họa ngoạn mục và câu chuyện sâu sắc.",
                 "age-limit": "18+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377062/cp_2_mmbmjp.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377061/cp_4_yugiig.png",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377061/cp_3_hmtetr.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377061/cp_1_jkeuy3.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377060/cp_5_mefkmf.jpg"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377062/cp_2_mmbmjp.jpg",
             "minimum_configuration": {
                 "os": "Windows 10 64 Bit.",
                 "cpu": "Intel Core i5-3570K / AMD FX-8310.",
@@ -118,6 +134,14 @@
                 "describe": "FIFA 23 là tựa game mô phỏng bóng đá mới nhất từ EA Sports, mang đến trải nghiệm thể thao chân thực với công nghệ HyperMotion V2 tiên tiến, tái hiện chuyển động cầu thủ mượt mà và sống động hơn bao giờ hết. Trò chơi bao gồm hàng nghìn câu lạc bộ và đội tuyển từ các giải đấu lớn như Premier League, La Liga, Serie A, Bundesliga, và đặc biệt là FIFA World Cup 2022 cho cả nam và nữ. Người chơi có thể tham gia các chế độ chơi đa dạng: từ quản lý đội bóng trong Career Mode, xây dựng đội hình mơ ước trong FIFA Ultimate Team (FUT), đến trải nghiệm bóng đá đường phố trong Volta Football. FIFA 23 cũng giới thiệu bóng đá nữ với các giải đấu cấp câu lạc bộ, cùng tính năng chơi chéo (cross-play) giữa các nền tảng, cho phép bạn thi đấu trực tuyến với bạn bè trên PC, PlayStation, hoặc Xbox. Hệ thống vật lý và AI được cải tiến mang đến các pha bóng chân thực, từ sút xa, rê bóng, đến phòng ngự chiến thuật. Với đồ họa sắc nét, bình luận sống động, và âm thanh sân vận động cuồng nhiệt, FIFA 23 là lựa chọn hoàn hảo cho những người yêu thích bóng đá và muốn trải nghiệm cảm giác thi đấu đỉnh cao.",
                 "age-limit": "3+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377060/ff_2_zdcbri.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377060/ff_1_yogmav.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377059/ff_3_qezjhy.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377059/ff_4_d9bxqs.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377058/ff_5_isdmt2.jpg"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377060/ff_1_yogmav.jpg",
             "minimum_configuration": {
                 "os": "Windows 10 64 Bit.",
                 "cpu": "Intel Core i5-6600K / AMD Ryzen 5 1600.",
@@ -150,6 +174,14 @@
                 "describe": "Elden Ring là một kiệt tác nhập vai hành động thế giới mở từ FromSoftware, hợp tác với nhà văn George R.R. Martin, tác giả của Game of Thrones. Lấy bối cảnh vùng đất The Lands Between, nơi chiếc nhẫn Elden bị phá hủy, người chơi hóa thân thành Tarnished, một chiến binh được chọn để thu thập các mảnh vỡ của nhẫn và trở thành Elden Lord. Thế giới game rộng lớn, từ những đồng cỏ xanh tươi, đầm lầy độc hại, đến các lâu đài cổ kính và ngục tối bí ẩn, tất cả được thiết kế với sự chi tiết đáng kinh ngạc. Lối chơi của Elden Ring kế thừa phong cách Souls-like với độ khó cao, yêu cầu người chơi thành thạo chiến đấu, né tránh, và sử dụng phép thuật hoặc vũ khí đa dạng. Điểm nổi bật là sự tự do khám phá, cho phép người chơi chọn cách tiếp cận các khu vực, đối mặt với các boss hùng mạnh như Margit hay Malenia, hoặc khám phá các bí mật ẩn giấu. Cốt truyện được kể qua các chi tiết môi trường và đoạn hội thoại ngắn, tạo nên một câu chuyện huyền bí, đầy ẩn ý. Với đồ họa ngoạn mục, âm nhạc hoành tráng, và thiết kế thế giới đỉnh cao, Elden Ring đã được ca ngợi là một trong những game hay nhất mọi thời đại.",
                 "age-limit": "16+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377059/er_2_x8fjld.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377059/er_1_q09vjm.webp",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377057/er_3_o4si4x.webp",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377057/er_4_s5o0yf.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377056/er_5_sjiy0q.webp"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377056/er_5_sjiy0q.webp",
             "minimum_configuration": {
                 "os": "Windows 10 64 Bit.",
                 "cpu": "Intel Core i5-8400 / AMD Ryzen 3 3300X.",
@@ -182,6 +214,14 @@
                 "describe": "Assassin’s Creed Valhalla là một game nhập vai hành động thế giới mở, đưa người chơi vào thời đại Viking thế kỷ 9 tại Anh. Người chơi hóa thân thành Eivor, một chiến binh Viking dũng mãnh (có thể chọn giới tính), dẫn dắt bộ tộc Raven từ Na Uy đến Anh để tìm kiếm một quê hương mới. Cốt truyện xoay quanh việc xây dựng khu định cư, chinh phục các vùng đất, và đối đầu với các vương quốc Anglo-Saxon, đồng thời khám phá bí ẩn về Hidden Ones và Templars, tiền thân của Assassins và Templar trong series. Lối chơi kết hợp chiến đấu đẫm máu với các vũ khí Viking như rìu, kiếm, và khiên, cùng các yếu tố lén lút đặc trưng của dòng Assassin’s Creed như ám sát từ bóng tối. Người chơi có thể tùy chỉnh kỹ năng của Eivor qua cây kỹ năng phong phú, từ chiến binh hung bạo đến sát thủ bí ẩn. Thế giới game rộng lớn, bao gồm các vùng đất như Mercia, Wessex, và Đông Anglia, với các hoạt động như cướp bóc tu viện, săn bắn, câu cá, hoặc tham gia các trận chiến quy mô lớn. Ngoài ra, game còn có các câu đố thần thoại Bắc Âu và các nhiệm vụ phụ đậm chất văn hóa Viking. Với đồ họa tuyệt đẹp, âm nhạc đậm chất sử thi, và cốt truyện sâu sắc, Valhalla mang đến trải nghiệm nhập vai hấp dẫn.",
                 "age-limit": "18+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377060/ac_4_wof1ar.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377056/ac_3_qagswk.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377056/ac_2_zeheuu.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377056/ac_1_cfvchw.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377055/ac_5_zae3gc.webp"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377056/ac_1_cfvchw.jpg",
             "minimum_configuration": {
                 "os": "Windows 10 64 Bit.",
                 "cpu": "Intel Core i5-4460 / AMD Ryzen 3 1200.",
@@ -214,6 +254,14 @@
                 "describe": "Minecraft là một hiện tượng toàn cầu trong thể loại game sandbox, nơi người chơi được thả vào một thế giới khối vuông vô hạn, được tạo ngẫu nhiên, để khám phá, xây dựng, và sinh tồn. Không có cốt truyện cố định, Minecraft cho phép người chơi tự do định hình trải nghiệm của mình: từ việc xây dựng những công trình kiến trúc đồ sộ như lâu đài, thành phố, đến khám phá các hang động sâu thẳm, chiến đấu với quái vật như Creeper, Zombie, hay Ender Dragon. Lối chơi chia thành các chế độ chính: Survival, nơi người chơi thu thập tài nguyên, chế tạo vật phẩm, và đối mặt với đói khát; Creative, nơi bạn có tài nguyên vô hạn để thỏa sức sáng tạo; và Adventure, tập trung vào khám phá các bản đồ tùy chỉnh. Thế giới Minecraft đa dạng với các quần xã sinh vật như rừng, sa mạc, đại dương, và Nether – một chiều không gian địa ngục đầy nguy hiểm. Game cũng hỗ trợ chơi đa người, cho phép bạn hợp tác hoặc cạnh tranh với bạn bè trên các máy chủ trực tuyến. Với các bản cập nhật liên tục như Caves & Cliffs hay Wild Update, Minecraft không ngừng mở rộng với các khối, sinh vật, và cơ chế mới. Đồ họa đơn giản nhưng quyến rũ, kết hợp với âm nhạc thư giãn, đã biến Minecraft thành một sân chơi sáng tạo dành cho mọi lứa tuổi.",
                 "age-limit": "7+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377055/mc_1_wf11hk.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377054/mc_4_xnqrue.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377054/mc_3_afq8xv.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377054/mc_2_plgbzh.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377053/mc_5_fxaahn.jpg"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377055/mc_1_wf11hk.jpg",
             "minimum_configuration": {
                 "os": "Windows 7 64 Bit.",
                 "cpu": "Intel Core i3-3210 / AMD A8-7600 APU.",
@@ -246,6 +294,14 @@
                 "describe": "Starfield là một game nhập vai khoa học viễn tưởng từ Bethesda Softworks, đưa người chơi vào vai một nhà thám hiểm vũ trụ trong thế kỷ 24, thuộc tổ chức Constellation, nhằm khám phá bí ẩn của thiên hà. Lấy bối cảnh một vũ trụ rộng lớn với hơn 1.000 hành tinh có thể khám phá, từ các hành tinh băng giá, sa mạc khô cằn, đến các siêu đô thị như New Atlantis, Starfield mang đến tự do chưa từng có trong việc du hành không gian. Người chơi có thể tùy chỉnh nhân vật, từ ngoại hình, kỹ năng, đến lịch sử cá nhân, ảnh hưởng đến các tương tác trong game. Lối chơi kết hợp khám phá thế giới mở, chiến đấu (bắn súng và cận chiến), xây dựng tàu vũ trụ, và quản lý căn cứ. Bạn có thể thiết kế tàu vũ trụ với hàng trăm module, tham gia các trận chiến không gian kịch tính, hoặc khai thác tài nguyên trên các hành tinh. Cốt truyện chính xoay quanh việc tìm kiếm các Artifact bí ẩn, nhưng game cũng cung cấp hàng trăm nhiệm vụ phụ, từ làm phi hành gia, cướp biển không gian, đến gia nhập các phe phái như United Colonies hay Freestar Collective. Với đồ họa ấn tượng, hệ thống mô phỏng không gian chân thực, và câu chuyện sâu sắc, Starfield là một hành trình vũ trụ đầy tham vọng cho những ai yêu thích khám phá.",
                 "age-limit": "16+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377054/sf_1_x9gr7v.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377053/sf_4_can7da.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377053/sf_3_tze8o5.webp",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377053/sf_2_hzypxu.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377052/sf_5_e2cvwf.jpg"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377054/sf_1_x9gr7v.jpg",
             "minimum_configuration": {
                 "os": "Windows 10 64 Bit.",
                 "cpu": "Intel Core i7-6800K / AMD Ryzen 5 2600X.",
@@ -278,6 +334,14 @@
                 "describe": "Red Dead Redemption 2 là một siêu phẩm hành động phiêu lưu thế giới mở từ Rockstar Games, lấy bối cảnh miền Tây hoang dã của nước Mỹ năm 1899, khi thời kỳ cao bồi đang dần tàn lụi. Người chơi hóa thân thành Arthur Morgan, một thành viên trung thành của băng đảng Van der Linde, sống ngoài vòng pháp luật trong một thế giới đầy nguy hiểm và thay đổi. Cốt truyện kể về hành trình của Arthur và băng đảng khi họ chạy trốn sự truy đuổi của pháp luật và các băng nhóm đối thủ, đồng thời đối mặt với mâu thuẫn nội bộ và những câu hỏi về lòng trung thành, danh dự, và sự chuộc lỗi. Thế giới game rộng lớn, từ các thị trấn bụi bặm, đồng cỏ mênh mông, đến núi tuyết và đầm lầy, được xây dựng với sự chi tiết đáng kinh ngạc. Lối chơi cho phép người chơi tự do khám phá, tham gia các hoạt động như cướp tàu, săn bắn, cưỡi ngựa, hoặc tương tác với hàng trăm nhân vật phụ có câu chuyện riêng. Hệ thống chiến đấu kết hợp bắn súng, cận chiến, và cơ chế Dead Eye cho phép làm chậm thời gian để nhắm bắn chính xác. Các quyết định của người chơi ảnh hưởng đến danh tiếng của Arthur và cách các nhân vật khác phản ứng với anh ta. Với đồ họa chân thực, âm nhạc cảm xúc, và cốt truyện sâu sắc, Red Dead Redemption 2 là một trải nghiệm nhập vai không thể bỏ qua.",
                 "age-limit": "18+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377053/rdr_1_ldq4el.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377053/rdr_2_y6xwis.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377052/rdr_3_ksdikm.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377052/rdr_4_hbppn0.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377051/rdr_5_ehmilh.webp"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377052/rdr_3_ksdikm.jpg",
             "minimum_configuration": {
                 "os": "Windows 10 64 Bit.",
                 "cpu": "Intel Core i5-2500K / AMD FX-6300.",
@@ -310,6 +374,14 @@
                 "describe": "DOOM Eternal là phần tiếp theo của dòng game bắn súng góc nhìn thứ nhất huyền thoại từ id Software, mang đến trải nghiệm hành động mãnh liệt và nhịp độ cực nhanh. Người chơi vào vai Doom Slayer, một chiến binh bất tử, tiếp tục cuộc chiến chống lại đội quân quỷ dữ từ địa ngục đang xâm chiếm Trái Đất và các chiều không gian khác. Cốt truyện đưa bạn qua các địa điểm từ Trái Đất bị tàn phá, các hành tinh xa xôi, đến những pháo đài địa ngục đầy rẫy quái vật kinh dị như Marauder, Archvile, hay Icon of Sin. Lối chơi của DOOM Eternal tập trung vào sự di chuyển liên tục, kết hợp bắn súng, cận chiến, và các kỹ năng như nhảy đôi, lao nhanh (dash), để tiêu diệt kẻ thù một cách sáng tạo. Hệ thống vũ khí đa dạng, từ súng shotgun, plasma rifle, đến BFG 9000, có thể được nâng cấp để tăng sức mạnh. Game yêu cầu người chơi quản lý tài nguyên như máu, đạn, và giáp thông qua các pha “Glory Kill” đẫm máu. Ngoài chiến dịch một người chơi đầy kịch tính, DOOM Eternal còn có chế độ Battlemode, nơi một người chơi điều khiển Doom Slayer đấu với hai người khác trong vai quỷ. Với đồ họa chi tiết, âm nhạc metal cuồng nhiệt, và thiết kế màn chơi sáng tạo, DOOM Eternal là thiên đường cho những ai yêu thích hành động không khoan nhượng.",
                 "age-limit": "18+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377051/de_1_becde1.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377050/de_3_nqrwnr.webp",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377049/de_5_ltti6b.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377049/de_4_fmqw0z.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377051/de_1_becde1.jpg"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377051/de_1_becde1.jpg",
             "minimum_configuration": {
                 "os": "Windows 7 64 Bit.",
                 "cpu": "Intel Core i5-2500K / AMD Ryzen 3 1200.",
@@ -342,6 +414,14 @@
                 "describe": "Horizon Zero Dawn là một game nhập vai hành động thế giới mở từ Guerrilla Games, lấy bối cảnh một thế giới hậu tận thế nơi con người sống trong các bộ lạc nguyên thủy, nhưng bị thống trị bởi các cỗ máy sinh học khổng lồ. Người chơi điều khiển Aloy, một thợ săn trẻ tuổi bị ruồng bỏ, trên hành trình khám phá nguồn gốc của mình và bí ẩn về thế giới xung quanh. Cốt truyện kết hợp giữa khoa học viễn tưởng và thần thoại, đưa người chơi qua các khu rừng rậm rạp, sa mạc khô cằn, và các tàn tích công nghệ cổ đại. Lối chơi xoay quanh việc săn lùng và chiến đấu với các cỗ máy như Thunderjaw hay Stormbird, sử dụng cung tên, bẫy, và các vũ khí chế tạo từ linh kiện máy. Aloy có thể thu thập tài nguyên, nâng cấp kỹ năng, và sử dụng thiết bị công nghệ như Focus để phân tích kẻ thù và môi trường. Ngoài các nhiệm vụ chính, game cung cấp các hoạt động phụ như săn bắn, giải câu đố, và khám phá các lăng mộ công nghệ chứa đựng bí mật về nền văn minh cũ. Bản mở rộng The Frozen Wilds bổ sung một khu vực băng giá và cốt truyện mới. Với đồ họa ngoạn mục, cốt truyện hấp dẫn, và thế giới sống động, Horizon Zero Dawn là một hành trình khó quên.",
                 "age-limit": "16+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377049/hzd_1_bmmw9g.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377048/hzd_3_qouiw5.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377048/hzd_4_psltav.png",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377048/hzd_2_datokf.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377047/hzd_5_f8s9tt.jpg"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377049/hzd_1_bmmw9g.jpg",
             "minimum_configuration": {
                 "os": "Windows 10 64 Bit.",
                 "cpu": "Intel Core i5-2500K / AMD FX-6300.",
@@ -373,6 +453,14 @@
                 "describe": "The Sims 4 là tựa game mô phỏng cuộc sống nổi tiếng từ Electronic Arts, nơi người chơi tạo và điều khiển các nhân vật Sim trong một thế giới ảo đầy màu sắc. Bạn có thể tùy chỉnh mọi khía cạnh của Sim, từ ngoại hình, tính cách, đến ước mơ và mục tiêu cuộc sống. Lối chơi tập trung vào việc quản lý cuộc sống hàng ngày của Sim, bao gồm xây dựng nhà cửa, phát triển sự nghiệp, duy trì mối quan hệ, và thỏa mãn các nhu cầu như ăn uống, ngủ nghỉ, hay giải trí. Thế giới của The Sims 4 bao gồm nhiều khu phố như Willow Creek, Oasis Springs, và các khu vực mở rộng qua các bản DLC như San Myshuno (thành phố) hay Sulani (đảo nhiệt đới). Game cung cấp hàng trăm hoạt động, từ tổ chức tiệc tùng, nuôi thú cưng, đến khám phá các nghề nghiệp như bác sĩ, đầu bếp, hay thậm chí là phù thủy. Hệ thống cảm xúc của Sim ảnh hưởng đến hành vi và tương tác, tạo nên những câu chuyện độc đáo dựa trên lựa chọn của người chơi. Với các bản mở rộng như Seasons, Cats & Dogs, và Cottage Living, The Sims 4 không ngừng mở rộng với các tính năng mới. Đồ họa tươi sáng, lối chơi sáng tạo, và khả năng tùy chỉnh gần như vô hạn khiến The Sims 4 trở thành sân chơi lý tưởng cho trí tưởng tượng.",
                 "age-limit": "12+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377051/ts_4_cwf0tf.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377051/ts_3_jiszsa.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377050/ts_5_gu52sr.webp",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377046/ts_2_t8emkr.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377046/ts_1_g8zzxq.jpg"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377046/ts_1_g8zzxq.jpg",
             "minimum_configuration": {
                 "os": "Windows 7 64 Bit.",
                 "cpu": "Intel Core 2 Duo E4300 / AMD Athlon 64 X2 4000+.",
@@ -405,6 +493,14 @@
                 "describe": "Battlefield 2042 là tựa game bắn súng góc nhìn thứ nhất từ DICE, lấy bối cảnh một thế giới tương lai gần năm 2042, nơi biến đổi khí hậu và xung đột địa chính trị đẩy nhân loại vào chiến tranh toàn cầu. Trò chơi tập trung vào trải nghiệm đa người chơi quy mô lớn, hỗ trợ đến 128 người chơi trên các bản đồ rộng lớn như sa mạc Antarctica, cảng Singapore, hay thành phố Seoul bị phá hủy. Lối chơi của Battlefield 2042 nổi bật với các chế độ như Conquest (chiếm điểm), Breakthrough (tấn công/phòng thủ), và Hazard Zone (chiến đấu đội nhỏ để thu thập dữ liệu). Hệ thống Specialists giới thiệu các nhân vật với kỹ năng đặc biệt, như lính trinh sát với drone hay kỹ sư với khiên chống đạn, mang đến sự đa dạng trong chiến thuật. Game cũng tích hợp các sự kiện thời tiết động như bão cát hay lốc xoáy, ảnh hưởng trực tiếp đến chiến trường. Người chơi có thể tùy chỉnh vũ khí theo thời gian thực và sử dụng các phương tiện như xe tăng, trực thăng, hoặc jet để tạo lợi thế. Dù gặp một số vấn đề kỹ thuật khi ra mắt, các bản cập nhật đã cải thiện đáng kể trải nghiệm. Với đồ họa ấn tượng, âm thanh chiến trường sống động, và quy mô chiến đấu hoành tráng, Battlefield 2042 là lựa chọn tuyệt vời cho fan của thể loại FPS đa người chơi.",
                 "age-limit": "16+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377050/bf_2_tfu9hs.webp",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377050/bf_1_nzgzbx.png",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377049/bf_4_kuhgnd.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377049/bf_5_zujzhs.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377049/bf_3_edqqxo.jpg"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377050/bf_2_tfu9hs.webp",
             "minimum_configuration": {
                 "os": "Windows 10 64 Bit.",
                 "cpu": "Intel Core i5-6600K / AMD Ryzen 5 1600.",
@@ -437,6 +533,14 @@
                 "describe": "Portal 2 là một game giải đố góc nhìn thứ nhất từ Valve, được yêu thích nhờ lối chơi sáng tạo và câu chuyện hài hước. Người chơi vào vai Chell, một nhân vật thử nghiệm bị mắc kẹt trong phòng thí nghiệm Aperture Science, được dẫn dắt bởi trí tuệ nhân tạo GLaDOS đầy mưu mô. Lối chơi xoay quanh việc sử dụng Portal Gun, một thiết bị cho phép tạo hai cổng dịch chuyển để di chuyển qua các bức tường, sàn nhà, và giải các câu đố vật lý phức tạp. Các màn chơi được thiết kế thông minh, yêu cầu người chơi suy nghĩ sáng tạo để vượt qua các chướng ngại vật như laser, tháp pháo, hay hố sâu. Ngoài chiến dịch một người chơi, Portal 2 còn có chế độ co-op, nơi hai người chơi điều khiển robot Atlas và P-Body để giải các câu đố hợp tác. Cốt truyện được kể qua các đoạn hội thoại hóm hỉnh, đặc biệt là sự tương tác giữa GLaDOS và nhân vật Wheatley, mang đến những khoảnh khắc hài hước đáng nhớ. Với thiết kế màn chơi xuất sắc, nhạc nền độc đáo, và câu chuyện giàu cảm xúc, Portal 2 không chỉ là một game giải đố mà còn là một tác phẩm nghệ thuật, phù hợp cho cả người mới và fan của thể loại puzzle.",
                 "age-limit": "10+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377048/p_4_j33iow.png",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377048/p_2_xn4t6m.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377048/p_1_kvapjw.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377047/p_5_xz6no3.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377047/p_3_s324da.jpg"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377048/p_1_kvapjw.jpg",
             "minimum_configuration": {
                 "os": "Windows 7 32 Bit.",
                 "cpu": "Intel Pentium 4 3.0GHz / AMD equivalent.",
@@ -469,6 +573,14 @@
                 "describe": "Hollow Knight là một game hành động phiêu lưu 2D thuộc thể loại Metroidvania, được phát triển bởi Team Cherry. Người chơi điều khiển Knight, một hiệp sĩ nhỏ bé, khám phá vương quốc ngầm Hallownest, một thế giới đổ nát đầy côn trùng và những sinh vật kỳ dị. Cốt truyện được kể qua các chi tiết môi trường và hội thoại ngắn, hé lộ bí ẩn về sự sụp đổ của Hallownest và vai trò của Knight trong việc cứu vãn hoặc phá hủy nó. Lối chơi kết hợp chiến đấu nhanh, nhảy nhót chính xác, và khám phá bản đồ rộng lớn với các khu vực như Greenpath tươi tốt, Fungal Wastes ẩm ướt, hay City of Tears u ám. Người chơi có thể nâng cấp khả năng của Knight, từ đinh ghim (nail) để chiến đấu, đến các phép thuật như lao bóng tối hay bắn hồn. Game nổi tiếng với độ khó cao, đặc biệt khi đối mặt với các boss như Hornet hay Nightmare King Grimm, nhưng luôn công bằng và thỏa mãn khi vượt qua. Các bản mở rộng miễn phí như Godmaster và Lifeblood bổ sung thêm nội dung và thử thách. Với đồ họa vẽ tay tuyệt đẹp, âm nhạc ám ảnh, và thế giới giàu chi tiết, Hollow Knight là một kiệt tác indie dành cho những ai yêu thích khám phá và thử thách.",
                 "age-limit": "10+"
             },
+            "images": [
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377047/hk_1_tdpdt5.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377046/hk_5_xo7a6n.jpg",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377046/hk_2_tvwski.webp",
+                "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377046/hk_3_nb7lrc.jpg",
+                "hhttps://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377045/hk_4_l51whl.jpg"
+            ],
+            "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377047/hk_1_tdpdt5.jpg",
             "minimum_configuration": {
                 "os": "Windows 7 64 Bit.",
                 "cpu": "Intel Core 2 Duo E5200.",

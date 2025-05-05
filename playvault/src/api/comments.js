@@ -1,7 +1,7 @@
 // src/api/comments.js
 
-const API_URL = 'http://localhost:3000/comments'
-import { getUsers } from './users' // Nhập hàm lấy người dùng
+const API_URL = "http://localhost:3000/comments"
+import { getUsers } from "./users" // Nhập hàm lấy người dùng
 
 export async function getComments() {
   try {
@@ -11,7 +11,7 @@ export async function getComments() {
     }
     return await response.json()
   } catch (error) {
-    console.error('Error fetching comments:', error)
+    console.error("Error fetching comments:", error)
     throw error
   }
 }
@@ -29,8 +29,6 @@ export async function getCommentsByGameId(gameId) {
   }
 }
 
-
-
 export async function getCommentsWithUsers() {
   try {
     // Lấy tất cả comments
@@ -44,14 +42,14 @@ export async function getCommentsWithUsers() {
     const users = await getUsers()
 
     // Kết hợp dữ liệu giữa comment và user
-    const commentsWithUsers = comments.map(comment => {
-      const user = users.find(u => u.id === comment.user_id)
+    const commentsWithUsers = comments.map((comment) => {
+      const user = users.find((u) => u.id === comment.user_id)
       return { ...comment, user }
     })
 
     return commentsWithUsers
   } catch (error) {
-    console.error('Error fetching comments with users:', error)
+    console.error("Error fetching comments with users:", error)
     throw error
   }
 }
@@ -69,8 +67,8 @@ export async function getCommentsByGameIdWithUsers(gameId) {
     const users = await getUsers()
 
     // Kết hợp dữ liệu giữa comment và user
-    const commentsWithUsers = comments.map(comment => {
-      const user = users.find(u => u.id === comment.user_id)
+    const commentsWithUsers = comments.map((comment) => {
+      const user = users.find((u) => u.id === comment.user_id)
       return { ...comment, user }
     })
 
@@ -81,3 +79,24 @@ export async function getCommentsByGameIdWithUsers(gameId) {
   }
 }
 
+// Thêm hàm để lưu comment mới
+export async function addComment(comment) {
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(comment),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Failed to add comment: ${response.statusText}`)
+    }
+
+    return await response.json()
+  } catch (error) {
+    console.error("Error adding comment:", error)
+    throw error
+  }
+}

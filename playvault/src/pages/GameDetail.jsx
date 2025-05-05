@@ -66,43 +66,6 @@ function GameDetail() {
       })
   }, [id, navigate])
 
-  const generateMockReviews = () => {
-    const usernames = [
-      "GamerPro123",
-      "EpicPlayer",
-      "GameMaster",
-      "ProGamer",
-      "GameEnthusiast",
-      "RPGLover",
-      "CasualGamer",
-    ]
-    const reviewTexts = [
-      "Tuyệt vời! Đồ họa đẹp, gameplay cuốn hút. Tôi đã chơi suốt đêm không ngừng nghỉ.",
-      "Game hay nhưng vẫn còn một số lỗi nhỏ. Hy vọng sẽ được sửa trong các bản cập nhật tiếp theo.",
-      "Một trong những game hay nhất mà tôi từng chơi. Cốt truyện sâu sắc và nhân vật được phát triển tốt.",
-      "Đồ họa tuyệt đẹp nhưng gameplay hơi đơn điệu sau vài giờ chơi.",
-      "Tôi đã chơi hơn 100 giờ và vẫn chưa chán. Rất đáng đồng tiền bát gạo!",
-      "Cốt truyện hay nhưng điều khiển hơi khó làm quen. Cần thời gian để thích nghi.",
-      "Game tuyệt vời để chơi cùng bạn bè. Chế độ multiplayer rất vui và hấp dẫn.",
-    ]
-
-    const mockReviews = []
-    for (let i = 0; i < 5; i++) {
-      const isPositive = Math.random() > 0.3
-      mockReviews.push({
-        id: i,
-        username: usernames[Math.floor(Math.random() * usernames.length)],
-        date: new Date(Date.now() - Math.floor(Math.random() * 30) * 24 * 60 * 60 * 1000).toLocaleDateString("vi-VN"),
-        text: reviewTexts[Math.floor(Math.random() * reviewTexts.length)],
-        isPositive: isPositive,
-        helpfulCount: Math.floor(Math.random() * 50),
-        hoursPlayed: Math.floor(Math.random() * 200),
-      })
-    }
-
-    setReviews(mockReviews)
-  }
-
   const handleFavoriteToggle = () => {
     const favorites = JSON.parse(localStorage.getItem("favorites") || "[]")
     if (isFavorite) {
