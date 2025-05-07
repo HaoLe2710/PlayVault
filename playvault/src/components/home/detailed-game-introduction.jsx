@@ -60,7 +60,6 @@ export default function DetailedGameIntroduction() {
             subtitle: topGame.tags?.length > 0 ? `${topGame.tags[0]} Adventure` : "Epic Adventure",
             rating: topGame.avgRating,
             commentCount: topGame.commentCount,
-            releaseDate: topGame.details?.release_date || "Coming Soon",
             developer: topGame.details?.developer || "Unknown Developer",
             publisher: topGame.details?.publisher || "Unknown Publisher",
             genres: topGame.tags || ["Action", "Adventure"],
@@ -148,10 +147,7 @@ export default function DetailedGameIntroduction() {
 
       <div className="p-6">
         <div className="flex flex-wrap gap-4 mb-5">
-          <div className="flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-full">
-            <Calendar className="w-4 h-4 text-purple-400" />
-            <span className="text-white text-sm">{game.releaseDate}</span>
-          </div>
+
           <div className="flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-full">
             <Users className="w-4 h-4 text-purple-400" />
             <span className="text-white text-sm">{game.developer}</span>

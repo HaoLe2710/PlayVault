@@ -51,6 +51,7 @@ export default function UserProfile() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [userOrders, setUserOrders] = useState([]);
+    const [ordersLoading, setOrdersLoading] = useState(false);
     const [activeTab, setActiveTab] = useState("profile");
     const fileInputRef = useRef(null);
 
@@ -134,30 +135,11 @@ export default function UserProfile() {
                         birthMonth,
                         birthYear,
                     });
-
-                    // Fetch user's order history - demo only
-                    // Trong thực tế bạn sẽ gọi API để lấy lịch sử đơn hàng
-                    setUserOrders([
-                        {
-                            id: "ORD-" + Math.floor(Math.random() * 1000000),
-                            date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toLocaleDateString("vi-VN"),
-                            status: "Đã giao",
-                            total: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Math.floor(Math.random() * 2000000) + 500000)
-                        },
-                        {
-                            id: "ORD-" + Math.floor(Math.random() * 1000000),
-                            date: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toLocaleDateString("vi-VN"),
-                            status: "Đã giao",
-                            total: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(Math.floor(Math.random() * 1000000) + 200000)
-                        }
-                    ]);
                 }
             } catch (error) {
                 console.error("Error loading user data:", error);
                 toast.error("Lỗi", {
                     description: "Không thể tải dữ liệu người dùng.",
-                    style: { background: "#fef2f2", border: "1px solid #f99d9d", color: "#b91c1c" },
-                    duration: 3000,
                 });
             } finally {
                 setIsLoading(false);
@@ -166,6 +148,163 @@ export default function UserProfile() {
 
         fetchData();
     }, [form]);
+
+    // Fetch order history when tab changes to orders
+    useEffect(() => {
+        if (activeTab === "orders") {
+            fetchOrderHistory();
+        }
+    }, [activeTab]);
+
+    // Fetch order history from API
+    // Fetch order history from API
+    const fetchOrderHistory = async () => {
+        setOrdersLoading(true);
+        try {
+            // Lấy thông tin người dùng từ localStorage
+            const storedUser = localStorage.getItem("user") || sessionStorage.getItem("user");
+            if (!storedUser) {
+                throw new Error('Thông tin người dùng không tồn tại');
+            }
+
+            const userData = JSON.parse(storedUser);
+            const userId = userData.id || userData._id;
+
+            if (!userId) {
+                throw new Error('ID người dùng không tồn tại');
+            }
+
+            // Fetch all data in parallel - Lấy song song cả games và đơn hàng
+            const [gamesResponse, boughtResponse] = await Promise.all([
+                fetch("http://localhost:3001/games").then(res => res.json()),
+                fetch("http://localhost:3001/bought").then(res => res.json())
+            ]);
+
+            console.log("Dữ liệu đơn hàng:", boughtResponse);
+            console.log("Dữ liệu games:", gamesResponse);
+
+            // Tìm đơn hàng của người dùng
+            const userBoughtItems = boughtResponse.filter(item =>
+                item.user_id?.toString() === userId?.toString() ||
+                item.user_id === Number(userId) ||
+                item.userId === userId
+            );
+
+            console.log("Đơn hàng của người dùng:", userBoughtItems);
+
+            if (!userBoughtItems || userBoughtItems.length === 0) {
+                console.log("Không tìm thấy đơn hàng cho người dùng");
+                setUserOrders([]);
+                setOrdersLoading(false);
+                return;
+            }
+
+            // Mảng chứa đơn hàng đã xử lý (mỗi game = 1 đơn hàng)
+            let processedOrders = [];
+
+            // Xử lý từng đơn hàng
+            userBoughtItems.forEach((order, orderIndex) => {
+                const orderDate = new Date(order.createdAt || order.date || Date.now()).toLocaleDateString("vi-VN");
+                const baseOrderStatus = order.status || "Đã giao";
+
+                // Kiểm tra cả bought_game_id và boughtGameId
+                const bought_game_ids = order.bought_game_id || order.boughtGameId || [];
+
+                if (!bought_game_ids || !Array.isArray(bought_game_ids) || bought_game_ids.length === 0) {
+                    // Xử lý đơn hàng có một game
+                    const gameId = order.gameId || order.game_id;
+                    if (gameId) {
+                        const game = gamesResponse.find(g => {
+                            const gId = g.id.toString();
+                            const oId = gameId.toString();
+                            return gId === oId || gId.includes(oId) || oId.includes(gId);
+                        });
+
+                        if (game) {
+                            // Lấy giá tiền từ API hoặc từ đơn hàng
+                            const price = game.price || order.total || 0;
+
+                            // Tạo mã đơn hàng mới
+                            const orderId = order.id || `ORD-${Math.floor(Math.random() * 1000000)}`;
+
+                            // Thêm đơn hàng mới cho game
+                            processedOrders.push({
+                                id: orderId,
+                                date: orderDate,
+                                status: baseOrderStatus,
+                                price: price,
+                                priceFormatted: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price),
+                                name: game.name,
+                                image: game.imageUrl || game.img,
+                                gameId: game.id,
+                                tags: game.tags || [],
+                                publisher: game.details?.publisher || game.publisher,
+                                published_date: game.details?.published_date?.$date || game.published_date,
+                                age_limit: game.details?.["age-limit"] || game.age_limit
+                            });
+                        }
+                    }
+                } else {
+                    // Xử lý đơn hàng có nhiều game - tạo 1 đơn hàng riêng cho mỗi game
+                    const pricePerGame = Math.round((order.total || 0) / bought_game_ids.length);
+
+                    bought_game_ids.forEach((gameId, index) => {
+                        const game = gamesResponse.find(g => {
+                            const gId = g.id.toString();
+                            const oId = gameId.toString();
+                            return gId === oId || gId.includes(oId) || oId.includes(gId);
+                        });
+
+                        if (game) {
+                            // Giá riêng cho từng game hoặc dùng giá trung bình
+                            const price = game.price || pricePerGame;
+
+                            // Tạo mã đơn hàng độc nhất cho mỗi game
+                            const orderId = `${order.id || 'ORD'}-${index + 1}` || `ORD-${Math.floor(Math.random() * 1000000)}-${index + 1}`;
+
+                            // Thêm đơn hàng mới cho game
+                            processedOrders.push({
+                                id: orderId,
+                                date: orderDate,
+                                status: baseOrderStatus,
+                                price: price,
+                                priceFormatted: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price),
+                                name: game.name,
+                                image: game.imageUrl || game.img,
+                                gameId: game.id,
+                                tags: game.tags || [],
+                                publisher: game.details?.publisher || game.publisher,
+                                published_date: game.details?.published_date?.$date || game.published_date,
+                                age_limit: game.details?.["age-limit"] || game.age_limit
+                            });
+                        }
+                    });
+                }
+            });
+
+            // Sắp xếp theo ngày mua mới nhất lên đầu
+            processedOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            console.log("Đơn hàng đã xử lý:", processedOrders);
+
+            setUserOrders(processedOrders);
+
+            // Lưu lịch sử đơn hàng vào localStorage để có thể sử dụng offline
+            localStorage.setItem('user_orders', JSON.stringify(processedOrders));
+        } catch (error) {
+            console.error("Error fetching order history:", error);
+            toast.error("Lỗi", {
+                description: "Không thể tải lịch sử đơn hàng. Vui lòng thử lại sau.",
+            });
+            // Nếu lỗi, giữ lại dữ liệu lịch sử đơn hàng trong localStorage (nếu có)
+            const savedOrders = localStorage.getItem('user_orders');
+            if (savedOrders) {
+                setUserOrders(JSON.parse(savedOrders));
+            }
+        } finally {
+            setOrdersLoading(false);
+        }
+    };
 
     // Xử lý click vào nút upload avatar
     const handleAvatarUploadClick = () => {
@@ -242,15 +381,11 @@ export default function UserProfile() {
 
             toast.success("Thành công", {
                 description: "Hồ sơ đã được cập nhật thành công.",
-                style: { background: "#f0fdf4", border: "1px solid #9ae6b4", color: "#15803d" },
-                duration: 3000,
             });
         } catch (error) {
             console.error("Error saving profile:", error);
             toast.error("Lỗi", {
                 description: "Không thể cập nhật hồ sơ. Vui lòng thử lại.",
-                style: { background: "#fef2f2", border: "1px solid #f99d9d", color: "#b91c1c" },
-                duration: 3000,
             });
         } finally {
             setIsSubmitting(false);
@@ -276,66 +411,99 @@ export default function UserProfile() {
             <Card className="bg-purple-950/60 backdrop-blur-xl border border-purple-700 shadow-[0_0_30px_rgba(168,85,247,0.4)] rounded-2xl overflow-hidden">
                 <CardContent className="p-8">
                     <div className="mb-8">
-                        <h1 className="text-3xl font-bold text-white mb-2 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
-                            Hồ Sơ Người Dùng
-                        </h1>
-                        <p className="text-purple-300">Quản lý thông tin hồ sơ để cá nhân hóa tài khoản</p>
-                        <div className="mt-4 border-b border-purple-700/40" />
+                        <h2 className="text-2xl font-bold text-white">Hồ sơ người dùng</h2>
+                        <p className="text-purple-300">Quản lý thông tin cá nhân và theo dõi đơn hàng của bạn</p>
                     </div>
 
-                    <Tabs defaultValue="profile" value={activeTab} onValueChange={setActiveTab} className="mt-6">
-                        <TabsList className="grid grid-cols-2 mb-8 bg-purple-900/30">
-                            <TabsTrigger value="profile" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-600 data-[state=active]:to-purple-600 data-[state=active]:text-white">
-                                Thông tin tài khoản
+                    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                        <TabsList className="grid w-full grid-cols-2 h-auto p-1 bg-purple-900/40 mb-8">
+                            <TabsTrigger
+                                value="profile"
+                                className="py-3 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white"
+                            >
+                                <User className="h-4 w-4 mr-2" />
+                                Thông tin cá nhân
                             </TabsTrigger>
-                            <TabsTrigger value="orders" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-600 data-[state=active]:to-purple-600 data-[state=active]:text-white">
+                            <TabsTrigger
+                                value="orders"
+                                className="py-3 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white"
+                            >
+                                <ShoppingCart className="h-4 w-4 mr-2" />
                                 Lịch sử đơn hàng
                             </TabsTrigger>
                         </TabsList>
 
                         <TabsContent value="profile" className="mt-0">
-                            <Form {...form}>
-                                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                                        <div className="lg:col-span-2">
-                                            <div className="space-y-6">
-                                                <FormField
-                                                    control={form.control}
-                                                    name="name"
-                                                    render={({ field }) => (
-                                                        <FormItem className="grid grid-cols-3 items-center">
-                                                            <FormLabel className="text-left font-medium text-purple-200">Tên</FormLabel>
-                                                            <div className="col-span-2">
-                                                                <FormControl>
-                                                                    <Input
-                                                                        {...field}
-                                                                        className="max-w-md bg-purple-900/40 border-purple-600 text-white placeholder-purple-300 focus:ring-purple-500 focus:border-purple-500 rounded-lg"
-                                                                        placeholder="Nhập tên của bạn"
-                                                                    />
-                                                                </FormControl>
-                                                                <FormMessage className="text-pink-400 text-sm mt-1" />
-                                                            </div>
-                                                        </FormItem>
-                                                    )}
-                                                />
+                            <div className="flex flex-col md:flex-row gap-8">
+                                {/* Avatar section */}
+                                <div className="flex flex-col items-center">
+                                    <div className="relative mb-4">
+                                        <Avatar className="h-32 w-32 border-4 border-purple-500/30">
+                                            <AvatarImage src={avatarUrl} alt="Avatar" />
+                                            <AvatarFallback className="bg-gradient-to-br from-purple-600 to-pink-600 text-white text-2xl">
+                                                {form.watch("name")?.charAt(0) || "U"}
+                                            </AvatarFallback>
+                                        </Avatar>
 
+                                        <Button
+                                            size="icon"
+                                            variant="secondary"
+                                            className="absolute bottom-0 right-0 h-10 w-10 rounded-full bg-purple-600 hover:bg-purple-700 text-white shadow-lg"
+                                            onClick={handleAvatarUploadClick}
+                                        >
+                                            <Camera className="h-5 w-5" />
+                                        </Button>
+
+                                        <input
+                                            type="file"
+                                            ref={fileInputRef}
+                                            className="hidden"
+                                            accept="image/*"
+                                            onChange={handleAvatarChange}
+                                        />
+                                    </div>
+                                    <p className="text-purple-300 text-sm text-center max-w-[180px]">
+                                        Nhấp vào biểu tượng máy ảnh để thay đổi ảnh đại diện
+                                    </p>
+                                </div>
+
+                                {/* Form section */}
+                                <div className="flex-1">
+                                    <Form {...form}>
+                                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                                            <FormField
+                                                control={form.control}
+                                                name="name"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel className="text-purple-200">Họ và tên</FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                placeholder="Nhập họ và tên"
+                                                                {...field}
+                                                                className="bg-purple-900/40 border-purple-600 focus:border-purple-500 text-white"
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                                 <FormField
                                                     control={form.control}
                                                     name="email"
                                                     render={({ field }) => (
-                                                        <FormItem className="grid grid-cols-3 items-center">
-                                                            <FormLabel className="text-left font-medium text-purple-200">Email</FormLabel>
-                                                            <div className="col-span-2">
-                                                                <FormControl>
-                                                                    <Input
-                                                                        {...field}
-                                                                        className="max-w-md bg-purple-900/40 border-purple-600 text-white placeholder-purple-300 focus:ring-purple-500 focus:border-purple-500 rounded-lg"
-                                                                        placeholder="Nhập email của bạn"
-                                                                        type="email"
-                                                                    />
-                                                                </FormControl>
-                                                                <FormMessage className="text-pink-400 text-sm mt-1" />
-                                                            </div>
+                                                        <FormItem>
+                                                            <FormLabel className="text-purple-200">Email</FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    placeholder="Nhập email"
+                                                                    {...field}
+                                                                    className="bg-purple-900/40 border-purple-600 focus:border-purple-500 text-white"
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
                                                         </FormItem>
                                                     )}
                                                 />
@@ -344,238 +512,186 @@ export default function UserProfile() {
                                                     control={form.control}
                                                     name="phone"
                                                     render={({ field }) => (
-                                                        <FormItem className="grid grid-cols-3 items-center">
-                                                            <FormLabel className="text-left font-medium text-purple-200">Số điện thoại</FormLabel>
-                                                            <div className="col-span-2">
-                                                                <FormControl>
-                                                                    <Input
-                                                                        {...field}
-                                                                        className="max-w-md bg-purple-900/40 border-purple-600 text-white placeholder-purple-300 focus:ring-purple-500 focus:border-purple-500 rounded-lg"
-                                                                        placeholder="Nhập số điện thoại của bạn"
-                                                                        type="tel"
-                                                                    />
-                                                                </FormControl>
-                                                                <FormMessage className="text-pink-400 text-sm mt-1" />
-                                                            </div>
+                                                        <FormItem>
+                                                            <FormLabel className="text-purple-200">Số điện thoại</FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    placeholder="Nhập số điện thoại"
+                                                                    {...field}
+                                                                    className="bg-purple-900/40 border-purple-600 focus:border-purple-500 text-white"
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
                                                         </FormItem>
                                                     )}
                                                 />
-
-                                                <FormField
-                                                    control={form.control}
-                                                    name="address"
-                                                    render={({ field }) => (
-                                                        <FormItem className="grid grid-cols-3 items-center">
-                                                            <FormLabel className="text-left font-medium text-purple-200">Địa chỉ</FormLabel>
-                                                            <div className="col-span-2">
-                                                                <FormControl>
-                                                                    <Input
-                                                                        {...field}
-                                                                        className="max-w-md bg-purple-900/40 border-purple-600 text-white placeholder-purple-300 focus:ring-purple-500 focus:border-purple-500 rounded-lg"
-                                                                        placeholder="Nhập địa chỉ của bạn"
-                                                                    />
-                                                                </FormControl>
-                                                                <FormMessage className="text-pink-400 text-sm mt-1" />
-                                                            </div>
-                                                        </FormItem>
-                                                    )}
-                                                />
-
-                                                <FormField
-                                                    control={form.control}
-                                                    name="gender"
-                                                    render={({ field }) => (
-                                                        <FormItem className="grid grid-cols-3 items-center">
-                                                            <FormLabel className="text-left font-medium text-purple-200">Giới tính</FormLabel>
-                                                            <div className="col-span-2">
-                                                                <FormControl>
-                                                                    <RadioGroup
-                                                                        onValueChange={field.onChange}
-                                                                        value={field.value}
-                                                                        className="flex gap-8"
-                                                                    >
-                                                                        {[
-                                                                            { value: "male", label: "Nam" },
-                                                                            { value: "female", label: "Nữ" },
-                                                                            { value: "other", label: "Khác" },
-                                                                        ].map((option) => (
-                                                                            <div
-                                                                                key={option.value}
-                                                                                className="flex items-center space-x-2 group"
-                                                                            >
-                                                                                <RadioGroupItem
-                                                                                    value={option.value}
-                                                                                    id={option.value}
-                                                                                    className="border-purple-500 text-pink-600 focus:ring-purple-500"
-                                                                                />
-                                                                                <Label
-                                                                                    htmlFor={option.value}
-                                                                                    className="font-medium text-purple-200 group-hover:text-pink-400 cursor-pointer"
-                                                                                >
-                                                                                    {option.label}
-                                                                                </Label>
-                                                                            </div>
-                                                                        ))}
-                                                                    </RadioGroup>
-                                                                </FormControl>
-                                                                <FormMessage className="text-pink-400 text-sm mt-1" />
-                                                            </div>
-                                                        </FormItem>
-                                                    )}
-                                                />
-
-                                                <div className="grid grid-cols-3 items-start">
-                                                    <Label className="text-left font-medium text-purple-200 pt-2">Ngày sinh</Label>
-                                                    <div className="col-span-2 flex gap-3 justify-between">
-                                                        <FormField
-                                                            control={form.control}
-                                                            name="birthDay"
-                                                            render={({ field }) => (
-                                                                <FormItem className="flex-1">
-                                                                    <Select onValueChange={field.onChange} value={field.value}>
-                                                                        <FormControl>
-                                                                            <SelectTrigger className="bg-purple-900/40 border-purple-600 text-white focus:ring-purple-500">
-                                                                                <SelectValue placeholder="Ngày" />
-                                                                            </SelectTrigger>
-                                                                        </FormControl>
-                                                                        <SelectContent className="bg-purple-900 border-purple-700 text-white">
-                                                                            {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
-                                                                                <SelectItem key={day} value={day.toString()}>
-                                                                                    {day}
-                                                                                </SelectItem>
-                                                                            ))}
-                                                                        </SelectContent>
-                                                                    </Select>
-                                                                    <FormMessage className="text-pink-400 text-sm mt-1" />
-                                                                </FormItem>
-                                                            )}
-                                                        />
-
-                                                        <FormField
-                                                            control={form.control}
-                                                            name="birthMonth"
-                                                            render={({ field }) => (
-                                                                <FormItem className="flex-1">
-                                                                    <Select onValueChange={field.onChange} value={field.value}>
-                                                                        <FormControl>
-                                                                            <SelectTrigger className="bg-purple-900/40 border-purple-600 text-white focus:ring-purple-500">
-                                                                                <SelectValue placeholder="Tháng" />
-                                                                            </SelectTrigger>
-                                                                        </FormControl>
-                                                                        <SelectContent className="bg-purple-900 border-purple-700 text-white">
-                                                                            {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
-                                                                                <SelectItem key={month} value={month.toString()}>
-                                                                                    {month}
-                                                                                </SelectItem>
-                                                                            ))}
-                                                                        </SelectContent>
-                                                                    </Select>
-                                                                    <FormMessage className="text-pink-400 text-sm mt-1" />
-                                                                </FormItem>
-                                                            )}
-                                                        />
-
-                                                        <FormField
-                                                            control={form.control}
-                                                            name="birthYear"
-                                                            render={({ field }) => (
-                                                                <FormItem className="flex-1">
-                                                                    <Select onValueChange={field.onChange} value={field.value}>
-                                                                        <FormControl>
-                                                                            <SelectTrigger className="bg-purple-900/40 border-purple-600 text-white focus:ring-purple-500">
-                                                                                <SelectValue placeholder="Năm" />
-                                                                            </SelectTrigger>
-                                                                        </FormControl>
-                                                                        <SelectContent className="bg-purple-900 border-purple-700 text-white max-h-60">
-                                                                            {Array.from(
-                                                                                { length: 80 },
-                                                                                (_, i) => new Date().getFullYear() - i
-                                                                            ).map((year) => (
-                                                                                <SelectItem key={year} value={year.toString()}>
-                                                                                    {year}
-                                                                                </SelectItem>
-                                                                            ))}
-                                                                        </SelectContent>
-                                                                    </Select>
-                                                                    <FormMessage className="text-pink-400 text-sm mt-1" />
-                                                                </FormItem>
-                                                            )}
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                                <div className="grid grid-cols-3 items-center pt-4">
-                                                    <div></div>
-                                                    <div className="col-span-2">
-                                                        <Button
-                                                            type="submit"
-                                                            disabled={isSubmitting}
-                                                            className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-medium px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition-all disabled:opacity-50"
-                                                        >
-                                                            <Save className="mr-2 h-4 w-4" />
-                                                            {isSubmitting ? "Đang lưu..." : "Lưu thay đổi"}
-                                                        </Button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex flex-col items-center justify-start">
-                                            <div className="relative group">
-                                                <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full opacity-75 group-hover:opacity-100 blur group-hover:blur-md transition duration-1000"></div>
-                                                <div className="relative rounded-full p-1 bg-purple-900/80 flex items-center justify-center">
-                                                    <Avatar className="h-40 w-40 border-4 border-purple-800 group-hover:border-purple-600 transition-all duration-300">
-                                                        <AvatarImage
-                                                            src={avatarUrl}
-                                                            alt={form.getValues().name}
-                                                            className="object-cover"
-                                                        />
-                                                        <AvatarFallback className="bg-gradient-to-br from-pink-700 to-purple-700 text-2xl text-white">
-                                                            {form.getValues().name
-                                                                ? form.getValues().name.charAt(0).toUpperCase()
-                                                                : <User className="h-10 w-10" />}
-                                                        </AvatarFallback>
-                                                    </Avatar>
-                                                </div>
                                             </div>
 
-                                            <input
-                                                type="file"
-                                                ref={fileInputRef}
-                                                accept="image/*"
-                                                className="hidden"
-                                                onChange={handleAvatarChange}
+                                            <FormField
+                                                control={form.control}
+                                                name="gender"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel className="text-purple-200">Giới tính</FormLabel>
+                                                        <FormControl>
+                                                            <RadioGroup
+                                                                defaultValue={field.value}
+                                                                onValueChange={field.onChange}
+                                                                className="flex space-x-4"
+                                                            >
+                                                                <div className="flex items-center space-x-2">
+                                                                    <RadioGroupItem value="male" id="male" className="border-purple-500 text-purple-500" />
+                                                                    <Label htmlFor="male" className="text-purple-200">Nam</Label>
+                                                                </div>
+                                                                <div className="flex items-center space-x-2">
+                                                                    <RadioGroupItem value="female" id="female" className="border-purple-500 text-purple-500" />
+                                                                    <Label htmlFor="female" className="text-purple-200">Nữ</Label>
+                                                                </div>
+                                                                <div className="flex items-center space-x-2">
+                                                                    <RadioGroupItem value="other" id="other" className="border-purple-500 text-purple-500" />
+                                                                    <Label htmlFor="other" className="text-purple-200">Khác</Label>
+                                                                </div>
+                                                            </RadioGroup>
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
                                             />
 
-                                            <div className="mt-6 space-y-3">
-                                                <Button
-                                                    type="button"
-                                                    onClick={handleAvatarUploadClick}
-                                                    className="bg-purple-800/60 hover:bg-purple-700 text-white w-full flex items-center justify-center py-2 rounded-lg"
-                                                >
-                                                    <Upload className="mr-2 h-4 w-4" />
-                                                    Tải ảnh lên
-                                                </Button>
+                                            <div className="space-y-2">
+                                                <FormLabel className="text-purple-200">Ngày sinh</FormLabel>
+                                                <div className="grid grid-cols-3 gap-2">
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="birthDay"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <Select
+                                                                    value={field.value}
+                                                                    onValueChange={field.onChange}
+                                                                >
+                                                                    <SelectTrigger className="bg-purple-900/40 border-purple-600 text-white">
+                                                                        <SelectValue placeholder="Ngày" />
+                                                                    </SelectTrigger>
+                                                                    <SelectContent>
+                                                                        {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
+                                                                            <SelectItem key={day} value={day.toString()}>
+                                                                                {day}
+                                                                            </SelectItem>
+                                                                        ))}
+                                                                    </SelectContent>
+                                                                </Select>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
 
-                                                <div className="text-xs text-purple-400 text-center px-2">
-                                                    Cho phép JPG, GIF hoặc PNG. Tối đa 2MB.
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="birthMonth"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <Select
+                                                                    value={field.value}
+                                                                    onValueChange={field.onChange}
+                                                                >
+                                                                    <SelectTrigger className="bg-purple-900/40 border-purple-600 text-white">
+                                                                        <SelectValue placeholder="Tháng" />
+                                                                    </SelectTrigger>
+                                                                    <SelectContent>
+                                                                        {Array.from({ length: 12 }, (_, i) => i + 1).map((month) => (
+                                                                            <SelectItem key={month} value={month.toString()}>
+                                                                                {month}
+                                                                            </SelectItem>
+                                                                        ))}
+                                                                    </SelectContent>
+                                                                </Select>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+
+                                                    <FormField
+                                                        control={form.control}
+                                                        name="birthYear"
+                                                        render={({ field }) => (
+                                                            <FormItem>
+                                                                <Select
+                                                                    value={field.value}
+                                                                    onValueChange={field.onChange}
+                                                                >
+                                                                    <SelectTrigger className="bg-purple-900/40 border-purple-600 text-white">
+                                                                        <SelectValue placeholder="Năm" />
+                                                                    </SelectTrigger>
+                                                                    <SelectContent>
+                                                                        {Array.from(
+                                                                            { length: 100 },
+                                                                            (_, i) => new Date().getFullYear() - i
+                                                                        ).map((year) => (
+                                                                            <SelectItem key={year} value={year.toString()}>
+                                                                                {year}
+                                                                            </SelectItem>
+                                                                        ))}
+                                                                    </SelectContent>
+                                                                </Select>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </Form>
+
+                                            <FormField
+                                                control={form.control}
+                                                name="address"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel className="text-purple-200">Địa chỉ</FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                placeholder="Nhập địa chỉ"
+                                                                {...field}
+                                                                className="bg-purple-900/40 border-purple-600 focus:border-purple-500 text-white"
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+
+                                            <Button
+                                                type="submit"
+                                                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
+                                                disabled={isSubmitting}
+                                            >
+                                                {isSubmitting ? (
+                                                    <div className="flex items-center">
+                                                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                                                        Đang cập nhật...
+                                                    </div>
+                                                ) : (
+                                                    <div className="flex items-center">
+                                                        <Save className="mr-2 h-4 w-4" />
+                                                        Lưu thông tin
+                                                    </div>
+                                                )}
+                                            </Button>
+                                        </form>
+                                    </Form>
+                                </div>
+                            </div>
                         </TabsContent>
 
                         <TabsContent value="orders" className="mt-0">
-                            <div className="bg-purple-900/20 rounded-xl p-6">
-                                <h3 className="text-xl font-semibold text-white mb-6">Lịch sử đơn hàng</h3>
-
-                                {userOrders.length === 0 ? (
-                                    <div className="text-center py-8">
-                                        <div className="bg-purple-900/40 inline-block p-3 rounded-full mb-3">
-                                            <ShoppingCart className="h-8 w-8 text-purple-300" />
-                                        </div>
+                            <div className="space-y-6">
+                                {ordersLoading ? (
+                                    <div className="flex justify-center p-8">
+                                        <div className="w-8 h-8 border-4 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+                                    </div>
+                                ) : userOrders.length === 0 ? (
+                                    <div className="text-center py-12">
+                                        <ShoppingCart className="mx-auto h-12 w-12 text-purple-400 mb-4" />
+                                        <h3 className="text-xl font-medium text-white mb-2">Chưa có đơn hàng nào</h3>
                                         <p className="text-purple-300">Bạn chưa có đơn hàng nào</p>
                                     </div>
                                 ) : (
@@ -584,22 +700,75 @@ export default function UserProfile() {
                                             <thead>
                                                 <tr className="border-b border-purple-700/40">
                                                     <th className="text-left py-3 px-4 text-purple-300 font-medium">Mã đơn hàng</th>
-                                                    <th className="text-left py-3 px-4 text-purple-300 font-medium">Ngày</th>
+                                                    <th className="text-left py-3 px-4 text-purple-300 font-medium">Trò chơi</th>
+                                                    <th className="text-left py-3 px-4 text-purple-300 font-medium">Ngày mua</th>
                                                     <th className="text-left py-3 px-4 text-purple-300 font-medium">Trạng thái</th>
-                                                    <th className="text-right py-3 px-4 text-purple-300 font-medium">Tổng tiền</th>
+                                                    <th className="text-right py-3 px-4 text-purple-300 font-medium">Giá tiền</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {userOrders.map((order) => (
-                                                    <tr key={order.id} className="border-b border-purple-700/20 hover:bg-purple-800/10 transition-colors">
+                                                {userOrders.map((order, index) => (
+                                                    <tr
+                                                        key={order.id}
+                                                        className={`border-b border-purple-700/20 hover:bg-purple-800/10 transition-colors ${index > 0 && userOrders[index - 1].date === order.date ? '' : 'border-t-4 border-t-purple-800'}`}
+                                                    >
+                                                        {/* Mã đơn hàng */}
                                                         <td className="py-4 px-4 text-white font-medium">{order.id}</td>
+
+                                                        {/* Thông tin game */}
+                                                        <td className="py-4 px-4">
+                                                            <div className="flex items-center gap-3">
+                                                                {order.image && (
+                                                                    <div className="w-10 h-10 rounded overflow-hidden">
+                                                                        <img
+                                                                            src={order.image}
+                                                                            alt={order.name}
+                                                                            className="w-full h-full object-cover"
+                                                                        />
+                                                                    </div>
+                                                                )}
+                                                                <div className="flex flex-col">
+                                                                    <span className="text-purple-200 font-medium">{order.name}</span>
+
+                                                                    {order.publisher && (
+                                                                        <span className="text-purple-300 text-xs mt-1">
+                                                                            <span className="font-medium">Nhà phát hành:</span> {order.publisher}
+                                                                        </span>
+                                                                    )}
+
+                                                                    {order.tags && order.tags.length > 0 && (
+                                                                        <div className="flex flex-wrap gap-1 mt-1">
+                                                                            {order.tags.map((tag, idx) => (
+                                                                                <span key={idx} className="px-2 py-0.5 bg-purple-700/40 text-purple-200 text-xs rounded-full">
+                                                                                    {tag}
+                                                                                </span>
+                                                                            ))}
+                                                                        </div>
+                                                                    )}
+
+                                                                    {order.age_limit && (
+                                                                        <span className="text-purple-300 text-xs mt-1">
+                                                                            <span className="font-medium">Độ tuổi:</span> {order.age_limit}
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                        {/* Ngày mua */}
                                                         <td className="py-4 px-4 text-purple-200">{order.date}</td>
+
+                                                        {/* Trạng thái */}
                                                         <td className="py-4 px-4">
                                                             <span className="inline-block px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-xs">
                                                                 {order.status}
                                                             </span>
                                                         </td>
-                                                        <td className="py-4 px-4 text-right text-white font-medium">{order.total}</td>
+
+                                                        {/* Giá tiền */}
+                                                        <td className="py-4 px-4 text-right text-white font-medium">
+                                                            {order.priceFormatted}
+                                                        </td>
                                                     </tr>
                                                 ))}
                                             </tbody>

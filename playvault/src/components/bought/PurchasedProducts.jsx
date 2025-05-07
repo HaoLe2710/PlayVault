@@ -406,7 +406,7 @@ export default function PurchasedProducts() {
                                             </div>
                                             <div className="absolute top-3 right-3">
                                                 <span className={`text-xs px-2 py-1 rounded-full ${product.status === "delivered" ? "bg-green-600/90 text-white" :
-                                                        "bg-yellow-600/90 text-white"
+                                                    "bg-yellow-600/90 text-white"
                                                     }`}>
                                                     {statusMap[product.status]?.label || "Không xác định"}
                                                 </span>
@@ -446,7 +446,7 @@ export default function PurchasedProducts() {
                                                             Ngày mua: {format(product.purchaseDate, "dd/MM/yyyy", { locale: vi })}
                                                         </div>
                                                         <span className={`text-xs px-2 py-0.5 rounded-full ${product.status === "delivered" ? "bg-green-600/90 text-white" :
-                                                                "bg-yellow-600/90 text-white"
+                                                            "bg-yellow-600/90 text-white"
                                                             }`}>
                                                             {statusMap[product.status]?.label || "Không xác định"}
                                                         </span>
