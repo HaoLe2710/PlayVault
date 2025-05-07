@@ -1,21 +1,16 @@
-import React from 'react';
-import Slideshow from '../components/home/slideshow/slideshow.jsx';
-import ProductCategories from '../components/home/product/ProductCategories.jsx';
-import ProductList from '../components/home/product/ProductList.jsx';
-import ProductListNgang from '../components/home/product/ProductListNgang.jsx';
 
-const Home = () => {
+import HeroSlideshow from "../components/home/hero-slideshow";
+import GameGrid from "../components/home/game-grid";
+import GameCategories from "../components/home/game-categories";
+import DetailedGameIntroduction from "../components/home/detailed-game-introduction";
+
+export default function Home() {
     return (
         <>
-            <div className="min-h-screen bg-gray-100 flex items-center justify-center p-0 w-full h-full">
-                <Slideshow />
-            </div>
-            <ProductCategories />
-
+            <HeroSlideshow />
+            <GameCategories />
+            <DetailedGameIntroduction />
+            <GameGrid />
         </>
-
-
     );
-};
-
-export default Home;
+}
