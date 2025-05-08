@@ -83,7 +83,6 @@ export default function GameGrid() {
               image: g.thumbnail_image || g.images?.[0] || "/placeholder.svg?height=200&width=300",
               price: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(g.price || 0),
               originalPrice: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((g.price || 0) * 1.2),
-              discount: "20%",
               rating: parseFloat(avgRating) || 0,
               commentCount: comments.length
             })

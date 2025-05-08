@@ -1,15 +1,15 @@
-const API_URL = 'http://localhost:3000/monthly_statistic';
-const PURCHASES_URL = 'http://localhost:3000/purchases';
-const WISHLIST_URL = 'http://localhost:3000/wishlist';
-const USERS_URL = 'http://localhost:3000/users';
-const GAMES_URL = 'http://localhost:3000/games';
-const COMMENTS_URL = 'http://localhost:3000/comments';
+const API_URL = 'http://localhost:3001/monthly_statistic';
+const PURCHASES_URL = 'http://localhost:3001/purchases';
+const WISHLIST_URL = 'http://localhost:3001/wishlist';
+const USERS_URL = 'http://localhost:3001/users';
+const GAMES_URL = 'http://localhost:3001/games';
+const COMMENTS_URL = 'http://localhost:3001/comments';
 
 // Helper to check if a date is in the specified month and year
 const isInMonth = (dateString, year, month) => {
   if (!dateString) return false;
-  const date = typeof dateString === 'object' && dateString.$date 
-    ? new Date(dateString.$date) 
+  const date = typeof dateString === 'object' && dateString.$date
+    ? new Date(dateString.$date)
     : new Date(dateString);
   if (isNaN(date.getTime())) return false;
   return date.getFullYear() === year && date.getMonth() === month;
@@ -122,7 +122,7 @@ export async function calculateCurrentStatistics() {
     });
 
     // Filter users for the current month based on created_at
-    const currentUsers = users.filter(u => 
+    const currentUsers = users.filter(u =>
       u.created_at && isInMonth(u.created_at, year, month)
     );
 
@@ -130,7 +130,7 @@ export async function calculateCurrentStatistics() {
     const currentPurchases = purchases
       .map(purchase => ({
         ...purchase,
-        games_purchased: purchase.games_purchased?.filter(gp => 
+        games_purchased: purchase.games_purchased?.filter(gp =>
           gp.purchased_at && isInMonth(gp.purchased_at, year, month)
         ) || [],
       }))
@@ -160,7 +160,7 @@ export async function calculateCurrentStatistics() {
     });
 
     // Process comments
-    const currentComments = comments.filter(c => 
+    const currentComments = comments.filter(c =>
       c.commented_date && isInMonth(c.commented_date, year, month) && c.comment
     );
 

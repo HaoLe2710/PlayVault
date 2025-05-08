@@ -1,6 +1,6 @@
 // src/api/users.js
 
-const API_URL = "http://localhost:3000/users";
+const API_URL = "http://localhost:3001/users";
 
 export async function getUsers() {
   try {

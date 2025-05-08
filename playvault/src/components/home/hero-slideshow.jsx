@@ -64,7 +64,6 @@ export default function HeroSlideshow() {
           commentCount: game.commentCount,
           price: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(game.price || 0),
           originalPrice: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((game.price || 0) * 1.2),
-          discount: "20%",
           isNew: game.isNew || false, // Sử dụng isNew từ dữ liệu nếu có
           badge: game.details?.publisher || "Featured",
           genres: game.tags || ["Action", "Adventure"],

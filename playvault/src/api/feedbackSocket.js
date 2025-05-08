@@ -16,7 +16,7 @@ const app = express();
 // Kích hoạt CORS cho tất cả các route
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "http://localhost:5174",
     methods: ["GET", "POST", "OPTIONS"],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -26,13 +26,13 @@ app.use(
 // Ghi log để kiểm tra yêu cầu
 app.use((req, res, next) => {
   console.log(`Yêu cầu nhận được: ${req.method} ${req.url}`);
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5174");
   next();
 });
 
 // Xử lý yêu cầu preflight OPTIONS
 app.options("*", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:5174");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -42,7 +42,7 @@ app.options("*", (req, res) => {
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: "http://localhost:5174",
     methods: ["GET", "POST"],
     credentials: true,
   },

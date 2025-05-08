@@ -65,7 +65,6 @@ export default function DetailedGameIntroduction() {
             genres: topGame.tags || ["Action", "Adventure"],
             platforms: topGame.platforms || ["PC"],
             price: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(topGame.price || 0),
-            discount: "20%",
             originalPrice: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((topGame.price || 0) * 1.2),
             players: topGame.details?.players || "Single-player",
             image: topGame.thumbnail_image || topGame.images?.[0] || "/placeholder.svg?height=400&width=800",

@@ -1,6 +1,6 @@
 // src/api/comments.js
 
-const API_URL = "http://localhost:3000/comments"
+const API_URL = "http://localhost:3001/comments"
 import { getUsers } from "./users" // Nhập hàm lấy người dùng
 
 export async function getComments() {

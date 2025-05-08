@@ -81,9 +81,13 @@ export default function LoginPage() {
         duration: 3000,
       })
 
-      // Chuyển hướng sau 1 giây để người dùng thấy thông báo
+      // Chuyển hướng dựa trên role sau 1 giây để người dùng thấy thông báo
       setTimeout(() => {
-        navigate("/")
+        if (user.role === "admin") {
+          navigate("/admindashboard")
+        } else {
+          navigate("/") // user hoặc bất kỳ role nào khác
+        }
       }, 1000)
     } catch (error) {
       // Hiển thị thông báo lỗi
@@ -94,8 +98,6 @@ export default function LoginPage() {
       setIsLoading(false)
     }
   }
-
-
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev)

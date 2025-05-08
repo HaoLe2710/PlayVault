@@ -84,6 +84,7 @@ export default function PurchasedProducts() {
     }, [])
 
     // Fetch data from json-server
+    // Fetch data from json-server
     useEffect(() => {
         // Nếu không có người dùng đăng nhập, không fetch dữ liệu
         if (!user) return;
@@ -93,53 +94,63 @@ export default function PurchasedProducts() {
                 setLoading(true);
 
                 // Fetch all data in parallel
-                const [gamesResponse, boughtResponse] = await Promise.all([
+                const [gamesResponse, purchasesResponse] = await Promise.all([
                     fetch("http://localhost:3001/games").then(res => res.json()),
-                    fetch("http://localhost:3001/bought").then(res => res.json())
+                    fetch("http://localhost:3001/purchases").then(res => res.json()) // Thay đổi endpoint
                 ]);
 
-                // Find user's bought games
-                const userBought = boughtResponse.find(item =>
+                // Find user's purchased games
+                const userPurchase = purchasesResponse.find(item =>
                     item.user_id.toString() === (user.id || "").toString() ||
                     item.user_id === Number(user.id) ||
                     item.userId === user.id
                 );
 
                 console.log("User:", user);
-                console.log("Available bought items:", boughtResponse);
-                console.log("Found user bought:", userBought);
+                console.log("Available purchases:", purchasesResponse);
+                console.log("Found user purchase:", userPurchase);
 
-                if (!userBought) {
+                if (!userPurchase || !userPurchase.games_purchased) {
                     setProducts([]);
                     setBoughtItems([]);
                     setLoading(false);
                     return;
                 }
 
-                // Kiểm tra cả bought_game_id và boughtGameId (tùy vào cấu trúc dữ liệu API trả về)
-                const bought_game_ids = userBought.bought_game_id || userBought.boughtGameId || [];
-                console.log("Bought game IDs:", bought_game_ids);
+                // Lấy danh sách game_id từ games_purchased
+                const purchasedGames = userPurchase.games_purchased;
+                const boughtGameIds = purchasedGames.map(purchase => purchase.game_id);
+                console.log("Purchased game IDs:", boughtGameIds);
 
-                setBoughtItems(bought_game_ids);
+                setBoughtItems(boughtGameIds);
 
-                // Get products that the user has bought - giữ nguyên cấu trúc game để tương thích với GameCard
+                // Get products that the user has purchased
                 const boughtProducts = gamesResponse
                     .filter(game => {
                         const gameId = Number(game.id);
-                        return Array.isArray(bought_game_ids) && bought_game_ids.some(id => {
-                            // So sánh cả string và number
+                        return boughtGameIds.some(id => {
                             const numId = Number(id);
                             return numId === gameId || id === game.id || id.toString() === game.id.toString();
                         });
                     })
-                    .map(game => ({
-                        ...game, // Giữ tất cả dữ liệu gốc
-                        // Thêm thông tin mua hàng
-                        purchaseDate: game.details?.published_date?.$date
-                            ? new Date(game.details.published_date.$date)
-                            : new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000),
-                        status: ["delivered", "processing"][Math.floor(Math.random() * 2)],
-                    }));
+                    .map(game => {
+                        // Tìm thông tin mua hàng tương ứng với game
+                        const purchaseInfo = purchasedGames.find(purchase =>
+                            Number(purchase.game_id) === Number(game.id) ||
+                            purchase.game_id === game.id
+                        );
+
+                        return {
+                            ...game,
+                            // Sử dụng purchased_at từ dữ liệu purchases
+                            purchaseDate: purchaseInfo?.purchased_at?.$date
+                                ? new Date(purchaseInfo.purchased_at.$date)
+                                : new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000),
+                            // Sử dụng price từ dữ liệu purchases
+                            price: purchaseInfo?.price || game.price || 0,
+                            status: ["delivered", "processing"][Math.floor(Math.random() * 2)],
+                        };
+                    });
 
                 console.log("Processed bought products:", boughtProducts);
                 setProducts(boughtProducts);

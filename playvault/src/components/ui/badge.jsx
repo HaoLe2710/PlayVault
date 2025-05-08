@@ -42,7 +42,4 @@ function Badge({
 }
 
 export { Badge, badgeVariants }
-<<<<<<< HEAD
-structive/40
-=======
->>>>>>> PhamTangHoang_22691881
+

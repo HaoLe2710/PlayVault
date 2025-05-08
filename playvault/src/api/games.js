@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/games'
+const API_URL = 'http://localhost:3001/games'
 
 export async function getGames() {
   try {

@@ -10,6 +10,7 @@ import Favorite from "./pages/Favorite.jsx";
 import Login from "./pages/Login.jsx";
 import Register from './pages/Register.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
 
 // Layout component để bao bọc các trang với Sidebar, Navbar và Footer
 function MainLayout() {
@@ -55,7 +56,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} /> {/* Route cho trang đăng ký */}
         <Route path='/forgot-password' element={<ForgotPassword />} />
-
+        <Route path='/admindashboard' element={<AdminDashboard />} />
       </Routes>
     </BrowserRouter>
 
