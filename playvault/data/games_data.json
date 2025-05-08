@@ -578,7 +578,11 @@
         "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377046/hk_5_xo7a6n.jpg",
         "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377046/hk_2_tvwski.webp",
         "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377046/hk_3_nb7lrc.jpg",
+<<<<<<< HEAD
         "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377045/hk_4_l51whl.jpg"
+=======
+        "hhttps://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377045/hk_4_l51whl.jpg"
+>>>>>>> PhamTangHoang_22691881
       ],
       "thumbnail_image": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746377047/hk_1_tdpdt5.jpg",
       "minimum_configuration": {
@@ -775,7 +779,11 @@
       },
       "images": [
         "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746023567/ssdt_5_yuweic.jpg",
+<<<<<<< HEAD
         "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746023567/ssdt_4_adhgbz.png",
+=======
+        "hhttps://res.cloudinary.com/dqnj8bsgu/image/upload/v1746023567/ssdt_4_adhgbz.png",
+>>>>>>> PhamTangHoang_22691881
         "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746023566/ssdt_1_dj3dnv.jpg",
         "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746023566/ssdt_3_ctwftr.jpg",
         "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746023566/ssdt_2_ysnqqp.jpg"
@@ -1195,6 +1203,7 @@
         "disk": "90 GB."
       },
       "price": 799000
+<<<<<<< HEAD
     },
     {
       "id": "31",
@@ -1227,6 +1236,8 @@
         "gpu": "NVIDIA RTX 3060",
         "disk": "100GB"
       }
+=======
+>>>>>>> PhamTangHoang_22691881
     }
   ],
   "comments": [
@@ -1235,700 +1246,1100 @@
       "game_id": 17,
       "rating": 2,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "4530"
+=======
+      "id": "5a85"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 2,
       "game_id": 24,
       "rating": 3,
       "comment": "Rất đáng chơi!",
+<<<<<<< HEAD
       "id": "2124"
+=======
+      "id": "deb2"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 7,
       "game_id": 6,
       "rating": 2,
       "comment": "Không tệ, nhưng cần update",
+<<<<<<< HEAD
       "id": "1b66"
+=======
+      "id": "9c2a"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 10,
       "game_id": 13,
       "rating": 2,
       "comment": "Game rất cuốn.",
+<<<<<<< HEAD
       "id": "6551"
+=======
+      "id": "e650"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 19,
       "game_id": 28,
       "rating": 2,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "9cc1"
+=======
+      "id": "d8f1"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 1,
       "game_id": 19,
       "rating": 3,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "f624"
+=======
+      "id": "37ab"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 12,
       "game_id": 30,
       "rating": 4,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "2b2f"
+=======
+      "id": "6260"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 27,
       "game_id": 28,
       "rating": 2,
       "comment": "Game quá đỉnh!",
+<<<<<<< HEAD
       "id": "946f"
+=======
+      "id": "0e4c"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 2,
       "game_id": 22,
       "rating": 4,
       "comment": "Game quá đỉnh!",
+<<<<<<< HEAD
       "id": "0deb"
+=======
+      "id": "88ea"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 10,
       "game_id": 19,
       "rating": 1,
       "comment": "Game quá đỉnh!",
+<<<<<<< HEAD
       "id": "d1d1"
+=======
+      "id": "48cd"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 28,
       "game_id": 30,
       "rating": 4,
       "comment": "Game quá đỉnh!",
+<<<<<<< HEAD
       "id": "e10a"
+=======
+      "id": "0530"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 10,
       "game_id": 29,
       "rating": 1,
       "comment": "Game rất cuốn.",
+<<<<<<< HEAD
       "id": "6d89"
+=======
+      "id": "a395"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 15,
       "game_id": 3,
       "rating": 1,
       "comment": "Game xịn vãi ò",
+<<<<<<< HEAD
       "id": "1153"
+=======
+      "id": "c6de"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 29,
       "game_id": 30,
       "rating": 3,
       "comment": "Không tệ, nhưng cần update",
+<<<<<<< HEAD
       "id": "028e"
+=======
+      "id": "7472"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 16,
       "game_id": 9,
       "rating": 1,
       "comment": "Thật sự gây nghiện.",
+<<<<<<< HEAD
       "id": "a3fb"
+=======
+      "id": "a4b9"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 19,
       "game_id": 11,
       "rating": 5,
       "comment": "Không tệ, nhưng cần update",
+<<<<<<< HEAD
       "id": "c1cd"
+=======
+      "id": "8b66"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 14,
       "game_id": 25,
       "rating": 1,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "3f64"
+=======
+      "id": "508d"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 20,
       "game_id": 6,
       "rating": 5,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "a91c"
+=======
+      "id": "6e85"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 8,
       "game_id": 16,
       "rating": 4,
       "comment": "Không tệ, nhưng cần update",
+<<<<<<< HEAD
       "id": "3d04"
+=======
+      "id": "a7fc"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 20,
       "game_id": 20,
       "rating": 5,
       "comment": "Game xịn vãi ò",
+<<<<<<< HEAD
       "id": "2683"
+=======
+      "id": "c89b"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 13,
       "game_id": 15,
       "rating": 2,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "ec7a"
+=======
+      "id": "9bd4"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 1,
       "game_id": 24,
       "rating": 3,
       "comment": "Không tệ, nhưng cần update",
+<<<<<<< HEAD
       "id": "9a28"
+=======
+      "id": "c595"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 20,
       "game_id": 3,
       "rating": 5,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "ff33"
+=======
+      "id": "0102"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 21,
       "game_id": 19,
       "rating": 5,
       "comment": "Chơi vui, đồ họa đẹp",
+<<<<<<< HEAD
       "id": "384f"
+=======
+      "id": "135c"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 25,
       "game_id": 1,
       "rating": 1,
       "comment": "Tạm ổn, nên cải thiện thêm.",
+<<<<<<< HEAD
       "id": "6e05"
+=======
+      "id": "396f"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 5,
       "game_id": 10,
       "rating": 1,
       "comment": "Chơi vui, đồ họa đẹp",
+<<<<<<< HEAD
       "id": "542c"
+=======
+      "id": "80e0"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 5,
       "game_id": 17,
       "rating": 5,
       "comment": "Game xịn vãi ò",
+<<<<<<< HEAD
       "id": "7d16"
+=======
+      "id": "1fbf"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 24,
       "game_id": 3,
       "rating": 3,
       "comment": "Game xịn vãi ò",
+<<<<<<< HEAD
       "id": "8637"
+=======
+      "id": "0b5a"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 15,
       "game_id": 29,
       "rating": 3,
       "comment": "Game quá đỉnh!",
+<<<<<<< HEAD
       "id": "c86d"
+=======
+      "id": "6d6e"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 7,
       "game_id": 21,
       "rating": 4,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "b177"
+=======
+      "id": "82b2"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 18,
       "game_id": 9,
       "rating": 5,
       "comment": "Game quá đỉnh!",
+<<<<<<< HEAD
       "id": "ac44"
+=======
+      "id": "0dec"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 27,
       "game_id": 6,
       "rating": 2,
       "comment": "Chơi vui, đồ họa đẹp",
+<<<<<<< HEAD
       "id": "074f"
+=======
+      "id": "4ed5"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 21,
       "game_id": 21,
       "rating": 1,
       "comment": "Không tệ, nhưng cần update",
+<<<<<<< HEAD
       "id": "8302"
+=======
+      "id": "d9ee"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 8,
       "game_id": 17,
       "rating": 4,
       "comment": "Chơi vui, đồ họa đẹp",
+<<<<<<< HEAD
       "id": "91f4"
+=======
+      "id": "371b"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 18,
       "game_id": 13,
       "rating": 3,
       "comment": "Game xịn vãi ò",
+<<<<<<< HEAD
       "id": "ccd0"
+=======
+      "id": "3ba5"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 3,
       "game_id": 29,
       "rating": 3,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "ca8c"
+=======
+      "id": "13a5"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 10,
       "game_id": 15,
       "rating": 5,
       "comment": "Thật sự gây nghiện.",
+<<<<<<< HEAD
       "id": "8152"
+=======
+      "id": "5087"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 6,
       "game_id": 13,
       "rating": 3,
       "comment": "Game xịn vãi ò",
+<<<<<<< HEAD
       "id": "ed0f"
+=======
+      "id": "567a"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 15,
       "game_id": 9,
       "rating": 4,
       "comment": "Chơi vui, đồ họa đẹp",
+<<<<<<< HEAD
       "id": "fc34"
+=======
+      "id": "157e"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 4,
       "game_id": 10,
       "rating": 5,
       "comment": "Rất đáng chơi!",
+<<<<<<< HEAD
       "id": "1545"
+=======
+      "id": "14ea"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 2,
       "game_id": 9,
       "rating": 2,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "73fc"
+=======
+      "id": "b016"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 28,
       "game_id": 26,
       "rating": 2,
       "comment": "Thật sự gây nghiện.",
+<<<<<<< HEAD
       "id": "940f"
+=======
+      "id": "d192"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 13,
       "game_id": 18,
       "rating": 3,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "8735"
+=======
+      "id": "d98f"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 24,
       "game_id": 18,
       "rating": 3,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "f589"
+=======
+      "id": "bb11"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 9,
       "game_id": 26,
       "rating": 3,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "d27c"
+=======
+      "id": "d09a"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 14,
       "game_id": 6,
       "rating": 4,
       "comment": "Tạm ổn, nên cải thiện thêm.",
+<<<<<<< HEAD
       "id": "3e6a"
+=======
+      "id": "aa0f"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 13,
       "game_id": 18,
       "rating": 3,
       "comment": "Thật sự gây nghiện.",
+<<<<<<< HEAD
       "id": "0835"
+=======
+      "id": "e454"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 12,
       "game_id": 12,
       "rating": 1,
       "comment": "Game xịn vãi ò",
+<<<<<<< HEAD
       "id": "7f75"
+=======
+      "id": "06ff"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 19,
       "game_id": 11,
       "rating": 1,
       "comment": "Game rất cuốn.",
+<<<<<<< HEAD
       "id": "62a0"
+=======
+      "id": "03a3"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 19,
       "game_id": 24,
       "rating": 1,
       "comment": "Thật sự gây nghiện.",
+<<<<<<< HEAD
       "id": "00c3"
+=======
+      "id": "d4af"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 13,
       "game_id": 10,
       "rating": 4,
       "comment": "Rất đáng chơi!",
+<<<<<<< HEAD
       "id": "d79b"
+=======
+      "id": "b328"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 26,
       "game_id": 11,
       "rating": 3,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "9d98"
+=======
+      "id": "916f"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 18,
       "game_id": 14,
       "rating": 2,
       "comment": "Rất đáng chơi!",
+<<<<<<< HEAD
       "id": "cc30"
+=======
+      "id": "be6c"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 16,
       "game_id": 6,
       "rating": 3,
       "comment": "Game quá đỉnh!",
+<<<<<<< HEAD
       "id": "f491"
+=======
+      "id": "3a20"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 21,
       "game_id": 23,
       "rating": 5,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "fbd7"
+=======
+      "id": "4ed5"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 13,
       "game_id": 28,
       "rating": 5,
       "comment": "Thật sự gây nghiện.",
+<<<<<<< HEAD
       "id": "5227"
+=======
+      "id": "1de7"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 18,
       "game_id": 17,
       "rating": 1,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "7ec7"
+=======
+      "id": "748c"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 16,
       "game_id": 29,
       "rating": 2,
       "comment": "Game xịn vãi ò",
+<<<<<<< HEAD
       "id": "8734"
+=======
+      "id": "cd93"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 4,
       "game_id": 27,
       "rating": 1,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "5319"
+=======
+      "id": "70cd"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 28,
       "game_id": 22,
       "rating": 3,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "20e3"
+=======
+      "id": "5ca4"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 15,
       "game_id": 25,
       "rating": 4,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "1cc8"
+=======
+      "id": "bd87"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 9,
       "game_id": 10,
       "rating": 1,
       "comment": "Chơi vui, đồ họa đẹp",
+<<<<<<< HEAD
       "id": "f136"
+=======
+      "id": "620b"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 23,
       "game_id": 25,
       "rating": 3,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "6b1b"
+=======
+      "id": "491e"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 11,
       "game_id": 13,
       "rating": 4,
       "comment": "Game quá đỉnh!",
+<<<<<<< HEAD
       "id": "1231"
+=======
+      "id": "c839"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 18,
       "game_id": 3,
       "rating": 2,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "6920"
+=======
+      "id": "f392"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 13,
       "game_id": 5,
       "rating": 2,
       "comment": "Tạm ổn, nên cải thiện thêm.",
+<<<<<<< HEAD
       "id": "f6a0"
+=======
+      "id": "b310"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 4,
       "game_id": 16,
       "rating": 1,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "85f1"
+=======
+      "id": "4937"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 15,
       "game_id": 21,
       "rating": 1,
       "comment": "Chơi vui, đồ họa đẹp",
+<<<<<<< HEAD
       "id": "7c81"
+=======
+      "id": "6159"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 21,
       "game_id": 17,
       "rating": 3,
       "comment": "Rất đáng chơi!",
+<<<<<<< HEAD
       "id": "d467"
+=======
+      "id": "d3f6"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 9,
       "game_id": 21,
       "rating": 3,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "939c"
+=======
+      "id": "3813"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 11,
       "game_id": 9,
       "rating": 2,
       "comment": "Game quá đỉnh!",
+<<<<<<< HEAD
       "id": "5f12"
+=======
+      "id": "0ae4"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 20,
       "game_id": 15,
       "rating": 4,
       "comment": "Rất đáng chơi!",
+<<<<<<< HEAD
       "id": "00bb"
+=======
+      "id": "ed11"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 20,
       "game_id": 1,
       "rating": 5,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "3546"
+=======
+      "id": "bcfd"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 22,
       "game_id": 27,
       "rating": 1,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "9615"
+=======
+      "id": "3139"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 29,
       "game_id": 24,
       "rating": 1,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "2f02"
+=======
+      "id": "e5fc"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 24,
       "game_id": 3,
       "rating": 3,
       "comment": "Không tệ, nhưng cần update",
+<<<<<<< HEAD
       "id": "b293"
+=======
+      "id": "24aa"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 8,
       "game_id": 16,
       "rating": 2,
       "comment": "Không tệ, nhưng cần update",
+<<<<<<< HEAD
       "id": "43eb"
+=======
+      "id": "5899"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 3,
       "game_id": 28,
       "rating": 3,
       "comment": "Không tệ, nhưng cần update",
+<<<<<<< HEAD
       "id": "1504"
+=======
+      "id": "f538"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 2,
       "game_id": 7,
       "rating": 4,
       "comment": "Game quá đỉnh!",
+<<<<<<< HEAD
       "id": "86bd"
+=======
+      "id": "fefa"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 13,
       "game_id": 4,
       "rating": 5,
       "comment": "Chơi vui, đồ họa đẹp",
+<<<<<<< HEAD
       "id": "65b6"
+=======
+      "id": "7711"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 17,
       "game_id": 7,
       "rating": 5,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "9767"
+=======
+      "id": "885d"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 14,
       "game_id": 22,
       "rating": 1,
       "comment": "Chơi vui, đồ họa đẹp",
+<<<<<<< HEAD
       "id": "08fe"
+=======
+      "id": "a9ef"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 21,
       "game_id": 12,
       "rating": 4,
       "comment": "Thật sự gây nghiện.",
+<<<<<<< HEAD
       "id": "ee6b"
+=======
+      "id": "40f9"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 20,
       "game_id": 26,
       "rating": 1,
       "comment": "Chơi vui, đồ họa đẹp",
+<<<<<<< HEAD
       "id": "f88b"
+=======
+      "id": "fae6"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 24,
       "game_id": 13,
       "rating": 5,
       "comment": "Rất đáng chơi!",
+<<<<<<< HEAD
       "id": "8246"
+=======
+      "id": "9d89"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 30,
       "game_id": 19,
       "rating": 2,
       "comment": "Tạm ổn, nên cải thiện thêm.",
+<<<<<<< HEAD
       "id": "12fe"
+=======
+      "id": "bc79"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 19,
       "game_id": 3,
       "rating": 3,
       "comment": "Tạm ổn, nên cải thiện thêm.",
+<<<<<<< HEAD
       "id": "40b3"
+=======
+      "id": "3838"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 20,
       "game_id": 20,
       "rating": 4,
       "comment": "Rất đáng chơi!",
+<<<<<<< HEAD
       "id": "2ed7"
+=======
+      "id": "4630"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 30,
       "game_id": 25,
       "rating": 3,
       "comment": "Tạm ổn, nên cải thiện thêm.",
+<<<<<<< HEAD
       "id": "0b5e"
+=======
+      "id": "d5e0"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 19,
       "game_id": 8,
       "rating": 1,
       "comment": "Chơi vui, đồ họa đẹp",
+<<<<<<< HEAD
       "id": "e6ba"
+=======
+      "id": "fe58"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 21,
       "game_id": 22,
       "rating": 2,
       "comment": "Tạm ổn, nên cải thiện thêm.",
+<<<<<<< HEAD
       "id": "4fde"
+=======
+      "id": "a9b6"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 5,
       "game_id": 16,
       "rating": 5,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "7057"
+=======
+      "id": "5653"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 24,
       "game_id": 15,
       "rating": 4,
       "comment": "Chơi vui, đồ họa đẹp",
+<<<<<<< HEAD
       "id": "1701"
+=======
+      "id": "2417"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 7,
       "game_id": 18,
       "rating": 3,
       "comment": "Tạm ổn, nên cải thiện thêm.",
+<<<<<<< HEAD
       "id": "a372"
+=======
+      "id": "d534"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 26,
       "game_id": 21,
       "rating": 2,
       "comment": "Tạm ổn, nên cải thiện thêm.",
+<<<<<<< HEAD
       "id": "3152"
+=======
+      "id": "20f9"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 19,
       "game_id": 5,
       "rating": 2,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "4e5a"
+=======
+      "id": "2c53"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 14,
       "game_id": 30,
       "rating": 4,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
+<<<<<<< HEAD
       "id": "afca"
+=======
+      "id": "ae1f"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 5,
       "game_id": 7,
       "rating": 2,
       "comment": "Không tệ, nhưng cần update",
+<<<<<<< HEAD
       "id": "d5cc"
+=======
+      "id": "88db"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 29,
       "game_id": 10,
       "rating": 3,
       "comment": "Cốt truyện xuất sắc.",
+<<<<<<< HEAD
       "id": "69d9"
+=======
+      "id": "049c"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "user_id": 6,
       "game_id": 17,
       "rating": 2,
       "comment": "Game quá đỉnh!",
+<<<<<<< HEAD
       "id": "339a"
+=======
+      "id": "b702"
+>>>>>>> PhamTangHoang_22691881
     }
   ],
   "users": [
@@ -1940,7 +2351,12 @@
         "$date": "2004-10-27T00:00:00Z"
       },
       "username": "lehao",
+<<<<<<< HEAD
       "password": "Lhexia001$"
+=======
+      "password": "Lhexia001$",
+      "email": "lehao001@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "2",
@@ -1950,7 +2366,12 @@
         "$date": "2004-04-04T00:00:00Z"
       },
       "username": "do2",
+<<<<<<< HEAD
       "password": "hWyjyY(U6zp1@z=wxGp$1@lT!v"
+=======
+      "password": "hWyjyY(U6zp1@z=wxGp$1@lT!v",
+      "email": "do2002@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "3",
@@ -1960,7 +2381,12 @@
         "$date": "2001-09-07T00:00:00Z"
       },
       "username": "phan3",
+<<<<<<< HEAD
       "password": "mz-Z-Zn74=2q8uVx2gUyr!x"
+=======
+      "password": "mz-Z-Zn74=2q8uVx2gUyr!x",
+      "email": "phan003@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "4",
@@ -1970,7 +2396,12 @@
         "$date": "1995-05-30T00:00:00Z"
       },
       "username": "vu4",
+<<<<<<< HEAD
       "password": "BsAsyf57@XbVP+vWmtDzkKPf^9"
+=======
+      "password": "BsAsyf57@XbVP+vWmtDzkKPf^9",
+      "email": "vu004@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "5",
@@ -1980,7 +2411,12 @@
         "$date": "1998-07-14T00:00:00Z"
       },
       "username": "hoang5",
+<<<<<<< HEAD
       "password": "gV+2ZF#RImVMgf7Ix0M#nfiNbdc0"
+=======
+      "password": "gV+2ZF#RImVMgf7Ix0M#nfiNbdc0",
+      "email": "hoang005@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "6",
@@ -1990,7 +2426,12 @@
         "$date": "2001-08-21T00:00:00Z"
       },
       "username": "nguyen6",
+<<<<<<< HEAD
       "password": "yF^uWV4+df"
+=======
+      "password": "yF^uWV4+df",
+      "email": "nguyen006@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "7",
@@ -2000,7 +2441,12 @@
         "$date": "2007-05-04T00:00:00Z"
       },
       "username": "dang7",
+<<<<<<< HEAD
       "password": "P)@FMdDK7K1-OqCoL+rnZ9na1$7"
+=======
+      "password": "P)@FMdDK7K1-OqCoL+rnZ9na1$7",
+      "email": "dang007@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "8",
@@ -2010,7 +2456,12 @@
         "$date": "1997-06-17T00:00:00Z"
       },
       "username": "le8",
+<<<<<<< HEAD
       "password": "&@AT1g)U("
+=======
+      "password": "&@AT1g)U(",
+      "email": "le008@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "9",
@@ -2020,7 +2471,12 @@
         "$date": "2006-02-04T00:00:00Z"
       },
       "username": "le9",
+<<<<<<< HEAD
       "password": "EZB=!&YLw#fb8Vhu(aFC1R-kSCX"
+=======
+      "password": "EZB=!&YLw#fb8Vhu(aFC1R-kSCX",
+      "email": "le009@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "10",
@@ -2030,7 +2486,12 @@
         "$date": "2002-10-23T00:00:00Z"
       },
       "username": "hoang10",
+<<<<<<< HEAD
       "password": "cDhItQh(!sy2-S"
+=======
+      "password": "cDhItQh(!sy2-S",
+      "email": "hoang010@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "11",
@@ -2040,7 +2501,12 @@
         "$date": "1996-12-10T00:00:00Z"
       },
       "username": "do11",
+<<<<<<< HEAD
       "password": "H5C)56B_Pkgeg5Lc+krWVRe"
+=======
+      "password": "H5C)56B_Pkgeg5Lc+krWVRe",
+      "email": "do011@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "12",
@@ -2050,7 +2516,12 @@
         "$date": "1996-02-18T00:00:00Z"
       },
       "username": "phan12",
+<<<<<<< HEAD
       "password": "5i8zz^^T=yXcffUyki"
+=======
+      "password": "5i8zz^^T=yXcffUyki",
+      "email": "phan012@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "13",
@@ -2060,7 +2531,12 @@
         "$date": "2001-04-09T00:00:00Z"
       },
       "username": "do13",
+<<<<<<< HEAD
       "password": "51Pdp+NrcrBk$bT"
+=======
+      "password": "51Pdp+NrcrBk$bT",
+      "email": "do013@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "14",
@@ -2070,7 +2546,12 @@
         "$date": "1998-05-08T00:00:00Z"
       },
       "username": "nguyen14",
+<<<<<<< HEAD
       "password": "qzv7M7WS$PmtRRUcS=myX5m3M"
+=======
+      "password": "qzv7M7WS$PmtRRUcS=myX5m3M",
+      "email": "nguyen014@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "15",
@@ -2080,7 +2561,12 @@
         "$date": "2004-04-19T00:00:00Z"
       },
       "username": "nguyen15",
+<<<<<<< HEAD
       "password": "G0b-(&fm0458zxmS0^-tar"
+=======
+      "password": "G0b-(&fm0458zxmS0^-tar",
+      "email": "nguyen015@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "16",
@@ -2090,7 +2576,12 @@
         "$date": "1995-06-22T00:00:00Z"
       },
       "username": "do16",
+<<<<<<< HEAD
       "password": "APK3t!8GA^hy!im2Ie1Kltm%C(6L)w"
+=======
+      "password": "APK3t!8GA^hy!im2Ie1Kltm%C(6L)w",
+      "email": "do016@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "17",
@@ -2100,7 +2591,12 @@
         "$date": "2005-09-08T00:00:00Z"
       },
       "username": "pham17",
+<<<<<<< HEAD
       "password": "ZJ!Ce*lhRy@MyK=a&eB6"
+=======
+      "password": "ZJ!Ce*lhRy@MyK=a&eB6",
+      "email": "pham017@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "18",
@@ -2110,7 +2606,12 @@
         "$date": "2004-08-14T00:00:00Z"
       },
       "username": "do18",
+<<<<<<< HEAD
       "password": "!n_d@KRjPa(n+fkJ0l0m(*"
+=======
+      "password": "!n_d@KRjPa(n+fkJ0l0m(*",
+      "email": "do018@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "19",
@@ -2120,7 +2621,12 @@
         "$date": "2000-11-16T00:00:00Z"
       },
       "username": "tran19",
+<<<<<<< HEAD
       "password": "-0NUPN&Kho&3Hgys1"
+=======
+      "password": "-0NUPN&Kho&3Hgys1",
+      "email": "tran019@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "20",
@@ -2130,7 +2636,12 @@
         "$date": "1998-02-18T00:00:00Z"
       },
       "username": "nguyen20",
+<<<<<<< HEAD
       "password": "lN2pHToS$KjvwfIHq4M0+x"
+=======
+      "password": "lN2pHToS$KjvwfIHq4M0+x",
+      "email": "nguyen020@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "21",
@@ -2140,7 +2651,12 @@
         "$date": "2002-12-03T00:00:00Z"
       },
       "username": "tran21",
+<<<<<<< HEAD
       "password": "A@^et+&9vd^h#((sH5uJB2MSzQX"
+=======
+      "password": "A@^et+&9vd^h#((sH5uJB2MSzQX",
+      "email": "tran021@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "22",
@@ -2150,7 +2666,12 @@
         "$date": "1997-08-20T00:00:00Z"
       },
       "username": "bui22",
+<<<<<<< HEAD
       "password": "MEaaegUn5h8jI!U5ZvBT"
+=======
+      "password": "MEaaegUn5h8jI!U5ZvBT",
+      "email": "bui022@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "23",
@@ -2160,7 +2681,12 @@
         "$date": "2007-03-15T00:00:00Z"
       },
       "username": "nguyen23",
+<<<<<<< HEAD
       "password": "+Y#f*2J7+6"
+=======
+      "password": "+Y#f*2J7+6",
+      "email": "nguyen023@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "24",
@@ -2170,7 +2696,12 @@
         "$date": "1999-10-06T00:00:00Z"
       },
       "username": "nguyen24",
+<<<<<<< HEAD
       "password": "+Ky*NonF3(Tm#$A50n-c"
+=======
+      "password": "+Ky*NonF3(Tm#$A50n-c",
+      "email": "nguyen024@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "25",
@@ -2180,7 +2711,12 @@
         "$date": "1998-07-04T00:00:00Z"
       },
       "username": "le25",
+<<<<<<< HEAD
       "password": "%7Ej_^ZoXe%$qc2RDgp=RVatQxqZ-"
+=======
+      "password": "%7Ej_^ZoXe%$qc2RDgp=RVatQxqZ-",
+      "email": "le025@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "26",
@@ -2190,7 +2726,12 @@
         "$date": "1998-10-30T00:00:00Z"
       },
       "username": "phan26",
+<<<<<<< HEAD
       "password": "+XJ8i-4vzRIL-b"
+=======
+      "password": "+XJ8i-4vzRIL-b",
+      "email": "phan026@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "27",
@@ -2200,7 +2741,12 @@
         "$date": "1995-05-14T00:00:00Z"
       },
       "username": "nguyen27",
+<<<<<<< HEAD
       "password": "RGH$bsJDL5U&xST4d6W4k^S"
+=======
+      "password": "RGH$bsJDL5U&xST4d6W4k^S",
+      "email": "nguyen027@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "28",
@@ -2210,7 +2756,12 @@
         "$date": "1996-03-20T00:00:00Z"
       },
       "username": "bui28",
+<<<<<<< HEAD
       "password": "!ZD2WtbvChiCwj*HCk$4lT9W"
+=======
+      "password": "!ZD2WtbvChiCwj*HCk$4lT9W",
+      "email": "bui028@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "29",
@@ -2220,7 +2771,12 @@
         "$date": "1999-07-20T00:00:00Z"
       },
       "username": "dang29",
+<<<<<<< HEAD
       "password": "EFY#w#UUh%lpkmVmXs&llDW9C"
+=======
+      "password": "EFY#w#UUh%lpkmVmXs&llDW9C",
+      "email": "dang029@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "30",
@@ -2230,7 +2786,12 @@
         "$date": "2002-04-06T00:00:00Z"
       },
       "username": "le30",
+<<<<<<< HEAD
       "password": "yt-GE_gqUpfJ8khm#"
+=======
+      "password": "yt-GE_gqUpfJ8khm#",
+      "email": "le030@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     },
     {
       "id": "31",
@@ -2240,13 +2801,22 @@
         "$date": "2003-04-07T00:00:00Z"
       },
       "username": "le31",
+<<<<<<< HEAD
       "password": "6XmI@nuIWkaMHFm1-^Pa+Im"
+=======
+      "password": "6XmI@nuIWkaMHFm1-^Pa+Im",
+      "email": "le031@gmail.com"
+>>>>>>> PhamTangHoang_22691881
     }
   ],
   "wishlist": [
     {
       "id": "1",
+<<<<<<< HEAD
       "user_id": 1,
+=======
+      "user_id": 18,
+>>>>>>> PhamTangHoang_22691881
       "fav_game_id": [
         1,
         2,
@@ -2255,6 +2825,7 @@
     }
   ],
   "cart": [],
+<<<<<<< HEAD
   "monthly_statistic": [
     {
       "id": "1",
@@ -2280,6 +2851,16 @@
           "type": "admin_reply",
           "content": "Chúng tôi chân thành cảm ơn góp ý của bạn, chúng tôi sẽ cố gắng hoàn thiện thêm trong tương lai gần ạ !!"
         }
+=======
+  "bought": [
+    {
+      "id": "1",
+      "user_id": 18,
+      "bought_game_id": [
+        1,
+        2,
+        3
+>>>>>>> PhamTangHoang_22691881
       ]
     }
   ]
