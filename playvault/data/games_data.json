@@ -2722,7 +2722,21 @@
     {
       "id": "4087",
       "user_id": 32,
-      "fav_game_id": []
+      "fav_game_id": [
+        3
+      ]
+    },
+    {
+      "id": "e5f4",
+      "wishlist": [
+        "10"
+      ]
+    },
+    {
+      "id": "5a2b",
+      "wishlist": [
+        "1"
+      ]
     }
   ],
   "cart": [],

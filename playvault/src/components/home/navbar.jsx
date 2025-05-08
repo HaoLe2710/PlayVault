@@ -32,6 +32,14 @@ export default function Navbar() {
     };
   }, []);
 
+  // Handle search submission
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
   const navItems = [
     { name: "Trang chủ", path: "/" },
     { name: "Sản phẩm", path: "/products" },
@@ -69,8 +77,7 @@ export default function Navbar() {
           <Link
             to={item.path}
             key={index}
-            className={`text-lg font-semibold relative ${location.pathname === item.path ? "text-white" : "text-purple-200"
-              }`}
+            className={`text-lg font-semibold relative ${location.pathname === item.path ? "text-white" : "text-purple-200"}`}
           >
             {item.name}
             {location.pathname === item.path && (
@@ -81,7 +88,7 @@ export default function Navbar() {
       </div>
 
       <div className="flex items-center space-x-6">
-        <div className="relative">
+        <form onSubmit={handleSearch} className="relative">
           <Search
             className="absolute left-3 top-1/2 transform -translate-y-1/2 text-purple-300 w-5 h-5"
           />
@@ -92,7 +99,7 @@ export default function Navbar() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-        </div>
+        </form>
 
         <Link to="/cart" className="text-purple-200">
           <ShoppingCart className="w-6 h-6" />

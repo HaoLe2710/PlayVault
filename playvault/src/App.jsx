@@ -12,6 +12,7 @@ import Register from './pages/Register.jsx';
 import ForgotPassword from './pages/ForgotPassword.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
 import GameDetail from './pages/GameDetail.jsx';
+import ProductPages from './pages/ProductPages.jsx';
 
 // Layout component để bao bọc các trang với Sidebar, Navbar và Footer
 function MainLayout() {
@@ -47,7 +48,7 @@ function App() {
         {/* Route layout chính cho tất cả các trang trừ login */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/products" element={<Home />} /> {/* Placeholder, thay bằng component Products */}
+          <Route path="/products" element={<ProductPages />} /> {/* Placeholder, thay bằng component Products */}
           <Route path="/favorites" element={<Favorite />} />
           <Route path="/bought" element={<Bought />} />
           <Route path="/cart" element={<Home />} /> {/* Placeholder, thay bằng component Cart */}
