@@ -1,6 +1,3 @@
-// src/pages/GameDetail.jsx
-"use client"
-
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { Heart, ShoppingCart, Share2, ThumbsUp, ThumbsDown, MessageSquare, Clock, User } from "lucide-react"
@@ -11,6 +8,7 @@ import { Button } from "../components/ui/Button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { getGameById, getGames } from "../api/games"
 import { getCommentsByGameIdWithUsers } from "../api/comments"
+import { getWishlist, updateWishlist, createWishlist } from "../api/wishlist"
 
 function GameDetail() {
   const { id } = useParams()
@@ -19,72 +17,149 @@ function GameDetail() {
   const [relatedGames, setRelatedGames] = useState([])
   const [isFavorite, setIsFavorite] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [wishlistLoading, setWishlistLoading] = useState(false)
   const [error, setError] = useState(null)
   const [reviews, setReviews] = useState([])
+  const [user, setUser] = useState(null)
 
   // Tính rating trung bình và số lượt review
-  const averageRating = reviews.length > 0
-    ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
-    : 0
+  const averageRating =
+    reviews.length > 0 ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1) : 0
   const reviewCount = reviews.length
 
+  // Kiểm tra trạng thái đăng nhập
   useEffect(() => {
-    // Fetch game details
-    getGameById(id)
-      .then((data) => {
-        setGame(data)
-        // Check if game is in favorites
-        const favorites = JSON.parse(localStorage.getItem("favorites") || "[]")
-        setIsFavorite(favorites.includes(data.id))
+    const checkLoggedIn = () => {
+      try {
+        const storedUser = localStorage.getItem("user") || sessionStorage.getItem("user")
+        const accessToken = localStorage.getItem("accessToken") || sessionStorage.getItem("accessToken")
+        if (storedUser && accessToken) {
+          const parsedUser = JSON.parse(storedUser)
+          setUser(parsedUser)
+        } else {
+          setUser(null)
+        }
+      } catch (err) {
+        console.error("Error checking user login:", err)
+        setUser(null)
+      }
+    }
+
+    checkLoggedIn()
+  }, [])
+
+  // Fetch game details và wishlist
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true)
+
+        // Fetch game details
+        const gameData = await getGameById(id)
+        setGame(gameData)
 
         // Fetch comments with user info
-        getCommentsByGameIdWithUsers(data.id)
-          .then((reviewData) => {
-            setReviews(reviewData)
-          })
-          .catch((err) => {
-            console.error("Error loading reviews:", err)
-            setReviews([])
-          })
+        const reviewData = await getCommentsByGameIdWithUsers(gameData.id)
+        setReviews(reviewData)
 
         // Fetch related games
-        getGames()
-          .then((allGames) => {
-            const filtered = allGames
-              .filter((g) => g.id !== data.id && g.thumbnail_image)
-              .filter((g) => g.tags.some((tag) => data.tags.includes(tag)))
-              .slice(0, 4)
-            setRelatedGames(filtered)
-            setLoading(false)
+        const allGames = await getGames()
+        const filtered = allGames
+          .filter((g) => g.id !== gameData.id && g.thumbnail_image)
+          .filter((g) => g.tags.some((tag) => gameData.tags.includes(tag)))
+          .slice(0, 4)
+        setRelatedGames(filtered)
+
+        // Fetch wishlist và kiểm tra trạng thái favorite
+        if (user && user.id) {
+          const wishlistData = await getWishlist()
+          const userWishlist = wishlistData.find((item) => {
+            const userId = user.id ? String(user.id) : null
+            const itemUserId = item.user_id ? String(item.user_id) : item.userId ? String(item.userId) : null
+            return userId && itemUserId && (itemUserId === userId || Number(itemUserId) === Number(userId))
           })
-          .catch((err) => {
-            console.error("Error fetching related games:", err)
-            setError("Failed to load related games. Please try again later.")
-            setLoading(false)
-          })
-      })
-      .catch((error) => {
-        console.error("Error fetching game:", error)
+
+          if (userWishlist) {
+            const favGameIds = userWishlist.fav_game_id || userWishlist.favGameId || []
+            setIsFavorite(
+              favGameIds.some(
+                (favId) => Number(favId) === Number(gameData.id) || favId.toString() === gameData.id.toString()
+              )
+            )
+          }
+        }
+
+        setLoading(false)
+      } catch (err) {
+        console.error("Error fetching data:", err)
         setError("Failed to load game details. Please try again later.")
         setLoading(false)
-      })
-  }, [id, navigate])
+      }
+    }
 
-  const handleFavoriteToggle = () => {
-    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]")
-    if (isFavorite) {
-      const updatedFavorites = favorites.filter((favId) => favId !== game.id)
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites))
-      setIsFavorite(false)
-    } else {
-      favorites.push(game.id)
-      localStorage.setItem("favorites", JSON.stringify(favorites))
-      setIsFavorite(true)
+    fetchData()
+  }, [id, user, navigate])
+
+  const handleFavoriteToggle = async () => {
+    if (!user || !user.id) {
+      alert("Vui lòng đăng nhập để thêm game vào danh sách yêu thích!")
+      navigate("/login")
+      return
+    }
+
+    try {
+      setWishlistLoading(true)
+      const wishlistData = await getWishlist()
+      let userWishlist = wishlistData.find((item) => {
+        const userId = user.id ? String(user.id) : null
+        const itemUserId = item.user_id ? String(item.user_id) : item.userId ? String(item.userId) : null
+        return userId && itemUserId && (itemUserId === userId || Number(itemUserId) === Number(userId))
+      })
+
+      // Nếu không có wishlist cho người dùng, tạo mới
+      if (!userWishlist) {
+        userWishlist = {
+          user_id: Number(user.id),
+          fav_game_id: [Number(game.id)],
+        }
+        await createWishlist(userWishlist)
+        setIsFavorite(true)
+        alert(`${game.name} đã được thêm vào danh sách yêu thích!`)
+        window.dispatchEvent(new Event("wishlistUpdated"))
+        setWishlistLoading(false)
+        return
+      }
+
+      const favGameIds = userWishlist.fav_game_id || userWishlist.favGameId || []
+      let updatedFavGameIds
+
+      if (isFavorite) {
+        // Xóa game khỏi wishlist
+        updatedFavGameIds = favGameIds.filter(
+          (favId) => Number(favId) !== Number(game.id) && favId.toString() !== game.id.toString()
+        )
+        setIsFavorite(false)
+        alert(`${game.name} đã được xóa khỏi danh sách yêu thích!`)
+      } else {
+        // Thêm game vào wishlist
+        updatedFavGameIds = [...favGameIds, Number(game.id)]
+        setIsFavorite(true)
+        alert(`${game.name} đã được thêm vào danh sách yêu thích!`)
+      }
+
+      // Cập nhật wishlist qua API
+      await updateWishlist(userWishlist.id, { ...userWishlist, fav_game_id: updatedFavGameIds })
+      window.dispatchEvent(new Event("wishlistUpdated"))
+      setWishlistLoading(false)
+    } catch (err) {
+      console.error("Error updating wishlist:", err)
+      alert("Không thể cập nhật danh sách yêu thích. Vui lòng thử lại sau.")
+      setWishlistLoading(false)
     }
   }
 
   const handleBuyNow = () => {
-    alert(`You have selected to buy ${game.name}!`)
+    alert(`You have selected to buy ${game?.name}!`)
     // Implement actual purchase logic here
   }
 
@@ -202,12 +277,15 @@ function GameDetail() {
                 <Button
                   variant={isFavorite ? "default" : "outline"}
                   onClick={handleFavoriteToggle}
+                  disabled={wishlistLoading}
+                  aria-label={isFavorite ? `Xóa ${game.name} khỏi danh sách yêu thích` : `Thêm ${game.name} vào danh sách yêu thích`}
                   className={`flex items-center justify-center ${isFavorite
-                    ? "bg-purple-600 hover:bg-purple-700 text-white"
-                    : "border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"}`}
+                      ? "bg-purple-600 hover:bg-purple-700 text-white"
+                      : "border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"
+                    }`}
                 >
                   <Heart className={`h-5 w-5 ${isFavorite ? "fill-current" : ""} mr-2`} />
-                  {isFavorite ? "Wishlisted" : "Wishlist"}
+                  {wishlistLoading ? "Đang xử lý..." : isFavorite ? "Wishlisted" : "Wishlist"}
                 </Button>
 
                 <Button

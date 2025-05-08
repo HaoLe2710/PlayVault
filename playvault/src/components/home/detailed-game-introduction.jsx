@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom" // Thêm useNavigate
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import { Star, Award, Clock, Calendar, Users, Gamepad2, Monitor, Smartphone, Loader2 } from "lucide-react"
 import { getGames } from "../../api/games"
@@ -8,15 +9,12 @@ export default function DetailedGameIntroduction() {
   const [game, setGame] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const navigate = useNavigate() // Khởi tạo useNavigate
 
   // Tính rating trung bình từ danh sách comment (trên thang điểm 5)
   const calculateAverageRating = (comments) => {
     if (!comments || comments.length === 0) return 0
-
-    const sum = comments.reduce((total, comment) => {
-      return total + (comment.rating || 0)
-    }, 0)
-
+    const sum = comments.reduce((total, comment) => total + (comment.rating || 0), 0)
     return (sum / comments.length).toFixed(1)
   }
 
@@ -28,28 +26,25 @@ export default function DetailedGameIntroduction() {
         const allGames = await getGames()
         const gamesWithRatings = []
 
-        // Lấy rating từ comments cho từng game
         for (const g of allGames) {
           try {
             const comments = await getCommentsByGameId(g.id)
             const avgRating = calculateAverageRating(comments)
-
             gamesWithRatings.push({
               ...g,
               avgRating: parseFloat(avgRating) || 0,
-              commentCount: comments.length
+              commentCount: comments.length,
             })
           } catch (err) {
             console.error(`Error fetching comments for game ${g.id}:`, err)
             gamesWithRatings.push({
               ...g,
               avgRating: 0,
-              commentCount: 0
+              commentCount: 0,
             })
           }
         }
 
-        // Sắp xếp theo rating giảm dần và lấy game có rating cao nhất
         const sortedGames = gamesWithRatings.sort((a, b) => b.avgRating - a.avgRating)
         const topGame = sortedGames[0]
 
@@ -64,8 +59,10 @@ export default function DetailedGameIntroduction() {
             publisher: topGame.details?.publisher || "Unknown Publisher",
             genres: topGame.tags || ["Action", "Adventure"],
             platforms: topGame.platforms || ["PC"],
-            price: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(topGame.price || 0),
-            originalPrice: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((topGame.price || 0) * 1.2),
+            price: new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(topGame.price || 0),
+            originalPrice: new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
+              (topGame.price || 0) * 1.2
+            ),
             players: topGame.details?.players || "Single-player",
             image: topGame.thumbnail_image || topGame.images?.[0] || "/placeholder.svg?height=400&width=800",
             screenshots: topGame.images?.slice(0, 3) || [
@@ -73,7 +70,7 @@ export default function DetailedGameIntroduction() {
               "/placeholder.svg?height=150&width=300",
               "/placeholder.svg?height=150&width=300",
             ],
-            description: topGame.details?.describe || "An exciting gaming experience awaits you!"
+            description: topGame.details?.describe || "An exciting gaming experience awaits you!",
           })
         }
         setLoading(false)
@@ -86,6 +83,28 @@ export default function DetailedGameIntroduction() {
 
     fetchTopRatedGame()
   }, [])
+
+  // Hàm xử lý khi nhấn "Mua Ngay"
+  const handleBuyNow = () => {
+    if (!game?.id) return
+    alert(`Bạn đã chọn mua ${game.title}!`)
+    navigate(`/game/${game.id}`) // Điều hướng đến trang chi tiết
+  }
+
+  // Hàm xử lý khi nhấn "Thêm Vào Giỏ"
+  const handleAddToCart = () => {
+    if (!game?.id) return
+    // Logic thêm vào giỏ hàng (ví dụ: lưu vào localStorage hoặc gửi API)
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]")
+    if (!cart.some((item) => item.id === game.id)) {
+      cart.push({ id: game.id, title: game.title, price: game.price })
+      localStorage.setItem("cart", JSON.stringify(cart))
+      alert(`${game.title} đã được thêm vào giỏ hàng!`)
+    } else {
+      alert(`${game.title} đã có trong giỏ hàng!`)
+    }
+    navigate(`/game/${game.id}`) // Điều hướng đến trang chi tiết
+  }
 
   if (loading) {
     return (
@@ -134,7 +153,7 @@ export default function DetailedGameIntroduction() {
           </div>
           {game.rating >= 4.5 && (
             <>
-              <div className="h-3 w-px bg-white/30"></div>
+              Mostly Positive              <div className="h-3 w-px bg-white/30"></div>
               <div className="flex items-center space-x-1">
                 <Award className="w-4 h-4 text-yellow-400" />
                 <span className="text-white text-xs font-medium">Top Rated</span>
@@ -146,7 +165,6 @@ export default function DetailedGameIntroduction() {
 
       <div className="p-6">
         <div className="flex flex-wrap gap-4 mb-5">
-
           <div className="flex items-center space-x-2 bg-white/5 px-3 py-1.5 rounded-full">
             <Users className="w-4 h-4 text-purple-400" />
             <span className="text-white text-sm">{game.developer}</span>
@@ -165,7 +183,6 @@ export default function DetailedGameIntroduction() {
                 if (platform.toLowerCase().includes("mobile")) {
                   Icon = Smartphone
                 }
-
                 return (
                   <div
                     key={index}
@@ -199,7 +216,7 @@ export default function DetailedGameIntroduction() {
             <div key={index} className="w-1/3 rounded-lg overflow-hidden h-[100px] shadow-lg shadow-purple-900/10">
               <LazyLoadImage
                 src={screenshot || "/placeholder.svg"}
-                alt={`${game.title} screenshot ${index + 1}`}
+                alt={`${game.title} screenshot Volunteer screenshot ${index + 1}`}
                 width={300}
                 height={100}
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
@@ -219,10 +236,16 @@ export default function DetailedGameIntroduction() {
             )}
           </div>
           <div className="flex space-x-3">
-            <button className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-5 py-2 rounded-full font-medium hover:shadow-lg hover:shadow-purple-500/20 transition-all transform hover:scale-105 duration-200">
+            <button
+              onClick={handleBuyNow}
+              className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-5 py-2 rounded-full font-medium hover:shadow-lg hover:shadow-purple-500/20 transition-all transform hover:scale-105 duration-200"
+            >
               Mua Ngay
             </button>
-            <button className="bg-white/10 text-white px-5 py-2 rounded-full font-medium hover:bg-white/20 hover:shadow-lg transition-all transform hover:scale-105 duration-200">
+            <button
+              onClick={handleAddToCart}
+              className="bg-white/10 text-white px-5 py-2 rounded-full font-medium hover:bg-white/20 hover:shadow-lg transition-all transform hover:scale-105 duration-200"
+            >
               Thêm Vào Giỏ
             </button>
           </div>

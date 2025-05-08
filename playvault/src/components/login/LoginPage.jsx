@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Mail, Lock, Eye, EyeOff, Loader2, AlertCircle } from "lucide-react"
 import { motion } from "framer-motion"
 import { toast } from "sonner"
+import { loginUser } from "../../api/login" // Giả sử bạn có một hàm loginUser trong api/auth.js
 
 export default function LoginPage() {
   const [formState, setFormState] = useState({
@@ -50,54 +51,47 @@ export default function LoginPage() {
     setFormState((prev) => ({ ...prev, rememberMe: checked }))
   }
 
+
+  // Hàm xử lý submit form
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (!validateForm()) return
-    setIsLoading(true)
-    setLoginError("") // Xóa thông báo lỗi từ lần trước
+    e.preventDefault();
+    if (!validateForm()) return;
+    setIsLoading(true);
+    setLoginError("");
 
     try {
-      const res = await fetch(`http://localhost:3001/users?username=${formState.username}`)
-      const users = await res.json()
+      // Gọi hàm loginUser để xác thực
+      const user = await loginUser(formState.username, formState.password);
 
-      if (users.length === 0) {
-        setLoginError("Không tìm thấy người dùng với tên đăng nhập này")
-        throw new Error("Không tìm thấy người dùng")
-      }
-
-      const user = users[0]
-      if (user.password !== formState.password) {
-        setLoginError("Mật khẩu không đúng, vui lòng kiểm tra lại")
-        throw new Error("Mật khẩu không đúng")
-      }
-
-      const storage = formState.rememberMe ? localStorage : sessionStorage
-      storage.setItem("accessToken", "fake-token") // không có JWT thật
-      storage.setItem("user", JSON.stringify(user))
+      // Lưu token và user vào storage
+      const storage = formState.rememberMe ? localStorage : sessionStorage;
+      storage.setItem("accessToken", "fake-token");
+      storage.setItem("user", JSON.stringify(user));
 
       // Hiển thị thông báo thành công
       toast.success("Đăng nhập thành công", {
         description: `Chào mừng ${user.f_name} ${user.l_name}!`,
         duration: 3000,
-      })
+      });
 
-      // Chuyển hướng dựa trên role sau 1 giây để người dùng thấy thông báo
+      // Chuyển hướng dựa trên role sau 1 giây
       setTimeout(() => {
         if (user.role === "admin") {
-          navigate("/admindashboard")
+          navigate("/admindashboard");
         } else {
-          navigate("/") // user hoặc bất kỳ role nào khác
+          navigate("/");
         }
-      }, 1000)
+      }, 1000);
     } catch (error) {
-      // Hiển thị thông báo lỗi
+      // Xử lý lỗi từ loginUser
+      setLoginError(error.message);
       toast.error("Đăng nhập thất bại", {
-        description: "Vui lòng kiểm tra lại tên người dùng và mật khẩu.",
-      })
+        description: error.message || "Vui lòng kiểm tra lại tên người dùng và mật khẩu.",
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev)

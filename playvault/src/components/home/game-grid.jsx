@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom" // Thêm useNavigate
 import { ChevronDown, Star, Loader2 } from "lucide-react"
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import { getGames } from "../../api/games"
@@ -6,6 +7,15 @@ import { getCommentsByGameId } from "../../api/comments"
 
 // Component GameCard
 const GameCard = ({ game }) => {
+  const navigate = useNavigate() // Khởi tạo useNavigate trong GameCard
+
+  // Hàm xử lý khi nhấn "Mua Ngay"
+  const handleBuyNow = () => {
+    if (!game?.id) return
+    alert(`Bạn đã chọn mua ${game.title}!`)
+    navigate(`/game/${game.id}`) // Điều hướng đến trang chi tiết
+  }
+
   return (
     <div className="relative group overflow-hidden rounded-xl bg-black/20 hover:bg-black/40 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10">
       <div className="relative aspect-[3/2] overflow-hidden rounded-t-xl">
@@ -37,7 +47,10 @@ const GameCard = ({ game }) => {
             )}
           </div>
 
-          <button className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-3 py-1.5 rounded-full text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:scale-105 duration-300">
+          <button
+            onClick={handleBuyNow}
+            className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-3 py-1.5 rounded-full text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity transform group-hover:scale-105 duration-300"
+          >
             Mua Ngay
           </button>
         </div>
@@ -55,11 +68,7 @@ export default function GameGrid() {
   // Tính rating trung bình từ danh sách comment (trên thang điểm 5)
   const calculateAverageRating = (comments) => {
     if (!comments || comments.length === 0) return 0
-
-    const sum = comments.reduce((total, comment) => {
-      return total + (comment.rating || 0)
-    }, 0)
-
+    const sum = comments.reduce((total, comment) => total + (comment.rating || 0), 0)
     return (sum / comments.length).toFixed(1)
   }
 
@@ -71,46 +80,45 @@ export default function GameGrid() {
         const allGames = await getGames()
         const gamesWithRatings = []
 
-        // Lấy rating từ comments cho từng game
         for (const g of allGames) {
           try {
             const comments = await getCommentsByGameId(g.id)
             const avgRating = calculateAverageRating(comments)
-
             gamesWithRatings.push({
               id: g.id,
               title: g.name,
               image: g.thumbnail_image || g.images?.[0] || "/placeholder.svg?height=200&width=300",
-              price: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(g.price || 0),
-              originalPrice: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((g.price || 0) * 1.2),
+              price: new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(g.price || 0),
+              originalPrice: new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
+                (g.price || 0) * 1.2
+              ),
               rating: parseFloat(avgRating) || 0,
-              commentCount: comments.length
+              commentCount: comments.length,
             })
           } catch (err) {
             console.error(`Error fetching comments for game ${g.id}:`, err)
-            // Thêm game không có rating
             gamesWithRatings.push({
               id: g.id,
               title: g.name,
               image: g.thumbnail_image || g.images?.[0] || "/placeholder.svg?height=200&width=300",
-              price: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(g.price || 0),
-              originalPrice: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((g.price || 0) * 1.2),
-              discount: "20%",
+              price: new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(g.price || 0),
+              originalPrice: new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
+                (g.price || 0) * 1.2
+              ),
+              discount: "20%", // Giá trị mẫu, có thể thay đổi
               rating: 0,
-              commentCount: 0
+              commentCount: 0,
             })
           }
         }
 
-        // Sắp xếp theo rating giảm dần và lấy 8 game đầu tiên
         const topGames = gamesWithRatings
           .sort((a, b) => b.rating - a.rating || b.commentCount - a.commentCount)
           .slice(0, 8)
 
-        // Đánh dấu 4 game đầu tiên hiển thị luôn, 4 game sau hiển thị khi mở rộng
         const processedGames = topGames.map((game, index) => ({
           ...game,
-          showWhenExpanded: index >= 4
+          showWhenExpanded: index >= 4,
         }))
 
         setGames(processedGames)
@@ -152,12 +160,8 @@ export default function GameGrid() {
         </div>
 
         <div className="bg-black/20 rounded-xl p-8 text-center">
-          <div className="text-white text-lg mb-2">
-            {error || "Không có game nào được tìm thấy"}
-          </div>
-          <div className="text-gray-400">
-            Vui lòng thử lại sau hoặc kiểm tra kết nối đến API.
-          </div>
+          <div className="text-white text-lg mb-2">{error || "Không có game nào được tìm thấy"}</div>
+          <div className="text-gray-400">Vui lòng thử lại sau hoặc kiểm tra kết nối đến API.</div>
         </div>
       </div>
     )

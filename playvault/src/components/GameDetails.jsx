@@ -1,15 +1,14 @@
-"use client"
-
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { Heart, ShoppingCart, Share2, MessageSquare, Clock, User, Star } from "lucide-react"
+import { Heart, ShoppingCart, Share2, ThumbsUp, ThumbsDown, MessageSquare, Clock, User } from "lucide-react"
 import GameCarousel from "../components/GameCarousel"
 import GameConfig from "../components/GameConfig"
 import RelatedGames from "../components/RelatedGames"
 import { Button } from "../components/ui/Button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { getGameById, getGames } from "../api/games"
-import { getCommentsByGameId } from "../api/comments"
+import { getCommentsByGameIdWithUsers } from "../api/comments"
+import { getWishlist, updateWishlist, createWishlist } from "../api/wishlist"
 
 function GameDetail() {
   const { id } = useParams()
@@ -17,156 +16,152 @@ function GameDetail() {
   const [game, setGame] = useState(null)
   const [relatedGames, setRelatedGames] = useState([])
   const [isFavorite, setIsFavorite] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [wishlistLoading, setWishlistLoading] = useState(false)
   const [error, setError] = useState(null)
   const [reviews, setReviews] = useState([])
-  const [newComment, setNewComment] = useState("")
-  const [newRating, setNewRating] = useState(3)
-  const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState(null)
 
-  // Generate a random rating between 7.5 and 9.8 for demo purposes
-  const rating = (Math.random() * 2.3 + 7.5).toFixed(1)
+  // Tính rating trung bình và số lượt review
+  const averageRating =
+    reviews.length > 0 ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1) : 0
+  const reviewCount = reviews.length
 
+  // Kiểm tra trạng thái đăng nhập
   useEffect(() => {
-    // Fetch game details
-    setLoading(true)
-    getGameById(id)
-      .then((data) => {
-        setGame(data)
-        // Check if game is in favorites
-        const favorites = JSON.parse(localStorage.getItem("favorites") || "[]")
-        setIsFavorite(favorites.includes(data.id))
-
-        // Fetch comments for this game
-        getCommentsByGameId(data.id)
-          .then((commentData) => {
-            // Transform comment data to match the expected format
-            const formattedComments = commentData.map((comment) => ({
-              id: comment.id || Math.random().toString(36).substr(2, 9),
-              username: comment.username || `Người dùng ${comment.user_id}`,
-              date: new Date().toLocaleDateString("vi-VN"),
-              text: comment.comment,
-              rating: comment.rating,
-              isPositive: comment.rating > 3,
-              helpfulCount: Math.floor(Math.random() * 10),
-              hoursPlayed: Math.floor(Math.random() * 100),
-            }))
-            setReviews(formattedComments)
-            setLoading(false)
-          })
-          .catch((err) => {
-            console.error("Error loading reviews:", err)
-            setReviews([])
-            setLoading(false)
-          })
-
-        // Fetch related games
-        getGames()
-          .then((allGames) => {
-            const filtered = allGames
-              .filter((g) => g.id !== data.id && g.thumbnail_image)
-              .filter((g) => g.tags.some((tag) => data.tags.includes(tag)))
-              .slice(0, 4)
-            setRelatedGames(filtered)
-          })
-          .catch((err) => {
-            console.error("Error fetching related games:", err)
-            setError("Failed to load related games. Please try again later.")
-          })
-      })
-      .catch((error) => {
-        console.error("Error fetching game:", error)
-        setError("Failed to load game details. Please try again later.")
-        setLoading(false)
-      })
-  }, [id, navigate])
-
-  const generateMockReviews = () => {
-    const usernames = [
-      "GamerPro123",
-      "EpicPlayer",
-      "GameMaster",
-      "ProGamer",
-      "GameEnthusiast",
-      "RPGLover",
-      "CasualGamer",
-    ]
-    const reviewTexts = [
-      "Tuyệt vời! Đồ họa đẹp, gameplay cuốn hút. Tôi đã chơi suốt đêm không ngừng nghỉ.",
-      "Game hay nhưng vẫn còn một số lỗi nhỏ. Hy vọng sẽ được sửa trong các bản cập nhật tiếp theo.",
-      "Một trong những game hay nhất mà tôi từng chơi. Cốt truyện sâu sắc và nhân vật được phát triển tốt.",
-      "Đồ họa tuyệt đẹp nhưng gameplay hơi đơn điệu sau vài giờ chơi.",
-      "Tôi đã chơi hơn 100 giờ và vẫn chưa chán. Rất đáng đồng tiền bát gạo!",
-      "Cốt truyện hay nhưng điều khiển hơi khó làm quen. Cần thời gian để thích nghi.",
-      "Game tuyệt vời để chơi cùng bạn bè. Chế độ multiplayer rất vui và hấp dẫn.",
-    ]
-
-    const mockReviews = []
-    for (let i = 0; i < 5; i++) {
-      const isPositive = Math.random() > 0.3
-      mockReviews.push({
-        id: i,
-        username: usernames[Math.floor(Math.random() * usernames.length)],
-        date: new Date(Date.now() - Math.floor(Math.random() * 30) * 24 * 60 * 60 * 1000).toLocaleDateString("vi-VN"),
-        text: reviewTexts[Math.floor(Math.random() * reviewTexts.length)],
-        isPositive: isPositive,
-        helpfulCount: Math.floor(Math.random() * 50),
-        hoursPlayed: Math.floor(Math.random() * 200),
-      })
+    const checkLoggedIn = () => {
+      try {
+        const storedUser = localStorage.getItem("user") || sessionStorage.getItem("user")
+        const accessToken = localStorage.getItem("accessToken") || sessionStorage.getItem("accessToken")
+        if (storedUser && accessToken) {
+          const parsedUser = JSON.parse(storedUser)
+          setUser(parsedUser)
+        } else {
+          setUser(null)
+        }
+      } catch (err) {
+        console.error("Error checking user login:", err)
+        setUser(null)
+      }
     }
 
-    setReviews(mockReviews)
-  }
+    checkLoggedIn()
+  }, [])
 
-  const handleFavoriteToggle = () => {
-    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]")
-    if (isFavorite) {
-      const updatedFavorites = favorites.filter((favId) => favId !== game.id)
-      localStorage.setItem("favorites", JSON.stringify(updatedFavorites))
-      setIsFavorite(false)
-    } else {
-      favorites.push(game.id)
-      localStorage.setItem("favorites", JSON.stringify(favorites))
-      setIsFavorite(true)
+  // Fetch game details và wishlist
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true)
+
+        // Fetch game details
+        const gameData = await getGameById(id)
+        setGame(gameData)
+
+        // Fetch comments with user info
+        const reviewData = await getCommentsByGameIdWithUsers(gameData.id)
+        setReviews(reviewData)
+
+        // Fetch related games
+        const allGames = await getGames()
+        const filtered = allGames
+          .filter((g) => g.id !== gameData.id && g.thumbnail_image)
+          .filter((g) => g.tags.some((tag) => gameData.tags.includes(tag)))
+          .slice(0, 4)
+        setRelatedGames(filtered)
+
+        // Fetch wishlist và kiểm tra trạng thái favorite
+        if (user) {
+          const wishlistData = await getWishlist()
+          const userWishlist = wishlistData.find(
+            (item) =>
+              item.user_id.toString() === (user.id || "").toString() ||
+              item.user_id === Number(user.id) ||
+              item.userId === user.id
+          )
+          if (userWishlist) {
+            const favGameIds = userWishlist.fav_game_id || userWishlist.favGameId || []
+            setIsFavorite(
+              favGameIds.some(
+                (favId) => Number(favId) === Number(gameData.id) || favId.toString() === gameData.id.toString()
+              )
+            )
+          }
+        }
+
+        setLoading(false)
+      } catch (err) {
+        console.error("Error fetching data:", err)
+        setError("Failed to load game details. Please try again later.")
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [id, user, navigate])
+
+  const handleFavoriteToggle = async () => {
+    if (!user) {
+      alert("Vui lòng đăng nhập để thêm game vào danh sách yêu thích!")
+      navigate("/login")
+      return
+    }
+
+    try {
+      setWishlistLoading(true)
+      const wishlistData = await getWishlist()
+      let userWishlist = wishlistData.find(
+        (item) =>
+          item.user_id.toString() === (user.id || "").toString() ||
+          item.user_id === Number(user.id) ||
+          item.userId === user.id
+      )
+
+      // Nếu không có wishlist cho người dùng, tạo mới
+      if (!userWishlist) {
+        userWishlist = {
+          user_id: Number(user.id),
+          fav_game_id: [Number(game.id)],
+        }
+        await createWishlist(userWishlist)
+        setIsFavorite(true)
+        alert(`${game.name} đã được thêm vào danh sách yêu thích!`)
+        window.dispatchEvent(new Event("wishlistUpdated"))
+        setWishlistLoading(false)
+        return
+      }
+
+      const favGameIds = userWishlist.fav_game_id || userWishlist.favGameId || []
+      let updatedFavGameIds
+
+      if (isFavorite) {
+        // Xóa game khỏi wishlist
+        updatedFavGameIds = favGameIds.filter(
+          (favId) => Number(favId) !== Number(game.id) && favId.toString() !== game.id.toString()
+        )
+        setIsFavorite(false)
+        alert(`${game.name} đã được xóa khỏi danh sách yêu thích!`)
+      } else {
+        // Thêm game vào wishlist
+        updatedFavGameIds = [...favGameIds, Number(game.id)]
+        setIsFavorite(true)
+        alert(`${game.name} đã được thêm vào danh sách yêu thích!`)
+      }
+
+      // Cập nhật wishlist qua API
+      await updateWishlist(userWishlist.id, { ...userWishlist, fav_game_id: updatedFavGameIds })
+      window.dispatchEvent(new Event("wishlistUpdated"))
+      setWishlistLoading(false)
+    } catch (err) {
+      console.error("Error updating wishlist:", err)
+      alert("Không thể cập nhật danh sách yêu thích. Vui lòng thử lại sau.")
+      setWishlistLoading(false)
     }
   }
 
   const handleBuyNow = () => {
-    alert(`You have selected to buy ${game.name}!`)
+    alert(`You have selected to buy ${game?.name}!`)
     // Implement actual purchase logic here
-  }
-
-  const handleAddComment = (e) => {
-    e.preventDefault()
-
-    if (!newComment.trim()) {
-      alert("Vui lòng nhập nội dung đánh giá")
-      return
-    }
-
-    // Create new comment object
-    const newCommentObj = {
-      id: Math.random().toString(36).substr(2, 9),
-      username: "Bạn", // In a real app, this would be the logged-in user
-      date: new Date().toLocaleDateString("vi-VN"),
-      text: newComment,
-      rating: newRating,
-      isPositive: newRating > 3,
-      helpfulCount: 0,
-      hoursPlayed: Math.floor(Math.random() * 50),
-    }
-
-    // Add to reviews state
-    setReviews((prevReviews) => [newCommentObj, ...prevReviews])
-
-    // Reset form
-    setNewComment("")
-    setNewRating(3)
-
-    // In a real app, you would save this to the backend
-    // For example: saveComment(game.id, newCommentObj)
-
-    // Show success message
-    alert("Cảm ơn bạn đã gửi đánh giá!")
   }
 
   if (loading) {
@@ -244,14 +239,14 @@ function GameDetail() {
           {/* Rating */}
           <div className="flex items-center gap-4 mb-6 p-4 bg-purple-800/30 rounded-lg">
             <div className="bg-teal-500 text-white rounded-full w-16 h-16 flex items-center justify-center">
-              <span className="text-2xl font-bold">{rating}</span>
+              <span className="text-2xl font-bold">{averageRating}</span>
             </div>
             <div>
               <div className="flex mb-1">
                 {[...Array(5)].map((_, i) => (
                   <svg
                     key={i}
-                    className={`w-5 h-5 ${i < 4 ? "text-yellow-400 fill-yellow-400" : "text-gray-500"}`}
+                    className={`w-5 h-5 ${i < Math.round(averageRating) ? "text-yellow-400 fill-yellow-400" : "text-gray-500"}`}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                   >
@@ -260,7 +255,7 @@ function GameDetail() {
                 ))}
               </div>
               <p className="text-purple-300 text-sm">
-                <span className="font-medium text-white">{Math.floor(Math.random() * 10000)}</span> reviews
+                <span className="font-medium text-white">{reviewCount}</span> reviews
               </p>
             </div>
           </div>
@@ -283,14 +278,15 @@ function GameDetail() {
                 <Button
                   variant={isFavorite ? "default" : "outline"}
                   onClick={handleFavoriteToggle}
-                  className={`flex items-center justify-center ${
-                    isFavorite
+                  disabled={wishlistLoading}
+                  aria-label={isFavorite ? `Xóa ${game.name} khỏi danh sách yêu thích` : `Thêm ${game.name} vào danh sách yêu thích`}
+                  className={`flex items-center justify-center ${isFavorite
                       ? "bg-purple-600 hover:bg-purple-700 text-white"
                       : "border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"
-                  }`}
+                    }`}
                 >
                   <Heart className={`h-5 w-5 ${isFavorite ? "fill-current" : ""} mr-2`} />
-                  {isFavorite ? "Wishlisted" : "Wishlist"}
+                  {wishlistLoading ? "Đang xử lý..." : isFavorite ? "Wishlisted" : "Wishlist"}
                 </Button>
 
                 <Button
@@ -328,8 +324,7 @@ function GameDetail() {
           <p className="text-purple-100 mb-4">{game.details.describe}</p>
           <p className="text-purple-100">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl
-            nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl
-            nisl aliquam nisl, eget ultricies nisl nisl eget nisl.
+            nisl adipiscing elit.
           </p>
         </TabsContent>
 
@@ -339,90 +334,37 @@ function GameDetail() {
         >
           <GameConfig minimum={game.minimum_configuration} recommended={game.recommended_configuration} />
         </TabsContent>
+
         <TabsContent
           value="reviews"
           className="bg-purple-900/20 backdrop-blur-sm rounded-b-xl p-6 shadow-lg mt-2 border border-purple-500/30"
         >
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-2xl font-bold text-white">Đánh giá từ người chơi</h3>
-            <div className="text-sm text-purple-300">
-              <span className="font-medium text-white">{reviews.length}</span> đánh giá
-            </div>
-          </div>
-
-          {/* Comment Form */}
-          <div className="mb-8 bg-purple-900/40 p-4 rounded-lg border border-purple-500/30">
-            <h4 className="text-lg font-semibold text-white mb-3">Thêm đánh giá của bạn</h4>
-            <form onSubmit={handleAddComment} className="space-y-4">
-              <div>
-                <textarea
-                  className="w-full bg-purple-800/50 text-white rounded-lg p-3 border border-purple-500/30 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  rows="3"
-                  placeholder="Chia sẻ trải nghiệm của bạn về game này..."
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                  required
-                ></textarea>
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="flex items-center">
-                  <label className="text-purple-300 mr-3">Đánh giá:</label>
-                  <select
-                    className="bg-purple-800/50 text-white rounded p-2 border border-purple-500/30 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                    value={newRating}
-                    onChange={(e) => setNewRating(Number(e.target.value))}
-                  >
-                    <option value="1">1 - Không thích</option>
-                    <option value="2">2 - Tạm được</option>
-                    <option value="3">3 - Khá tốt</option>
-                    <option value="4">4 - Rất tốt</option>
-                    <option value="5">5 - Tuyệt vời</option>
-                  </select>
-                </div>
-                <Button type="submit" className="ml-auto bg-purple-600 hover:bg-purple-700 text-white">
-                  Gửi đánh giá
-                </Button>
-              </div>
-            </form>
-          </div>
-
-          {/* Comments List */}
-          {loading ? (
-            <div className="flex justify-center py-8">
-              <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          ) : reviews.length === 0 ? (
-            <div className="text-center py-8 text-purple-300">
-              <MessageSquare className="w-12 h-12 mx-auto mb-3 opacity-50" />
-              <p>Chưa có đánh giá nào cho game này.</p>
-              <p className="text-sm mt-2">Hãy là người đầu tiên chia sẻ ý kiến của bạn!</p>
-            </div>
+          <h3 className="text-2xl font-bold mb-4 text-white">User Reviews</h3>
+          {reviews.length === 0 ? (
+            <p className="text-purple-300">No reviews yet for this game.</p>
           ) : (
-            <div className="space-y-6">
-              {reviews.map((review) => (
-                <div key={review.id} className="bg-purple-900/30 p-4 rounded-lg border border-purple-500/20">
-                  <div className="flex justify-between mb-2">
-                    <div className="flex items-center text-white">
-                      <User className="w-4 h-4 mr-2" />
-                      <span className="font-semibold">{review.username || "Người dùng ẩn danh"}</span>
-                    </div>
-                    <div className="flex items-center">
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`w-4 h-4 ${i < review.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-500"}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <p className="text-purple-100 mb-3">{review.text}</p>
-                  <div className="flex items-center text-sm text-purple-300">
-                    <Clock className="w-4 h-4 mr-2" />
-                    <span>{review.date || new Date().toLocaleDateString("vi-VN")}</span>
-                  </div>
+            reviews.map((review) => (
+              <div key={review.id} className="mb-6 bg-purple-900/30 p-4 rounded-lg border border-purple-500/20">
+                <div className="flex items-center mb-2 text-white">
+                  <User className="w-4 h-4 mr-2" />
+                  <span className="font-semibold">{review.user ? review.user.username : "Unknown User"}</span>
+                  <Clock className="w-4 h-4 ml-4 mr-2" />
+                  <span className="text-sm text-purple-300">
+                    {review.date ? new Date(review.date.$date).toLocaleDateString("vi-VN") : "Unknown Date"}
+                  </span>
                 </div>
-              ))}
-            </div>
+                <p className="text-purple-100 mb-2">{review.comment}</p>
+                <div className="flex items-center text-sm text-purple-300">
+                  {review.isPositive ? (
+                    <ThumbsUp className="w-4 h-4 mr-1" />
+                  ) : (
+                    <ThumbsDown className="w-4 h-4 mr-1" />
+                  )}
+                  {review.isPositive ? "Recommended" : "Not Recommended"} – Rating: {review.rating}/5
+                  {review.hoursPlayed && ` – ${review.hoursPlayed} hours played`}
+                </div>
+              </div>
+            ))
           )}
         </TabsContent>
       </Tabs>

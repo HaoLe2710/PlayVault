@@ -27,6 +27,8 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { getGames } from "../../api/games";
+import { getPurchases } from "../../api/purchases";
 
 const statusMap = {
     delivered: { label: "Đã giao", variant: "green" },
@@ -95,8 +97,8 @@ export default function PurchasedProducts() {
 
                 // Fetch all data in parallel
                 const [gamesResponse, purchasesResponse] = await Promise.all([
-                    fetch("http://localhost:3001/games").then(res => res.json()),
-                    fetch("http://localhost:3001/purchases").then(res => res.json()) // Thay đổi endpoint
+                    getGames(), // Fetch all games
+                    getPurchases(), // Fetch all purchases
                 ]);
 
                 // Find user's purchased games

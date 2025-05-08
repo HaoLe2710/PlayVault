@@ -1,330 +1,324 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Mail, Lock, User, Eye, EyeOff, Loader2, AlertCircle, Calendar as CalendarIcon, CheckCircle2, Check } from "lucide-react"
-import { motion } from "framer-motion"
-import { toast } from "sonner"
-import { format } from "date-fns"
-import { vi } from "date-fns/locale"
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Mail, Lock, User, Eye, EyeOff, Loader2, AlertCircle, Calendar as CalendarIcon, CheckCircle2, Check, Phone, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
+import { toast } from "sonner";
+import { format } from "date-fns";
+import { vi } from "date-fns/locale";
+import { checkIfUserExists, registerUser, getUsers } from "../../api/users";
 
 export default function RegisterPage() {
     const [formState, setFormState] = useState({
         username: "",
         email: "",
+        phone: "",
+        gender: "",
+        address: "",
         password: "",
         confirmPassword: "",
         f_name: "",
         l_name: "",
         dob: null,
         acceptTerms: false,
-    })
+    });
     const [touched, setTouched] = useState({
         username: false,
         email: false,
+        phone: false,
+        gender: false,
+        address: false,
         password: false,
         confirmPassword: false,
         f_name: false,
         l_name: false,
         dob: false,
         acceptTerms: false,
-    })
-    const [errors, setErrors] = useState({})
-    const [isLoading, setIsLoading] = useState(false)
-    const [showPassword, setShowPassword] = useState(false)
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
-    const [registrationError, setRegistrationError] = useState("")
-    const [isSuccess, setIsSuccess] = useState(false)
-    const [userInfo, setUserInfo] = useState(null)
-    const [isCalendarOpen, setIsCalendarOpen] = useState(false)
-    const navigate = useNavigate()
+    });
+    const [errors, setErrors] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [registrationError, setRegistrationError] = useState("");
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [userInfo, setUserInfo] = useState(null);
+    const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const navigate = useNavigate();
 
-    // Debug logging for state changes
     useEffect(() => {
-        console.log("Form state:", formState)
-        console.log("Touched:", touched)
-        console.log("Password:", formState.password)
-        console.log("Confirm Password:", formState.confirmPassword)
-        console.log("Passwords match:", formState.password === formState.confirmPassword && formState.password.length > 0)
-        console.log("Errors:", errors)
-        console.log("Error keys:", Object.keys(errors))
-        console.log("Button disabled:", isLoading || Object.keys(errors).length > 0)
-        console.log("Modal state:", { isSuccess, userInfo })
-    }, [formState, touched, errors, isLoading, isSuccess, userInfo])
+        console.log("Form state:", formState);
+        console.log("Touched:", touched);
+        console.log("Password:", formState.password);
+        console.log("Confirm Password:", formState.confirmPassword);
+        console.log("Passwords match:", formState.password === formState.confirmPassword && formState.password.length > 0);
+        console.log("Errors:", errors);
+        console.log("Error keys:", Object.keys(errors));
+        console.log("Button disabled:", isLoading || Object.keys(errors).length > 0);
+        console.log("Modal state:", { isSuccess, userInfo });
+    }, [formState, touched, errors, isLoading, isSuccess, userInfo]);
 
     const validateForm = (validateAll = false) => {
-        const newErrors = {}
-        console.log("Validating with validateAll:", validateAll)
+        const newErrors = {};
+        console.log("Validating with validateAll:", validateAll);
 
-        // Validate all fields on submit, or touched fields on blur
         if (validateAll || touched.username) {
             if (!formState.username) {
-                newErrors.username = "Tên người dùng là bắt buộc"
+                newErrors.username = "Tên người dùng là bắt buộc";
             } else if (formState.username.length < 3) {
-                newErrors.username = "Tên người dùng phải có ít nhất 3 ký tự"
+                newErrors.username = "Tên người dùng phải có ít nhất 3 ký tự";
             } else if (!/^[a-zA-Z0-9_]+$/.test(formState.username)) {
-                newErrors.username = "Tên người dùng chỉ được chứa chữ, số và dấu gạch dưới"
+                newErrors.username = "Tên người dùng chỉ được chứa chữ, số và dấu gạch dưới";
             }
         }
 
         if (validateAll || touched.email) {
             if (!formState.email) {
-                newErrors.email = "Email là bắt buộc"
+                newErrors.email = "Email là bắt buộc";
             } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email)) {
-                newErrors.email = "Email không hợp lệ"
+                newErrors.email = "Email không hợp lệ";
+            }
+        }
+
+        if (validateAll || touched.phone) {
+            if (!formState.phone) {
+                newErrors.phone = "Số điện thoại là bắt buộc";
+            } else if (!/^0\d{9}$/.test(formState.phone)) {
+                newErrors.phone = "Số điện thoại phải là 10 chữ số, bắt đầu bằng 0";
+            }
+        }
+
+        if (validateAll || touched.gender) {
+            if (!formState.gender) {
+                newErrors.gender = "Giới tính là bắt buộc";
+            }
+        }
+
+        if (validateAll || touched.address) {
+            if (!formState.address) {
+                newErrors.address = "Địa chỉ là bắt buộc";
+            } else if (formState.address.length < 5) {
+                newErrors.address = "Địa chỉ phải có ít nhất 5 ký tự";
             }
         }
 
         if (validateAll || touched.password) {
             if (!formState.password) {
-                newErrors.password = "Mật khẩu là bắt buộc"
+                newErrors.password = "Mật khẩu là bắt buộc";
             } else if (formState.password.length <= 7) {
-                newErrors.password = "Mật khẩu phải có hơn 7 ký tự"
+                newErrors.password = "Mật khẩu phải có hơn 7 ký tự";
             }
         }
 
         if (validateAll || touched.confirmPassword) {
             if (!formState.confirmPassword) {
-                newErrors.confirmPassword = "Xác nhận mật khẩu là bắt buộc"
+                newErrors.confirmPassword = "Xác nhận mật khẩu là bắt buộc";
             } else if (formState.confirmPassword !== formState.password) {
-                newErrors.confirmPassword = "Mật khẩu không khớp"
+                newErrors.confirmPassword = "Mật khẩu không khớp";
             }
         }
 
         if (validateAll || touched.f_name) {
             if (!formState.f_name) {
-                newErrors.f_name = "Họ là bắt buộc"
+                newErrors.f_name = "Họ là bắt buộc";
             } else if (!/^[a-zA-ZÀ-ỹ\s]+$/.test(formState.f_name)) {
-                newErrors.f_name = "Họ chỉ được chứa chữ cái và khoảng trắng"
+                newErrors.f_name = "Họ chỉ được chứa chữ cái và khoảng trắng";
             }
         }
 
         if (validateAll || touched.l_name) {
             if (!formState.l_name) {
-                newErrors.l_name = "Tên là bắt buộc"
+                newErrors.l_name = "Tên là bắt buộc";
             } else if (!/^[a-zA-ZÀ-ỹ\s]+$/.test(formState.l_name)) {
-                newErrors.l_name = "Tên chỉ được chứa chữ cái và khoảng trắng"
+                newErrors.l_name = "Tên chỉ được chứa chữ cái và khoảng trắng";
             }
         }
 
         if (validateAll || touched.dob) {
             if (!formState.dob) {
-                newErrors.dob = "Ngày sinh là bắt buộc"
+                newErrors.dob = "Ngày sinh là bắt buộc";
             } else {
-                const today = new Date()
-                const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate())
+                const today = new Date();
+                const minAgeDate = new Date(today.getFullYear() - 18, today.getMonth(), today.getDate());
                 if (formState.dob > minAgeDate) {
-                    newErrors.dob = "Bạn phải từ 18 tuổi trở lên"
+                    newErrors.dob = "Bạn phải từ 18 tuổi trở lên";
                 }
             }
         }
 
         if (validateAll || touched.acceptTerms) {
             if (!formState.acceptTerms) {
-                newErrors.acceptTerms = "Bạn phải đồng ý với điều khoản và điều kiện"
+                newErrors.acceptTerms = "Bạn phải đồng ý với điều khoản và điều kiện";
             }
         }
 
-        console.log("New errors:", newErrors)
-        setErrors(newErrors)
-        return Object.keys(newErrors).length === 0
-    }
+        console.log("New errors:", newErrors);
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const handleChange = (e) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
         if (name === "f_name" || name === "l_name") {
-            if (!/^[a-zA-ZÀ-ỹ\s]*$/.test(value)) return
+            if (!/^[a-zA-ZÀ-ỹ\s]*$/.test(value)) return;
         }
         if (name === "username") {
-            if (!/^[a-zA-Z0-9_]*$/.test(value)) return
+            if (!/^[a-zA-Z0-9_]*$/.test(value)) return;
         }
-        setFormState((prev) => ({ ...prev, [name]: value }))
-        setRegistrationError("")
-    }
+        if (name === "phone") {
+            if (!/^[0-9]*$/.test(value)) return;
+        }
+        setFormState((prev) => ({ ...prev, [name]: value }));
+        setRegistrationError("");
+    };
+
+    const handleGenderChange = (value) => {
+        setFormState((prev) => ({ ...prev, gender: value }));
+        setTouched((prev) => ({ ...prev, gender: true }));
+        validateForm();
+    };
 
     const handleBlur = (e) => {
-        const { name } = e.target
-        setTouched((prev) => ({ ...prev, [name]: true }))
-        validateForm()
-    }
+        const { name } = e.target;
+        setTouched((prev) => ({ ...prev, [name]: true }));
+        validateForm();
+    };
 
     const handleDateChange = (date) => {
-        setFormState((prev) => ({ ...prev, dob: date }))
-        setTouched((prev) => ({ ...prev, dob: true }))
-        setIsCalendarOpen(false)
-        validateForm()
-    }
+        setFormState((prev) => ({ ...prev, dob: date }));
+        setTouched((prev) => ({ ...prev, dob: true }));
+        setIsCalendarOpen(false);
+        validateForm();
+    };
 
     const handleCheckboxChange = (checked) => {
-        setFormState((prev) => ({ ...prev, acceptTerms: checked }))
-        setTouched((prev) => ({ ...prev, acceptTerms: true }))
-        validateForm()
-    }
+        setFormState((prev) => ({ ...prev, acceptTerms: checked }));
+        setTouched((prev) => ({ ...prev, acceptTerms: true }));
+        validateForm();
+    };
 
-    const checkIfUserExists = async (username, email) => {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (isLoading) return;
+
+        setIsLoading(true);
+        setRegistrationError("");
+        console.log("Submitting form with state:", formState);
+
         try {
-            const checkUserRes = await fetch(`http://localhost:3001/users?username=${username}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
-            })
-
-            if (!checkUserRes.ok) {
-                throw new Error(`Lỗi kiểm tra tên người dùng: HTTP ${checkUserRes.status}`)
-            }
-
-            const existingUsers = await checkUserRes.json()
-            if (existingUsers.length > 0) {
-                return { exists: true, message: "Tên người dùng đã tồn tại, vui lòng chọn tên khác" }
-            }
-
-            const checkEmailRes = await fetch(`http://localhost:3001/users?email=${email}`, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
-            })
-
-            if (!checkEmailRes.ok) {
-                throw new Error(`Lỗi kiểm tra email: HTTP ${checkEmailRes.status}`)
-            }
-
-            const existingEmails = await checkEmailRes.json()
-            if (existingEmails.length > 0) {
-                return { exists: true, message: "Email đã được sử dụng, vui lòng sử dụng email khác" }
-            }
-
-            return { exists: false }
-        } catch (error) {
-            console.error("Lỗi khi kiểm tra người dùng:", error)
-            return { exists: true, message: `Lỗi khi kiểm tra thông tin người dùng: ${error.message}` }
-        }
-    }
-
-    const registerUser = async () => {
-        try {
-            const isValid = validateForm(true)
-            console.log("Submission validation result:", isValid, "Errors:", errors)
+            const isValid = validateForm(true);
             if (!isValid) {
-                console.log("Validation failed, stopping registration")
-                return false
+                console.log("Validation failed, stopping registration");
+                setIsLoading(false);
+                return;
             }
 
-            const userCheck = await checkIfUserExists(formState.username, formState.email)
+            const userCheck = await checkIfUserExists(formState.username);
             if (userCheck.exists) {
-                setRegistrationError(userCheck.message)
-                return false
+                setRegistrationError(userCheck.message);
+                setIsLoading(false);
+                return;
             }
 
-            const usersRes = await fetch('http://localhost:3001/users', {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
-            })
+            // Lấy danh sách người dùng hiện có
+            const users = await getUsers();
+            // Tìm id số lớn nhất
+            const maxId = users.reduce((max, user) => {
+                const userId = parseInt(user.id, 10);
+                return !isNaN(userId) && userId > max ? userId : max;
+            }, 0);
+            // Tạo id mới là chuỗi số tiếp theo
+            const newId = String(maxId + 1);
 
-            if (!usersRes.ok) {
-                throw new Error(`Lỗi lấy danh sách người dùng: HTTP ${usersRes.status}`)
-            }
-
-            const allUsers = await usersRes.json()
-            const newId = String(allUsers.length + 1)
-
-            const registerRes = await fetch('http://localhost:3001/users', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    id: newId,
-                    username: formState.username,
-                    password: formState.password,
-                    email: formState.email,
-                    f_name: formState.f_name,
-                    l_name: formState.l_name,
-                    dob: { $date: formState.dob.toISOString() }
-                })
-            })
-
-            if (!registerRes.ok) {
-                throw new Error(`Lỗi đăng ký người dùng: HTTP ${registerRes.status}`)
-            }
-
-            const user = await registerRes.json()
+            const user = await registerUser({
+                id: newId, // Gán id mới
+                username: formState.username,
+                email: formState.email,
+                phone: formState.phone,
+                gender: formState.gender,
+                address: formState.address,
+                password: formState.password,
+                f_name: formState.f_name,
+                l_name: formState.l_name,
+                dob: formState.dob,
+                avatar: "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+                role: "user",
+                status: "active",
+                created_at: new Date().toISOString(),
+            });
 
             toast.success("Đăng ký thành công", {
                 description: `Chào mừng ${user.f_name} ${user.l_name}! Tài khoản của bạn đã được tạo thành công.`,
                 duration: 5000,
-            })
+            });
 
             setUserInfo({
                 id: user.id,
                 username: user.username,
-                fullName: `${user.f_name} ${user.l_name}`,
                 email: user.email,
-                dob: format(new Date(user.dob.$date), "dd/MM/yyyy", { locale: vi })
-            })
+                phone: user.phone,
+                gender: user.gender,
+                address: user.address,
+                fullName: `${user.f_name} ${user.l_name}`,
+                dob: format(new Date(user.dob.$date), "dd/MM/yyyy", { locale: vi }),
+                role: user.role,
+                status: user.status,
+                created_at: format(new Date(user.created_at), "dd/MM/yyyy HH:mm:ss", { locale: vi }),
+            });
 
             setFormState({
                 username: "",
                 email: "",
+                phone: "",
+                gender: "",
+                address: "",
                 password: "",
                 confirmPassword: "",
                 f_name: "",
                 l_name: "",
                 dob: null,
                 acceptTerms: false,
-            })
+            });
             setTouched({
                 username: false,
                 email: false,
+                phone: false,
+                gender: false,
+                address: false,
                 password: false,
                 confirmPassword: false,
                 f_name: false,
                 l_name: false,
                 dob: false,
                 acceptTerms: false,
-            })
-            setErrors({})
-            setIsSuccess(true)
-            return true
+            });
+            setErrors({});
+            setIsSuccess(true);
         } catch (error) {
-            console.error("Lỗi đăng ký:", error)
-            setRegistrationError(`Đã xảy ra lỗi khi đăng ký: ${error.message}. Vui lòng thử lại sau.`)
+            console.error("Lỗi không mong muốn trong handleSubmit:", error);
+            setRegistrationError(`Lỗi: ${error.message}. Vui lòng thử lại sau.`);
             toast.error("Đăng ký thất bại", {
                 description: `Lỗi: ${error.message}. Vui lòng thử lại sau.`,
-            })
-            return false
-        }
-    }
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-
-        if (isLoading) return
-
-        setIsLoading(true)
-        setRegistrationError("")
-        console.log("Submitting form with state:", formState)
-
-        try {
-            const success = await registerUser()
-            if (success) {
-                // Do not navigate immediately; modal will show info only
-            }
-        } catch (error) {
-            console.error("Lỗi không mong muốn trong handleSubmit:", error)
-            setRegistrationError(`Lỗi không mong muốn: ${error.message}. Vui lòng thử lại sau.`)
+            });
         } finally {
-            setIsLoading(false)
-            console.log("isLoading set to false")
+            setIsLoading(false);
+            console.log("isLoading set to false");
         }
-    }
+    };
 
     const togglePasswordVisibility = () => {
-        if (!isLoading) setShowPassword((prev) => !prev)
-    }
+        if (!isLoading) setShowPassword((prev) => !prev);
+    };
 
     const toggleConfirmPasswordVisibility = () => {
-        if (!isLoading) setShowConfirmPassword((prev) => !prev)
-    }
+        if (!isLoading) setShowConfirmPassword((prev) => !prev);
+    };
 
     return (
         <motion.div
@@ -429,12 +423,12 @@ export default function RegisterPage() {
                                             className="bg-purple-900 text-white border border-purple-700 py-1 px-2 rounded-md cursor-pointer text-sm"
                                             value={formState.dob ? formState.dob.getMonth() : new Date().getMonth()}
                                             onChange={(e) => {
-                                                const month = parseInt(e.target.value)
-                                                const newDate = formState.dob || new Date(2000, 0, 1)
-                                                newDate.setMonth(month)
-                                                setFormState(prev => ({ ...prev, dob: new Date(newDate) }))
-                                                setTouched(prev => ({ ...prev, dob: true }))
-                                                validateForm()
+                                                const month = parseInt(e.target.value);
+                                                const newDate = formState.dob || new Date(2000, 0, 1);
+                                                newDate.setMonth(month);
+                                                setFormState(prev => ({ ...prev, dob: new Date(newDate) }));
+                                                setTouched(prev => ({ ...prev, dob: true }));
+                                                validateForm();
                                             }}
                                             disabled={isLoading}
                                         >
@@ -449,12 +443,12 @@ export default function RegisterPage() {
                                             className="bg-purple-900 text-white border border-purple-700 py-1 px-2 rounded-md cursor-pointer text-sm"
                                             value={formState.dob ? formState.dob.getFullYear() : 2000}
                                             onChange={(e) => {
-                                                const year = parseInt(e.target.value)
-                                                const newDate = formState.dob || new Date(2000, 0, 1)
-                                                newDate.setFullYear(year)
-                                                setFormState(prev => ({ ...prev, dob: new Date(newDate) }))
-                                                setTouched(prev => ({ ...prev, dob: true }))
-                                                validateForm()
+                                                const year = parseInt(e.target.value);
+                                                const newDate = formState.dob || new Date(2000, 0, 1);
+                                                newDate.setFullYear(year);
+                                                setFormState(prev => ({ ...prev, dob: new Date(newDate) }));
+                                                setTouched(prev => ({ ...prev, dob: true }));
+                                                validateForm();
                                             }}
                                             disabled={isLoading}
                                         >
@@ -477,42 +471,42 @@ export default function RegisterPage() {
 
                                 <div className="grid grid-cols-7 gap-1">
                                     {(() => {
-                                        const date = formState.dob || new Date(2000, 0, 1)
-                                        const year = date.getFullYear()
-                                        const month = date.getMonth()
-                                        const daysInMonth = new Date(year, month + 1, 0).getDate()
-                                        const firstDayOfMonth = new Date(year, month, 1).getDay()
-                                        const startOffset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1
+                                        const date = formState.dob || new Date(2000, 0, 1);
+                                        const year = date.getFullYear();
+                                        const month = date.getMonth();
+                                        const daysInMonth = new Date(year, month + 1, 0).getDate();
+                                        const firstDayOfMonth = new Date(year, month, 1).getDay();
+                                        const startOffset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
 
-                                        const days = []
+                                        const days = [];
                                         for (let i = 0; i < startOffset; i++) {
-                                            days.push(<div key={`empty-${i}`} className="h-8 w-8 flex items-center justify-center" />)
+                                            days.push(<div key={`empty-${i}`} className="h-8 w-8 flex items-center justify-center" />);
                                         }
 
                                         for (let i = 1; i <= daysInMonth; i++) {
-                                            const dayDate = new Date(year, month, i)
+                                            const dayDate = new Date(year, month, i);
                                             const isSelected = formState.dob && formState.dob.getDate() === i &&
                                                 formState.dob.getMonth() === month &&
-                                                formState.dob.getFullYear() === year
+                                                formState.dob.getFullYear() === year;
 
                                             days.push(
                                                 <button
                                                     key={i}
                                                     type="button"
                                                     className={`h-8 w-8 flex items-center justify-center rounded-full text-sm hover:bg-purple-700 
-                                                        ${isSelected ? 'bg-purple-600 text-white' : 'text-white'}`}
+                            ${isSelected ? 'bg-purple-600 text-white' : 'text-white'}`}
                                                     onClick={() => {
-                                                        const newDate = new Date(year, month, i)
-                                                        handleDateChange(newDate)
+                                                        const newDate = new Date(year, month, i);
+                                                        handleDateChange(newDate);
                                                     }}
                                                     disabled={isLoading}
                                                 >
                                                     {i}
                                                 </button>
-                                            )
+                                            );
                                         }
 
-                                        return days
+                                        return days;
                                     })()}
                                 </div>
 
@@ -572,6 +566,90 @@ export default function RegisterPage() {
                                 )}
                             </div>
                             {errors.email && <p className="text-pink-400 text-sm ml-1">{errors.email}</p>}
+                        </div>
+
+                        <div className="space-y-1">
+                            <div className="relative">
+                                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-purple-400" />
+                                <Input
+                                    type="text"
+                                    name="phone"
+                                    placeholder="Số điện thoại"
+                                    className="pl-10 bg-purple-900/40 border-purple-700/50 focus:border-purple-500 text-white placeholder-purple-300 focus:ring-pink-500/30 rounded-lg h-10"
+                                    value={formState.phone}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    aria-invalid={!!errors.phone}
+                                    disabled={isLoading}
+                                />
+                                {!errors.phone && touched.phone && formState.phone && (
+                                    <Check className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500" size={18} />
+                                )}
+                            </div>
+                            {errors.phone && <p className="text-pink-400 text-sm ml-1">{errors.phone}</p>}
+                        </div>
+
+                        <div className="space-y-1">
+                            <label className="text-sm text-purple-300">Giới tính</label>
+                            <div className="relative">
+                                <RadioGroup
+                                    name="gender"
+                                    value={formState.gender}
+                                    onValueChange={handleGenderChange}
+                                    onBlur={() => {
+                                        setTouched((prev) => ({ ...prev, gender: true }));
+                                        validateForm();
+                                    }}
+                                    className="flex space-x-4"
+                                    disabled={isLoading}
+                                    aria-invalid={!!errors.gender}
+                                >
+                                    {[
+                                        { value: "male", label: "Nam" },
+                                        { value: "female", label: "Nữ" },
+                                        { value: "other", label: "Khác" },
+                                    ].map((option) => (
+                                        <div key={option.value} className="flex items-center space-x-2">
+                                            <RadioGroupItem
+                                                value={option.value}
+                                                id={`gender-${option.value}`}
+                                                className="bg-purple-900/40 border-purple-700/50 text-white w-5 h-5 rounded-full focus:ring-pink-500/30 data-[state=checked]:bg-pink-600 data-[state=checked]:border-purple-500"
+                                            />
+                                            <label
+                                                htmlFor={`gender-${option.value}`}
+                                                className="text-sm text-purple-300 cursor-pointer"
+                                            >
+                                                {option.label}
+                                            </label>
+                                        </div>
+                                    ))}
+                                </RadioGroup>
+                                {!errors.gender && touched.gender && formState.gender && (
+                                    <Check className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500" size={18} />
+                                )}
+                            </div>
+                            {errors.gender && <p className="text-pink-400 text-sm ml-1">{errors.gender}</p>}
+                        </div>
+
+                        <div className="space-y-1">
+                            <div className="relative">
+                                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-purple-400" />
+                                <Input
+                                    type="text"
+                                    name="address"
+                                    placeholder="Địa chỉ"
+                                    className="pl-10 bg-purple-900/40 border-purple-700/50 focus:border-purple-500 text-white placeholder-purple-300 focus:ring-pink-500/30 rounded-lg h-10"
+                                    value={formState.address}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    aria-invalid={!!errors.address}
+                                    disabled={isLoading}
+                                />
+                                {!errors.address && touched.address && formState.address && (
+                                    <Check className="absolute right-3 top-1/2 -translate-y-1/2 text-green-500" size={18} />
+                                )}
+                            </div>
+                            {errors.address && <p className="text-pink-400 text-sm ml-1">{errors.address}</p>}
                         </div>
 
                         <div className="space-y-1">
@@ -715,13 +793,43 @@ export default function RegisterPage() {
                                 <p className="text-sm font-semibold">{userInfo.email}</p>
                             </div>
                             <div className="space-y-1">
+                                <p className="text-xs text-purple-400">Số điện thoại</p>
+                                <p className="text-sm font-semibold">{userInfo.phone}</p>
+                            </div>
+                            <div className="space-y-1">
+                                <p className="text-xs text-purple-400">Giới tính</p>
+                                <p className="text-sm font-semibold">{userInfo.gender === 'male' ? 'Nam' : userInfo.gender === 'female' ? 'Nữ' : 'Khác'}</p>
+                            </div>
+                            <div className="space-y-1">
+                                <p className="text-xs text-purple-400">Địa chỉ</p>
+                                <p className="text-sm font-semibold">{userInfo.address}</p>
+                            </div>
+                            <div className="space-y-1">
                                 <p className="text-xs text-purple-400">Ngày sinh</p>
                                 <p className="text-sm font-semibold">{userInfo.dob}</p>
                             </div>
+                            <div className="space-y-1">
+                                <p className="text-xs text-purple-400">Vai trò</p>
+                                <p className="text-sm font-semibold">{userInfo.role}</p>
+                            </div>
+                            <div className="space-y-1">
+                                <p className="text-xs text-purple-400">Trạng thái</p>
+                                <p className="text-sm font-semibold">{userInfo.status}</p>
+                            </div>
+                            <div className="space-y-1">
+                                <p className="text-xs text-purple-400">Ngày tạo</p>
+                                <p className="text-sm font-semibold">{userInfo.created_at}</p>
+                            </div>
                         </div>
                     )}
+                    <Button
+                        onClick={() => navigate("/login")}
+                        className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
+                    >
+                        Đi đến Đăng nhập
+                    </Button>
                 </DialogContent>
             </Dialog>
         </motion.div>
-    )
+    );
 }
