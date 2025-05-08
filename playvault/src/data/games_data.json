@@ -2713,7 +2713,13 @@
       ]
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "games":[19,20,21,22]
+    }
+  ],
   "monthly_statistic": [
     {
       "id": "1",
