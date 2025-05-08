@@ -1908,7 +1908,8 @@
         "$date": "2004-10-27T00:00:00Z"
       },
       "username": "lehao",
-      "password": "Lhexia001$"
+      "password": "Lhexia001$",
+      "email": "lehao001@gmail.com"
     },
     {
       "id": "2",
@@ -1918,7 +1919,8 @@
         "$date": "2004-04-04T00:00:00Z"
       },
       "username": "do2",
-      "password": "hWyjyY(U6zp1@z=wxGp$1@lT!v"
+      "password": "hWyjyY(U6zp1@z=wxGp$1@lT!v",
+      "email": "do2002@gmail.com"
     },
     {
       "id": "3",
@@ -1928,7 +1930,8 @@
         "$date": "2001-09-07T00:00:00Z"
       },
       "username": "phan3",
-      "password": "mz-Z-Zn74=2q8uVx2gUyr!x"
+      "password": "mz-Z-Zn74=2q8uVx2gUyr!x",
+      "email": "phan003@gmail.com"
     },
     {
       "id": "4",
@@ -1938,7 +1941,8 @@
         "$date": "1995-05-30T00:00:00Z"
       },
       "username": "vu4",
-      "password": "BsAsyf57@XbVP+vWmtDzkKPf^9"
+      "password": "BsAsyf57@XbVP+vWmtDzkKPf^9",
+      "email": "vu004@gmail.com"
     },
     {
       "id": "5",
@@ -1948,7 +1952,8 @@
         "$date": "1998-07-14T00:00:00Z"
       },
       "username": "hoang5",
-      "password": "gV+2ZF#RImVMgf7Ix0M#nfiNbdc0"
+      "password": "gV+2ZF#RImVMgf7Ix0M#nfiNbdc0",
+      "email": "hoang005@gmail.com"
     },
     {
       "id": "6",
@@ -1958,7 +1963,8 @@
         "$date": "2001-08-21T00:00:00Z"
       },
       "username": "nguyen6",
-      "password": "yF^uWV4+df"
+      "password": "yF^uWV4+df",
+      "email": "nguyen006@gmail.com"
     },
     {
       "id": "7",
@@ -1968,7 +1974,8 @@
         "$date": "2007-05-04T00:00:00Z"
       },
       "username": "dang7",
-      "password": "P)@FMdDK7K1-OqCoL+rnZ9na1$7"
+      "password": "P)@FMdDK7K1-OqCoL+rnZ9na1$7",
+      "email": "dang007@gmail.com"
     },
     {
       "id": "8",
@@ -1978,7 +1985,8 @@
         "$date": "1997-06-17T00:00:00Z"
       },
       "username": "le8",
-      "password": "&@AT1g)U("
+      "password": "&@AT1g)U(",
+      "email": "le008@gmail.com"
     },
     {
       "id": "9",
@@ -1988,7 +1996,8 @@
         "$date": "2006-02-04T00:00:00Z"
       },
       "username": "le9",
-      "password": "EZB=!&YLw#fb8Vhu(aFC1R-kSCX"
+      "password": "EZB=!&YLw#fb8Vhu(aFC1R-kSCX",
+      "email": "le009@gmail.com"
     },
     {
       "id": "10",
@@ -1998,7 +2007,8 @@
         "$date": "2002-10-23T00:00:00Z"
       },
       "username": "hoang10",
-      "password": "cDhItQh(!sy2-S"
+      "password": "cDhItQh(!sy2-S",
+      "email": "hoang010@gmail.com"
     },
     {
       "id": "11",
@@ -2008,7 +2018,8 @@
         "$date": "1996-12-10T00:00:00Z"
       },
       "username": "do11",
-      "password": "H5C)56B_Pkgeg5Lc+krWVRe"
+      "password": "H5C)56B_Pkgeg5Lc+krWVRe",
+      "email": "do011@gmail.com"
     },
     {
       "id": "12",
@@ -2018,7 +2029,8 @@
         "$date": "1996-02-18T00:00:00Z"
       },
       "username": "phan12",
-      "password": "5i8zz^^T=yXcffUyki"
+      "password": "5i8zz^^T=yXcffUyki",
+      "email": "phan012@gmail.com"
     },
     {
       "id": "13",
@@ -2028,7 +2040,8 @@
         "$date": "2001-04-09T00:00:00Z"
       },
       "username": "do13",
-      "password": "51Pdp+NrcrBk$bT"
+      "password": "51Pdp+NrcrBk$bT",
+      "email": "do013@gmail.com"
     },
     {
       "id": "14",
@@ -2038,7 +2051,8 @@
         "$date": "1998-05-08T00:00:00Z"
       },
       "username": "nguyen14",
-      "password": "qzv7M7WS$PmtRRUcS=myX5m3M"
+      "password": "qzv7M7WS$PmtRRUcS=myX5m3M",
+      "email": "nguyen014@gmail.com"
     },
     {
       "id": "15",
@@ -2048,7 +2062,8 @@
         "$date": "2004-04-19T00:00:00Z"
       },
       "username": "nguyen15",
-      "password": "G0b-(&fm0458zxmS0^-tar"
+      "password": "G0b-(&fm0458zxmS0^-tar",
+      "email": "nguyen015@gmail.com"
     },
     {
       "id": "16",
@@ -2058,7 +2073,8 @@
         "$date": "1995-06-22T00:00:00Z"
       },
       "username": "do16",
-      "password": "APK3t!8GA^hy!im2Ie1Kltm%C(6L)w"
+      "password": "APK3t!8GA^hy!im2Ie1Kltm%C(6L)w",
+      "email": "do016@gmail.com"
     },
     {
       "id": "17",
@@ -2068,7 +2084,8 @@
         "$date": "2005-09-08T00:00:00Z"
       },
       "username": "pham17",
-      "password": "ZJ!Ce*lhRy@MyK=a&eB6"
+      "password": "ZJ!Ce*lhRy@MyK=a&eB6",
+      "email": "pham017@gmail.com"
     },
     {
       "id": "18",
@@ -2078,7 +2095,8 @@
         "$date": "2004-08-14T00:00:00Z"
       },
       "username": "do18",
-      "password": "!n_d@KRjPa(n+fkJ0l0m(*"
+      "password": "!n_d@KRjPa(n+fkJ0l0m(*",
+      "email": "do018@gmail.com"
     },
     {
       "id": "19",
@@ -2088,7 +2106,8 @@
         "$date": "2000-11-16T00:00:00Z"
       },
       "username": "tran19",
-      "password": "-0NUPN&Kho&3Hgys1"
+      "password": "-0NUPN&Kho&3Hgys1",
+      "email": "tran019@gmail.com"
     },
     {
       "id": "20",
@@ -2098,7 +2117,8 @@
         "$date": "1998-02-18T00:00:00Z"
       },
       "username": "nguyen20",
-      "password": "lN2pHToS$KjvwfIHq4M0+x"
+      "password": "lN2pHToS$KjvwfIHq4M0+x",
+      "email": "nguyen020@gmail.com"
     },
     {
       "id": "21",
@@ -2108,7 +2128,8 @@
         "$date": "2002-12-03T00:00:00Z"
       },
       "username": "tran21",
-      "password": "A@^et+&9vd^h#((sH5uJB2MSzQX"
+      "password": "A@^et+&9vd^h#((sH5uJB2MSzQX",
+      "email": "tran021@gmail.com"
     },
     {
       "id": "22",
@@ -2118,7 +2139,8 @@
         "$date": "1997-08-20T00:00:00Z"
       },
       "username": "bui22",
-      "password": "MEaaegUn5h8jI!U5ZvBT"
+      "password": "MEaaegUn5h8jI!U5ZvBT",
+      "email": "bui022@gmail.com"
     },
     {
       "id": "23",
@@ -2128,7 +2150,8 @@
         "$date": "2007-03-15T00:00:00Z"
       },
       "username": "nguyen23",
-      "password": "+Y#f*2J7+6"
+      "password": "+Y#f*2J7+6",
+      "email": "nguyen023@gmail.com"
     },
     {
       "id": "24",
@@ -2138,7 +2161,8 @@
         "$date": "1999-10-06T00:00:00Z"
       },
       "username": "nguyen24",
-      "password": "+Ky*NonF3(Tm#$A50n-c"
+      "password": "+Ky*NonF3(Tm#$A50n-c",
+      "email": "nguyen024@gmail.com"
     },
     {
       "id": "25",
@@ -2148,7 +2172,8 @@
         "$date": "1998-07-04T00:00:00Z"
       },
       "username": "le25",
-      "password": "%7Ej_^ZoXe%$qc2RDgp=RVatQxqZ-"
+      "password": "%7Ej_^ZoXe%$qc2RDgp=RVatQxqZ-",
+      "email": "le025@gmail.com"
     },
     {
       "id": "26",
@@ -2158,7 +2183,8 @@
         "$date": "1998-10-30T00:00:00Z"
       },
       "username": "phan26",
-      "password": "+XJ8i-4vzRIL-b"
+      "password": "+XJ8i-4vzRIL-b",
+      "email": "phan026@gmail.com"
     },
     {
       "id": "27",
@@ -2168,7 +2194,8 @@
         "$date": "1995-05-14T00:00:00Z"
       },
       "username": "nguyen27",
-      "password": "RGH$bsJDL5U&xST4d6W4k^S"
+      "password": "RGH$bsJDL5U&xST4d6W4k^S",
+      "email": "nguyen027@gmail.com"
     },
     {
       "id": "28",
@@ -2178,7 +2205,8 @@
         "$date": "1996-03-20T00:00:00Z"
       },
       "username": "bui28",
-      "password": "!ZD2WtbvChiCwj*HCk$4lT9W"
+      "password": "!ZD2WtbvChiCwj*HCk$4lT9W",
+      "email": "bui028@gmail.com"
     },
     {
       "id": "29",
@@ -2188,7 +2216,8 @@
         "$date": "1999-07-20T00:00:00Z"
       },
       "username": "dang29",
-      "password": "EFY#w#UUh%lpkmVmXs&llDW9C"
+      "password": "EFY#w#UUh%lpkmVmXs&llDW9C",
+      "email": "dang029@gmail.com"
     },
     {
       "id": "30",
@@ -2198,7 +2227,8 @@
         "$date": "2002-04-06T00:00:00Z"
       },
       "username": "le30",
-      "password": "yt-GE_gqUpfJ8khm#"
+      "password": "yt-GE_gqUpfJ8khm#",
+      "email": "le030@gmail.com"
     },
     {
       "id": "31",
@@ -2208,27 +2238,8 @@
         "$date": "2003-04-07T00:00:00Z"
       },
       "username": "le31",
-      "password": "6XmI@nuIWkaMHFm1-^Pa+Im"
-    },
-    {
-      "id": "085c",
-      "email": "lehao1",
-      "password": "Lhexia001$"
-    },
-    {
-      "id": "ce74",
-      "email": "lehao",
-      "password": "Lhexia001$"
-    },
-    {
-      "id": "9df6",
-      "email": "lehao",
-      "password": "Lhexia001$"
-    },
-    {
-      "id": "5402",
-      "email": "lehao",
-      "password": "fdfdfdf"
+      "password": "6XmI@nuIWkaMHFm1-^Pa+Im",
+      "email": "le031@gmail.com"
     }
   ],
   "wishlist": [

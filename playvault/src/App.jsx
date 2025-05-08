@@ -8,6 +8,8 @@ import UserProfiles from "./pages/UserProfiles.jsx";
 import Bought from "./pages/Bought.jsx";
 import Favorite from "./pages/Favorite.jsx";
 import Login from "./pages/Login.jsx";
+import Register from './pages/Register.jsx';
+import ForgotPassword from './pages/ForgotPassword.jsx';
 
 // Layout component để bao bọc các trang với Sidebar, Navbar và Footer
 function MainLayout() {
@@ -51,8 +53,12 @@ function App() {
         </Route>
         {/* Route độc lập cho trang đăng nhập */}
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} /> {/* Route cho trang đăng ký */}
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+
       </Routes>
     </BrowserRouter>
+
   );
 }
 
