@@ -1235,294 +1235,420 @@
       "game_id": 17,
       "rating": 2,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "4530"
+      "id": "4530",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 2,
       "game_id": 24,
       "rating": 3,
       "comment": "Rất đáng chơi!",
-      "id": "2124"
+      "id": "2124",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 7,
       "game_id": 6,
       "rating": 2,
       "comment": "Không tệ, nhưng cần update",
-      "id": "1b66"
+      "id": "1b66",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 10,
       "game_id": 13,
       "rating": 2,
       "comment": "Game rất cuốn.",
-      "id": "6551"
+      "id": "6551",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 19,
       "game_id": 28,
       "rating": 2,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "9cc1"
+      "id": "9cc1",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 1,
       "game_id": 19,
       "rating": 3,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "f624"
+      "id": "f624",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 12,
       "game_id": 30,
       "rating": 4,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "2b2f"
+      "id": "2b2f",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 27,
       "game_id": 28,
       "rating": 2,
       "comment": "Game quá đỉnh!",
-      "id": "946f"
+      "id": "946f",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 2,
       "game_id": 22,
       "rating": 4,
       "comment": "Game quá đỉnh!",
-      "id": "0deb"
+      "id": "0deb",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 10,
       "game_id": 19,
       "rating": 1,
       "comment": "Game quá đỉnh!",
-      "id": "d1d1"
+      "id": "d1d1",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 28,
       "game_id": 30,
       "rating": 4,
       "comment": "Game quá đỉnh!",
-      "id": "e10a"
+      "id": "e10a",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 10,
       "game_id": 29,
       "rating": 1,
       "comment": "Game rất cuốn.",
-      "id": "6d89"
+      "id": "6d89",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 15,
       "game_id": 3,
       "rating": 1,
       "comment": "Game xịn vãi ò",
-      "id": "1153"
+      "id": "1153",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 29,
       "game_id": 30,
       "rating": 3,
       "comment": "Không tệ, nhưng cần update",
-      "id": "028e"
+      "id": "028e",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 16,
       "game_id": 9,
       "rating": 1,
       "comment": "Thật sự gây nghiện.",
-      "id": "a3fb"
+      "id": "a3fb",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 19,
       "game_id": 11,
       "rating": 5,
       "comment": "Không tệ, nhưng cần update",
-      "id": "c1cd"
+      "id": "c1cd",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 14,
       "game_id": 25,
       "rating": 1,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "3f64"
+      "id": "3f64",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 20,
       "game_id": 6,
       "rating": 5,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "a91c"
+      "id": "a91c",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 8,
       "game_id": 16,
       "rating": 4,
       "comment": "Không tệ, nhưng cần update",
-      "id": "3d04"
+      "id": "3d04",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 20,
       "game_id": 20,
       "rating": 5,
       "comment": "Game xịn vãi ò",
-      "id": "2683"
+      "id": "2683",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 13,
       "game_id": 15,
       "rating": 2,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "ec7a"
+      "id": "ec7a",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 1,
       "game_id": 24,
       "rating": 3,
       "comment": "Không tệ, nhưng cần update",
-      "id": "9a28"
+      "id": "9a28",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 20,
       "game_id": 3,
       "rating": 5,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "ff33"
+      "id": "ff33",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 21,
       "game_id": 19,
       "rating": 5,
       "comment": "Chơi vui, đồ họa đẹp",
-      "id": "384f"
+      "id": "384f",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 25,
       "game_id": 1,
       "rating": 1,
       "comment": "Tạm ổn, nên cải thiện thêm.",
-      "id": "6e05"
+      "id": "6e05",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 5,
       "game_id": 10,
       "rating": 1,
       "comment": "Chơi vui, đồ họa đẹp",
-      "id": "542c"
+      "id": "542c",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 5,
       "game_id": 17,
       "rating": 5,
       "comment": "Game xịn vãi ò",
-      "id": "7d16"
+      "id": "7d16",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 24,
       "game_id": 3,
       "rating": 3,
       "comment": "Game xịn vãi ò",
-      "id": "8637"
+      "id": "8637",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 15,
       "game_id": 29,
       "rating": 3,
       "comment": "Game quá đỉnh!",
-      "id": "c86d"
+      "id": "c86d",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 7,
       "game_id": 21,
       "rating": 4,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "b177"
+      "id": "b177",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 18,
       "game_id": 9,
       "rating": 5,
       "comment": "Game quá đỉnh!",
-      "id": "ac44"
+      "id": "ac44",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 27,
       "game_id": 6,
       "rating": 2,
       "comment": "Chơi vui, đồ họa đẹp",
-      "id": "074f"
+      "id": "074f",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 21,
       "game_id": 21,
       "rating": 1,
       "comment": "Không tệ, nhưng cần update",
-      "id": "8302"
+      "id": "8302",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 8,
       "game_id": 17,
       "rating": 4,
       "comment": "Chơi vui, đồ họa đẹp",
-      "id": "91f4"
+      "id": "91f4",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 18,
       "game_id": 13,
       "rating": 3,
       "comment": "Game xịn vãi ò",
-      "id": "ccd0"
+      "id": "ccd0",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 3,
       "game_id": 29,
       "rating": 3,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "ca8c"
+      "id": "ca8c",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 10,
       "game_id": 15,
       "rating": 5,
       "comment": "Thật sự gây nghiện.",
-      "id": "8152"
+      "id": "8152",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 6,
       "game_id": 13,
       "rating": 3,
       "comment": "Game xịn vãi ò",
-      "id": "ed0f"
+      "id": "ed0f",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 15,
       "game_id": 9,
       "rating": 4,
       "comment": "Chơi vui, đồ họa đẹp",
-      "id": "fc34"
+      "id": "fc34",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 4,
       "game_id": 10,
       "rating": 5,
       "comment": "Rất đáng chơi!",
-      "id": "1545"
+      "id": "1545",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 2,
       "game_id": 9,
       "rating": 2,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "73fc"
+      "id": "73fc",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 28,
       "game_id": 26,
       "rating": 2,
       "comment": "Thật sự gây nghiện.",
-      "id": "940f"
+      "id": "940f",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 13,
@@ -1536,399 +1662,570 @@
       "game_id": 18,
       "rating": 3,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "f589"
+      "id": "f589",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 9,
       "game_id": 26,
       "rating": 3,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "d27c"
+      "id": "d27c",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 14,
       "game_id": 6,
       "rating": 4,
       "comment": "Tạm ổn, nên cải thiện thêm.",
-      "id": "3e6a"
+      "id": "3e6a",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 13,
       "game_id": 18,
       "rating": 3,
       "comment": "Thật sự gây nghiện.",
-      "id": "0835"
+      "id": "0835",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 12,
       "game_id": 12,
       "rating": 1,
       "comment": "Game xịn vãi ò",
-      "id": "7f75"
+      "id": "7f75",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 19,
       "game_id": 11,
       "rating": 1,
       "comment": "Game rất cuốn.",
-      "id": "62a0"
+      "id": "62a0",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 19,
       "game_id": 24,
       "rating": 1,
       "comment": "Thật sự gây nghiện.",
-      "id": "00c3"
+      "id": "00c3",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 13,
       "game_id": 10,
       "rating": 4,
       "comment": "Rất đáng chơi!",
-      "id": "d79b"
+      "id": "d79b",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 26,
       "game_id": 11,
       "rating": 3,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "9d98"
+      "id": "9d98",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 18,
       "game_id": 14,
       "rating": 2,
       "comment": "Rất đáng chơi!",
-      "id": "cc30"
+      "id": "cc30",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 16,
       "game_id": 6,
       "rating": 3,
       "comment": "Game quá đỉnh!",
-      "id": "f491"
+      "id": "f491",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 21,
       "game_id": 23,
       "rating": 5,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "fbd7"
+      "id": "fbd7",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 13,
       "game_id": 28,
       "rating": 5,
       "comment": "Thật sự gây nghiện.",
-      "id": "5227"
+      "id": "5227",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 18,
       "game_id": 17,
       "rating": 1,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "7ec7"
+      "id": "7ec7",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 16,
       "game_id": 29,
       "rating": 2,
       "comment": "Game xịn vãi ò",
-      "id": "8734"
+      "id": "8734",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 4,
       "game_id": 27,
       "rating": 1,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "5319"
+      "id": "5319",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 28,
       "game_id": 22,
       "rating": 3,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "20e3"
+      "id": "20e3",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 15,
       "game_id": 25,
       "rating": 4,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "1cc8"
+      "id": "1cc8",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 9,
       "game_id": 10,
       "rating": 1,
       "comment": "Chơi vui, đồ họa đẹp",
-      "id": "f136"
+      "id": "f136",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 23,
       "game_id": 25,
       "rating": 3,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "6b1b"
+      "id": "6b1b",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 11,
       "game_id": 13,
       "rating": 4,
       "comment": "Game quá đỉnh!",
-      "id": "1231"
+      "id": "1231",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 18,
       "game_id": 3,
       "rating": 2,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "6920"
+      "id": "6920",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 13,
       "game_id": 5,
       "rating": 2,
       "comment": "Tạm ổn, nên cải thiện thêm.",
-      "id": "f6a0"
+      "id": "f6a0",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 4,
       "game_id": 16,
       "rating": 1,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "85f1"
+      "id": "85f1",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 15,
       "game_id": 21,
       "rating": 1,
       "comment": "Chơi vui, đồ họa đẹp",
-      "id": "7c81"
+      "id": "7c81",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 21,
       "game_id": 17,
       "rating": 3,
       "comment": "Rất đáng chơi!",
-      "id": "d467"
+      "id": "d467",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 9,
       "game_id": 21,
       "rating": 3,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "939c"
+      "id": "939c",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 11,
       "game_id": 9,
       "rating": 2,
       "comment": "Game quá đỉnh!",
-      "id": "5f12"
+      "id": "5f12",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 20,
       "game_id": 15,
       "rating": 4,
       "comment": "Rất đáng chơi!",
-      "id": "00bb"
+      "id": "00bb",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 20,
       "game_id": 1,
       "rating": 5,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "3546"
+      "id": "3546",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 22,
       "game_id": 27,
       "rating": 1,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "9615"
+      "id": "9615",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 29,
       "game_id": 24,
       "rating": 1,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "2f02"
+      "id": "2f02",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 24,
       "game_id": 3,
       "rating": 3,
       "comment": "Không tệ, nhưng cần update",
-      "id": "b293"
+      "id": "b293",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 8,
       "game_id": 16,
       "rating": 2,
       "comment": "Không tệ, nhưng cần update",
-      "id": "43eb"
+      "id": "43eb",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 3,
       "game_id": 28,
       "rating": 3,
       "comment": "Không tệ, nhưng cần update",
-      "id": "1504"
+      "id": "1504",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 2,
       "game_id": 7,
       "rating": 4,
       "comment": "Game quá đỉnh!",
-      "id": "86bd"
+      "id": "86bd",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 13,
       "game_id": 4,
       "rating": 5,
       "comment": "Chơi vui, đồ họa đẹp",
-      "id": "65b6"
+      "id": "65b6",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 17,
       "game_id": 7,
       "rating": 5,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "9767"
+      "id": "9767",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 14,
       "game_id": 22,
       "rating": 1,
       "comment": "Chơi vui, đồ họa đẹp",
-      "id": "08fe"
+      "id": "08fe",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 21,
       "game_id": 12,
       "rating": 4,
       "comment": "Thật sự gây nghiện.",
-      "id": "ee6b"
+      "id": "ee6b",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 20,
       "game_id": 26,
       "rating": 1,
       "comment": "Chơi vui, đồ họa đẹp",
-      "id": "f88b"
+      "id": "f88b",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 24,
       "game_id": 13,
       "rating": 5,
       "comment": "Rất đáng chơi!",
-      "id": "8246"
+      "id": "8246",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 30,
       "game_id": 19,
       "rating": 2,
       "comment": "Tạm ổn, nên cải thiện thêm.",
-      "id": "12fe"
+      "id": "12fe",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 19,
       "game_id": 3,
       "rating": 3,
       "comment": "Tạm ổn, nên cải thiện thêm.",
-      "id": "40b3"
+      "id": "40b3",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 20,
       "game_id": 20,
       "rating": 4,
       "comment": "Rất đáng chơi!",
-      "id": "2ed7"
+      "id": "2ed7",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 30,
       "game_id": 25,
       "rating": 3,
       "comment": "Tạm ổn, nên cải thiện thêm.",
-      "id": "0b5e"
+      "id": "0b5e",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 19,
       "game_id": 8,
       "rating": 1,
       "comment": "Chơi vui, đồ họa đẹp",
-      "id": "e6ba"
+      "id": "e6ba",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 21,
       "game_id": 22,
       "rating": 2,
       "comment": "Tạm ổn, nên cải thiện thêm.",
-      "id": "4fde"
+      "id": "4fde",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 5,
       "game_id": 16,
       "rating": 5,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "7057"
+      "id": "7057",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 24,
       "game_id": 15,
       "rating": 4,
       "comment": "Chơi vui, đồ họa đẹp",
-      "id": "1701"
+      "id": "1701",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 7,
       "game_id": 18,
       "rating": 3,
       "comment": "Tạm ổn, nên cải thiện thêm.",
-      "id": "a372"
+      "id": "a372",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 26,
       "game_id": 21,
       "rating": 2,
       "comment": "Tạm ổn, nên cải thiện thêm.",
-      "id": "3152"
+      "id": "3152",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 19,
       "game_id": 5,
       "rating": 2,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "4e5a"
+      "id": "4e5a",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 14,
       "game_id": 30,
       "rating": 4,
       "comment": "Không hay lắm, mong đợi nhiều hơn.",
-      "id": "afca"
+      "id": "afca",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 5,
       "game_id": 7,
       "rating": 2,
       "comment": "Không tệ, nhưng cần update",
-      "id": "d5cc"
+      "id": "d5cc",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 29,
       "game_id": 10,
       "rating": 3,
       "comment": "Cốt truyện xuất sắc.",
-      "id": "69d9"
+      "id": "69d9",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     },
     {
       "user_id": 6,
       "game_id": 17,
       "rating": 2,
       "comment": "Game quá đỉnh!",
-      "id": "339a"
+      "id": "339a",
+      "commented_date": {
+          "$date": "2025-05-1T00:00:00Z"
+        }
     }
   ],
   "users": [
@@ -1940,17 +2237,23 @@
         "$date": "2004-10-27T00:00:00Z"
       },
       "username": "lehao",
-      "password": "Lhexia001$"
+      "password": "Lhexia001$",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "2",
       "f_name": "Do",
       "l_name": "Chi Dung",
-      "dob": {
-        "$date": "2004-04-04T00:00:00Z"
-      },
       "username": "do2",
-      "password": "hWyjyY(U6zp1@z=wxGp$1@lT!v"
+      "dob": {
+        "$date": "2004-04-28T00:00:00.000Z"
+      },
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "status": "active"
     },
     {
       "id": "3",
@@ -1960,7 +2263,12 @@
         "$date": "2001-09-07T00:00:00Z"
       },
       "username": "phan3",
-      "password": "mz-Z-Zn74=2q8uVx2gUyr!x"
+      "password": "mz-Z-Zn74=2q8uVx2gUyr!x",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "deleted",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "4",
@@ -1970,7 +2278,12 @@
         "$date": "1995-05-30T00:00:00Z"
       },
       "username": "vu4",
-      "password": "BsAsyf57@XbVP+vWmtDzkKPf^9"
+      "password": "BsAsyf57@XbVP+vWmtDzkKPf^9",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "5",
@@ -1980,7 +2293,12 @@
         "$date": "1998-07-14T00:00:00Z"
       },
       "username": "hoang5",
-      "password": "gV+2ZF#RImVMgf7Ix0M#nfiNbdc0"
+      "password": "gV+2ZF#RImVMgf7Ix0M#nfiNbdc0",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "6",
@@ -1990,7 +2308,12 @@
         "$date": "2001-08-21T00:00:00Z"
       },
       "username": "nguyen6",
-      "password": "yF^uWV4+df"
+      "password": "yF^uWV4+df",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "7",
@@ -2000,7 +2323,12 @@
         "$date": "2007-05-04T00:00:00Z"
       },
       "username": "dang7",
-      "password": "P)@FMdDK7K1-OqCoL+rnZ9na1$7"
+      "password": "P)@FMdDK7K1-OqCoL+rnZ9na1$7",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "8",
@@ -2010,7 +2338,12 @@
         "$date": "1997-06-17T00:00:00Z"
       },
       "username": "le8",
-      "password": "&@AT1g)U("
+      "password": "&@AT1g)U(",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "9",
@@ -2020,7 +2353,12 @@
         "$date": "2006-02-04T00:00:00Z"
       },
       "username": "le9",
-      "password": "EZB=!&YLw#fb8Vhu(aFC1R-kSCX"
+      "password": "EZB=!&YLw#fb8Vhu(aFC1R-kSCX",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "10",
@@ -2030,7 +2368,12 @@
         "$date": "2002-10-23T00:00:00Z"
       },
       "username": "hoang10",
-      "password": "cDhItQh(!sy2-S"
+      "password": "cDhItQh(!sy2-S",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "11",
@@ -2040,7 +2383,12 @@
         "$date": "1996-12-10T00:00:00Z"
       },
       "username": "do11",
-      "password": "H5C)56B_Pkgeg5Lc+krWVRe"
+      "password": "H5C)56B_Pkgeg5Lc+krWVRe",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "12",
@@ -2050,7 +2398,12 @@
         "$date": "1996-02-18T00:00:00Z"
       },
       "username": "phan12",
-      "password": "5i8zz^^T=yXcffUyki"
+      "password": "5i8zz^^T=yXcffUyki",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "13",
@@ -2060,7 +2413,12 @@
         "$date": "2001-04-09T00:00:00Z"
       },
       "username": "do13",
-      "password": "51Pdp+NrcrBk$bT"
+      "password": "51Pdp+NrcrBk$bT",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "14",
@@ -2070,7 +2428,12 @@
         "$date": "1998-05-08T00:00:00Z"
       },
       "username": "nguyen14",
-      "password": "qzv7M7WS$PmtRRUcS=myX5m3M"
+      "password": "qzv7M7WS$PmtRRUcS=myX5m3M",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "15",
@@ -2080,7 +2443,12 @@
         "$date": "2004-04-19T00:00:00Z"
       },
       "username": "nguyen15",
-      "password": "G0b-(&fm0458zxmS0^-tar"
+      "password": "G0b-(&fm0458zxmS0^-tar",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "16",
@@ -2090,7 +2458,12 @@
         "$date": "1995-06-22T00:00:00Z"
       },
       "username": "do16",
-      "password": "APK3t!8GA^hy!im2Ie1Kltm%C(6L)w"
+      "password": "APK3t!8GA^hy!im2Ie1Kltm%C(6L)w",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "17",
@@ -2100,7 +2473,12 @@
         "$date": "2005-09-08T00:00:00Z"
       },
       "username": "pham17",
-      "password": "ZJ!Ce*lhRy@MyK=a&eB6"
+      "password": "ZJ!Ce*lhRy@MyK=a&eB6",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "18",
@@ -2110,7 +2488,12 @@
         "$date": "2004-08-14T00:00:00Z"
       },
       "username": "do18",
-      "password": "!n_d@KRjPa(n+fkJ0l0m(*"
+      "password": "!n_d@KRjPa(n+fkJ0l0m(*",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "19",
@@ -2120,7 +2503,12 @@
         "$date": "2000-11-16T00:00:00Z"
       },
       "username": "tran19",
-      "password": "-0NUPN&Kho&3Hgys1"
+      "password": "-0NUPN&Kho&3Hgys1",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "20",
@@ -2130,7 +2518,12 @@
         "$date": "1998-02-18T00:00:00Z"
       },
       "username": "nguyen20",
-      "password": "lN2pHToS$KjvwfIHq4M0+x"
+      "password": "lN2pHToS$KjvwfIHq4M0+x",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "21",
@@ -2140,7 +2533,12 @@
         "$date": "2002-12-03T00:00:00Z"
       },
       "username": "tran21",
-      "password": "A@^et+&9vd^h#((sH5uJB2MSzQX"
+      "password": "A@^et+&9vd^h#((sH5uJB2MSzQX",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "22",
@@ -2150,7 +2548,12 @@
         "$date": "1997-08-20T00:00:00Z"
       },
       "username": "bui22",
-      "password": "MEaaegUn5h8jI!U5ZvBT"
+      "password": "MEaaegUn5h8jI!U5ZvBT",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "23",
@@ -2160,7 +2563,12 @@
         "$date": "2007-03-15T00:00:00Z"
       },
       "username": "nguyen23",
-      "password": "+Y#f*2J7+6"
+      "password": "+Y#f*2J7+6",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "24",
@@ -2170,7 +2578,12 @@
         "$date": "1999-10-06T00:00:00Z"
       },
       "username": "nguyen24",
-      "password": "+Ky*NonF3(Tm#$A50n-c"
+      "password": "+Ky*NonF3(Tm#$A50n-c",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "25",
@@ -2180,7 +2593,12 @@
         "$date": "1998-07-04T00:00:00Z"
       },
       "username": "le25",
-      "password": "%7Ej_^ZoXe%$qc2RDgp=RVatQxqZ-"
+      "password": "%7Ej_^ZoXe%$qc2RDgp=RVatQxqZ-",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "26",
@@ -2190,7 +2608,12 @@
         "$date": "1998-10-30T00:00:00Z"
       },
       "username": "phan26",
-      "password": "+XJ8i-4vzRIL-b"
+      "password": "+XJ8i-4vzRIL-b",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "27",
@@ -2200,7 +2623,12 @@
         "$date": "1995-05-14T00:00:00Z"
       },
       "username": "nguyen27",
-      "password": "RGH$bsJDL5U&xST4d6W4k^S"
+      "password": "RGH$bsJDL5U&xST4d6W4k^S",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "28",
@@ -2210,7 +2638,12 @@
         "$date": "1996-03-20T00:00:00Z"
       },
       "username": "bui28",
-      "password": "!ZD2WtbvChiCwj*HCk$4lT9W"
+      "password": "!ZD2WtbvChiCwj*HCk$4lT9W",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "29",
@@ -2220,7 +2653,12 @@
         "$date": "1999-07-20T00:00:00Z"
       },
       "username": "dang29",
-      "password": "EFY#w#UUh%lpkmVmXs&llDW9C"
+      "password": "EFY#w#UUh%lpkmVmXs&llDW9C",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "30",
@@ -2230,7 +2668,12 @@
         "$date": "2002-04-06T00:00:00Z"
       },
       "username": "le30",
-      "password": "yt-GE_gqUpfJ8khm#"
+      "password": "yt-GE_gqUpfJ8khm#",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
     },
     {
       "id": "31",
@@ -2240,7 +2683,23 @@
         "$date": "2003-04-07T00:00:00Z"
       },
       "username": "le31",
-      "password": "6XmI@nuIWkaMHFm1-^Pa+Im"
+      "password": "6XmI@nuIWkaMHFm1-^Pa+Im",
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "role": "user",
+      "status": "active",
+      "created_at": "2024-05-01T12:00:00Z",
+      "last_login": "2025-05-06T17:23:00Z"
+    },
+    {
+      "id": "32",
+      "f_name": "test",
+      "l_name": "demo",
+      "username": "demo",
+      "dob": {
+        "$date": "2025-05-04T00:00:00.000Z"
+      },
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746633530/avatar_whosjl.jpg",
+      "status": "deleted"
     }
   ],
   "wishlist": [
@@ -2258,7 +2717,11 @@
   "monthly_statistic": [
     {
       "id": "1",
-      "time": "4-2025"
+      "time": "4-2025",
+      "revenue": 1500000000,
+      "num_of_user": 10,
+      "num_of_interaction": 300,
+      "avg_cus_spend": 139000
     }
   ],
   "message_to_admin": [
@@ -2279,6 +2742,161 @@
           },
           "type": "admin_reply",
           "content": "Chúng tôi chân thành cảm ơn góp ý của bạn, chúng tôi sẽ cố gắng hoàn thiện thêm trong tương lai gần ạ !!"
+        }
+      ]
+    }
+  ],
+  "purchases":[
+    {
+      "id": 1,
+      "user_id": 1,
+      "games_purchased":[
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 1,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 2,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 3,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 4,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 5,
+          "price": 259000
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "games_purchased":[
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 10,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 17,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 22,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 30,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 8,
+          "price": 259000
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "user_id": 3,
+      "games_purchased":[
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 30,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-05-14T00:00:00Z"},
+          "game_id": 6,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 11,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 17,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 25,
+          "price": 259000
+        }
+      ]
+    },{
+      "id": 4,
+      "user_id": 4,
+      "games_purchased":[
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 30,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-05-14T00:00:00Z"},
+          "game_id": 6,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-05-14T00:00:00Z"},
+          "game_id": 11,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 17,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 25,
+          "price": 259000
+        }
+      ]
+    },{
+      "id": 5,
+      "user_id": 5,
+      "games_purchased":[
+        {
+          "purchased_at": {"$date":"2025-05-14T00:00:00Z"},
+          "game_id": 30,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-05-14T00:00:00Z"},
+          "game_id": 6,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 11,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 17,
+          "price": 259000
+        },
+        {
+          "purchased_at": {"$date":"2025-04-14T00:00:00Z"},
+          "game_id": 25,
+          "price": 259000
         }
       ]
     }

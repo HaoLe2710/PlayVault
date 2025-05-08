@@ -1,3 +1,4 @@
+// src/pages/GameDetail.jsx
 "use client"
 
 import { useEffect, useState } from "react"
@@ -9,7 +10,7 @@ import RelatedGames from "../components/RelatedGames"
 import { Button } from "../components/ui/Button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { getGameById, getGames } from "../api/games"
-import { getCommentsByGameId } from "../api/comments"
+import { getCommentsByGameIdWithUsers } from "../api/comments"
 
 function GameDetail() {
   const { id } = useParams()
@@ -20,10 +21,12 @@ function GameDetail() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [reviews, setReviews] = useState([])
-  const [users, setUsers] = useState([])
 
-  // Generate a random rating between 7.5 and 9.8 for demo purposes
-  const rating = (Math.random() * 2.3 + 7.5).toFixed(1)
+  // Tính rating trung bình và số lượt review
+  const averageRating = reviews.length > 0
+    ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
+    : 0
+  const reviewCount = reviews.length
 
   useEffect(() => {
     // Fetch game details
@@ -34,14 +37,15 @@ function GameDetail() {
         const favorites = JSON.parse(localStorage.getItem("favorites") || "[]")
         setIsFavorite(favorites.includes(data.id))
 
-        getCommentsByGameId(data.id).then((reviewData) => {
+        // Fetch comments with user info
+        getCommentsByGameIdWithUsers(data.id)
+          .then((reviewData) => {
             setReviews(reviewData)
           })
           .catch((err) => {
             console.error("Error loading reviews:", err)
             setReviews([])
           })
-
 
         // Fetch related games
         getGames()
@@ -159,14 +163,14 @@ function GameDetail() {
           {/* Rating */}
           <div className="flex items-center gap-4 mb-6 p-4 bg-purple-800/30 rounded-lg">
             <div className="bg-teal-500 text-white rounded-full w-16 h-16 flex items-center justify-center">
-              <span className="text-2xl font-bold">{rating}</span>
+              <span className="text-2xl font-bold">{averageRating}</span>
             </div>
             <div>
               <div className="flex mb-1">
                 {[...Array(5)].map((_, i) => (
                   <svg
                     key={i}
-                    className={`w-5 h-5 ${i < 4 ? "text-yellow-400 fill-yellow-400" : "text-gray-500"}`}
+                    className={`w-5 h-5 ${i < Math.round(averageRating) ? "text-yellow-400 fill-yellow-400" : "text-gray-500"}`}
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                   >
@@ -175,7 +179,7 @@ function GameDetail() {
                 ))}
               </div>
               <p className="text-purple-300 text-sm">
-                <span className="font-medium text-white">{Math.floor(Math.random() * 10000)}</span> reviews
+                <span className="font-medium text-white">{reviewCount}</span> reviews
               </p>
             </div>
           </div>
@@ -198,11 +202,9 @@ function GameDetail() {
                 <Button
                   variant={isFavorite ? "default" : "outline"}
                   onClick={handleFavoriteToggle}
-                  className={`flex items-center justify-center ${
-                    isFavorite
-                      ? "bg-purple-600 hover:bg-purple-700 text-white"
-                      : "border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"
-                  }`}
+                  className={`flex items-center justify-center ${isFavorite
+                    ? "bg-purple-600 hover:bg-purple-700 text-white"
+                    : "border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"}`}
                 >
                   <Heart className={`h-5 w-5 ${isFavorite ? "fill-current" : ""} mr-2`} />
                   {isFavorite ? "Wishlisted" : "Wishlist"}
@@ -243,8 +245,7 @@ function GameDetail() {
           <p className="text-purple-100 mb-4">{game.details.describe}</p>
           <p className="text-purple-100">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl
-            nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl
-            nisl aliquam nisl, eget ultricies nisl nisl eget nisl.
+            nisl adipiscing elit.
           </p>
         </TabsContent>
 
@@ -254,28 +255,39 @@ function GameDetail() {
         >
           <GameConfig minimum={game.minimum_configuration} recommended={game.recommended_configuration} />
         </TabsContent>
-        <TabsContent value="reviews" className="...">
-  {reviews.length === 0 ? (
-    <p className="text-purple-300">No reviews yet for this game.</p>
-  ) : (
-    reviews.map((review) => (
-      <div key={review.id} className="mb-6 bg-purple-900/30 p-4 rounded-lg border border-purple-500/20">
-        <div className="flex items-center mb-2 text-white">
-          <User className="w-4 h-4 mr-2" />
-          <span className="font-semibold">{review.username}</span>
-          <Clock className="w-4 h-4 ml-4 mr-2" />
-          <span className="text-sm text-purple-300">{review.date}</span>
-        </div>
-        <p className="text-purple-100 mb-2">{review.text}</p>
-        <div className="flex items-center text-sm text-purple-300">
-          {review.isPositive ? <ThumbsUp className="w-4 h-4 mr-1" /> : <ThumbsDown className="w-4 h-4 mr-1" />}
-          {review.isPositive ? "Recommended" : "Not Recommended"} – {review.hoursPlayed} hours played
-        </div>
-      </div>
-    ))
-  )}
-</TabsContent>
 
+        <TabsContent
+          value="reviews"
+          className="bg-purple-900/20 backdrop-blur-sm rounded-b-xl p-6 shadow-lg mt-2 border border-purple-500/30"
+        >
+          <h3 className="text-2xl font-bold mb-4 text-white">User Reviews</h3>
+          {reviews.length === 0 ? (
+            <p className="text-purple-300">No reviews yet for this game.</p>
+          ) : (
+            reviews.map((review) => (
+              <div key={review.id} className="mb-6 bg-purple-900/30 p-4 rounded-lg border border-purple-500/20">
+                <div className="flex items-center mb-2 text-white">
+                  <User className="w-4 h-4 mr-2" />
+                  <span className="font-semibold">{review.user ? review.user.username : "Unknown User"}</span>
+                  <Clock className="w-4 h-4 ml-4 mr-2" />
+                  <span className="text-sm text-purple-300">
+                    {review.date ? new Date(review.date.$date).toLocaleDateString("vi-VN") : "Unknown Date"}
+                  </span>
+                </div>
+                <p className="text-purple-100 mb-2">{review.comment}</p>
+                <div className="flex items-center text-sm text-purple-300">
+                  {review.isPositive ? (
+                    <ThumbsUp className="w-4 h-4 mr-1" />
+                  ) : (
+                    <ThumbsDown className="w-4 h-4 mr-1" />
+                  )}
+                  {review.isPositive ? "Recommended" : "Not Recommended"} – Rating: {review.rating}/5
+                  {review.hoursPlayed && ` – ${review.hoursPlayed} hours played`}
+                </div>
+              </div>
+            ))
+          )}
+        </TabsContent>
       </Tabs>
 
       {/* Related Games */}

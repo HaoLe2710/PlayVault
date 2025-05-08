@@ -1,9 +1,29 @@
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { Star } from "lucide-react"
+import { getCommentsByGameIdWithUsers } from "../api/comments"
 
 function GameCard({ game }) {
-  // Generate a random rating between 7.5 and 9.8 for demo purposes
-  const rating = (Math.random() * 2.3 + 7.5).toFixed(1)
+  const [rating, setRating] = useState(0)
+
+  useEffect(() => {
+    // Fetch comments for the game to calculate average rating
+    getCommentsByGameIdWithUsers(game.id)
+      .then((comments) => {
+        if (comments.length > 0) {
+          const averageRating = (
+            comments.reduce((sum, comment) => sum + comment.rating, 0) / comments.length
+          ).toFixed(1)
+          setRating(averageRating)
+        } else {
+          setRating(0) // Default to 0 if no comments
+        }
+      })
+      .catch((error) => {
+        console.error(`Error fetching comments for game ${game.id}:`, error)
+        setRating(0) // Fallback to 0 on error
+      })
+  }, [game.id])
 
   return (
     <Link to={`/game/${game.id}`}>
@@ -37,7 +57,10 @@ function GameCard({ game }) {
             </p>
             <div className="flex items-center">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className={`w-4 h-4 ${i < 3 ? "fill-yellow-400 text-yellow-400" : "text-gray-500"}`} />
+                <Star
+                  key={i}
+                  className={`w-4 h-4 ${i < Math.round(rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-500"}`}
+                />
               ))}
             </div>
           </div>

@@ -36,7 +36,8 @@
 body {
   background: linear-gradient(to bottom right, #4c1d95, #7e22ce);
   background-attachment: fixed;
-  color: white;
+  color: hsl(var(--foreground));
+  font-family: "Inter", sans-serif;
   min-height: 100vh;
 }
 

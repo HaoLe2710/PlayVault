@@ -56,20 +56,20 @@ export async function getCommentsWithUsers() {
 
 export async function getCommentsByGameIdWithUsers(gameId) {
   try {
-    // Lấy tất cả comments theo gameId
     const commentsResponse = await fetch(`${API_URL}?game_id=${gameId}`)
     if (!commentsResponse.ok) {
       throw new Error(`Failed to fetch comments for game ${gameId}: ${commentsResponse.statusText}`)
     }
     const comments = await commentsResponse.json()
-
-    // Lấy tất cả users
     const users = await getUsers()
 
-    // Kết hợp dữ liệu giữa comment và user
     const commentsWithUsers = comments.map((comment) => {
       const user = users.find((u) => u.id === comment.user_id)
-      return { ...comment, user }
+      return {
+        ...comment,
+        user,
+        isPositive: comment.rating >= 3, // Tự động tính isPositive
+      }
     })
 
     return commentsWithUsers
@@ -100,3 +100,5 @@ export async function addComment(comment) {
     throw error
   }
 }
+
+
