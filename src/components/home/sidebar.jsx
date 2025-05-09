@@ -1,5 +1,6 @@
 import { useLocation, NavLink } from 'react-router-dom';
-import { Crown, Diamond, ShoppingCart, LayoutGrid, Download, Heart, User } from 'lucide-react';
+import { Diamond, ShoppingCart, LayoutGrid, Download, Heart, User } from 'lucide-react';
+import icon from '../../assets/icon.png'; // Import hình ảnh icon.png
 
 export default function Sidebar() {
   const location = useLocation();
@@ -15,8 +16,12 @@ export default function Sidebar() {
   return (
     <div className="w-20 bg-gradient-to-b from-purple-950 to-indigo-950 flex flex-col items-center py-8 fixed top-0 left-0 h-screen z-10 shadow-xl border-r border-purple-800/30">
       <div className="mb-10">
-        <div className="w-10 h-10 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center">
-          <Crown className="w-6 h-6 text-white" />
+        <div className="w-10 h-10 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center overflow-hidden">
+          <img
+            src={icon}
+            alt="PlayVault Logo"
+            className="w-full h-full object-cover"
+          />
         </div>
       </div>
 

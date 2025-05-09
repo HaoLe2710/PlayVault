@@ -1,4 +1,4 @@
-const API_URL = 'https://playvaultdatadeloy-production.up.railway.app'
+const API_URL = 'https://playvaultdatadeloy-production.up.railway.app';
 
 export async function getCart(userId) {
   try {
@@ -44,7 +44,7 @@ export async function addToCart(userId, gameId) {
       const newCartData = await response.json();
       return newCartData.cart_items;
     } else {
-      if (!cart.cart_items.some(item => item.id === gameId)) {
+      if (!cart.cart_items.some(item => Number(item.id) === Number(gameId))) {
         cart.cart_items.push({ id: gameId });
         const response = await fetch(`${API_URL}/cart/${cart.id}`, {
           method: 'PUT',
@@ -77,7 +77,7 @@ export async function removeFromCart(userId, gameId) {
     const cart = cartData[0];
 
     if (cart && cart.cart_items) {
-      cart.cart_items = cart.cart_items.filter(item => item.id !== gameId);
+      cart.cart_items = cart.cart_items.filter(item => Number(item.id) !== Number(gameId));
       const response = await fetch(`${API_URL}/cart/${cart.id}`, {
         method: 'PUT',
         headers: {
@@ -95,6 +95,27 @@ export async function removeFromCart(userId, gameId) {
   } catch (error) {
     console.error('Error removing from cart:', error);
     throw new Error('Không thể xóa game khỏi giỏ hàng.');
+  }
+}
+
+export async function updateCart(cartId, cartData) {
+  try {
+    const response = await fetch(`${API_URL}/cart/${cartId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(cartData),
+    });
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Failed to update cart: ${response.statusText}. Server response: ${errorText}`);
+    }
+    const updatedCart = await response.json();
+    return updatedCart.cart_items;
+  } catch (error) {
+    console.error(`Error updating cart ${cartId}:`, error);
+    throw error;
   }
 }
 
@@ -147,7 +168,7 @@ export async function checkoutCart(userId, selectedGameIds) {
     const cart = cartData[0];
 
     if (cart && cart.cart_items) {
-      cart.cart_items = cart.cart_items.filter(item => !selectedGameIds.includes(item.id));
+      cart.cart_items = cart.cart_items.filter(item => !selectedGameIds.map(Number).includes(Number(item.id)));
       const response = await fetch(`${API_URL}/cart/${cart.id}`, {
         method: 'PUT',
         headers: {

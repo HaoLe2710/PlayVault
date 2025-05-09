@@ -7,7 +7,7 @@ function AdminLayout() {
       {/* Sidebar */}
       <aside className="w-64 bg-purple-900/20 backdrop-blur-sm border-r border-purple-500/30">
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-white">Admin Panel</h1>
+          <h1 className="text-2xl font-bold text-white">TRANG ADMIN</h1>
         </div>
         <nav className="mt-4">
           <NavLink
@@ -22,17 +22,6 @@ function AdminLayout() {
             Dashboard
           </NavLink>
           <NavLink
-            to="/admin/feedback"
-            className={({ isActive }) =>
-              `flex items-center px-6 py-3 text-purple-100 hover:bg-purple-700/50 ${
-                isActive ? "bg-purple-700 text-white" : ""
-              }`
-            }
-          >
-            <MessageSquare className="w-5 h-5 mr-3" />
-            Feedback
-          </NavLink>
-          <NavLink
             to="/admin/games"
             className={({ isActive }) =>
               `flex items-center px-6 py-3 text-purple-100 hover:bg-purple-700/50 ${
@@ -41,7 +30,7 @@ function AdminLayout() {
             }
           >
             <Gamepad2 className="w-5 h-5 mr-3" />
-            Game Management
+            Quản lý Game
           </NavLink>
           <NavLink
             to="/admin/users"
@@ -52,7 +41,7 @@ function AdminLayout() {
             }
           >
             <Users className="w-5 h-5 mr-3" />
-            User Management
+            Quản lý Người dùng
           </NavLink>
         </nav>
       </aside>

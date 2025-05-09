@@ -15,6 +15,7 @@ import AdminLayout from './components/AdminLayout.jsx';
 import GameDetail from './pages/GameDetail.jsx';
 import ProductPages from './pages/ProductPages.jsx';
 import CartPage from './pages/CartPage.jsx';
+import CheckoutPage from './pages/CheckoutPage.jsx';
 import FeedbackManagement from './pages/FeedbackManagement.jsx';
 import GameManagement from './pages/GameManagement.jsx';
 import UserManagement from './pages/UserManagement.jsx';
@@ -58,6 +59,7 @@ function App() {
           <Route path="/favorites" element={<Favorite />} />
           <Route path="/bought" element={<Bought />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/profile" element={<UserProfiles />} />
           <Route path="/game/:id" element={<GameDetail />} />
         </Route>

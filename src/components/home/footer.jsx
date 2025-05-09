@@ -14,6 +14,7 @@ import {
   ShoppingCart
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import icon from "../../assets/icon.png"; // Import hình ảnh icon.png
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -60,9 +61,11 @@ export default function Footer() {
           {/* Column 1 - About */}
           <div className="space-y-6">
             <div>
-              <h3 className="text-2xl font-bold mb-1 bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
-                GameHub
-              </h3>
+              <img
+                src={icon}
+                alt="PlayVault Logo"
+                className="w-auto h-30 object-contain"
+              />
               <div className="h-1 w-20 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full"></div>
             </div>
 
@@ -217,7 +220,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center">
                 <Mail className="w-5 h-5 text-indigo-400 mr-3 flex-shrink-0" />
-                <span className="text-gray-300">contact@gamehub.vn</span>
+                <span className="text-gray-300">contact@playvault.vn</span>
               </li>
             </ul>
 
@@ -241,7 +244,7 @@ export default function Footer() {
 
         {/* Bottom Section */}
         <div className="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-400">© {currentYear} GameHub Việt Nam. Tất cả các quyền được bảo lưu.</p>
+          <p className="text-gray-400">© {currentYear} PlayVault Việt Nam. Tất cả các quyền được bảo lưu.</p>
           <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center">
             <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
               Chính sách bảo mật

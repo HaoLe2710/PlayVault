@@ -516,7 +516,6 @@ export default function ProductsPage() {
                 userWishlist = { user_id: Number(user.id), fav_game_id: [Number(game.id)] }
                 await createWishlist(userWishlist)
                 setIsFavorite({ ...isFavorite, [game.id]: true })
-                alert(`${game.name} đã được thêm vào danh sách yêu thích!`)
                 window.dispatchEvent(new Event("wishlistUpdated"))
                 setWishlistLoading(false)
                 return
@@ -529,11 +528,9 @@ export default function ProductsPage() {
                     (favId) => Number(favId) !== Number(game.id) && favId.toString() !== game.id.toString(),
                 )
                 setIsFavorite({ ...isFavorite, [game.id]: false })
-                alert(`${game.name} đã được xóa khỏi danh sách yêu thích!`)
             } else {
                 updatedFavGameIds = [...favGameIds, Number(game.id)]
                 setIsFavorite({ ...isFavorite, [game.id]: true })
-                alert(`${game.name} đã được thêm vào danh sách yêu thích!`)
             }
 
             await updateWishlist(userWishlist.id, { ...userWishlist, fav_game_id: updatedFavGameIds })
