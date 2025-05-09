@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash2, ShoppingCart, CheckCircle, XCircle } from "lucide-react";
 import { Button } from "../components/ui/Button";
-import { getGames } from "../api/games";
+import { Toaster, toast } from "../components/ui/sonner";
+import { getGameById } from "../api/games";
 import { getCart, addToCart, removeFromCart, checkoutCart, checkoutAllCart } from "../api/cart";
 
 function CartPage() {
@@ -14,104 +15,175 @@ function CartPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
-  const userId = 18; // Replace with actual user ID from auth context
+  const [user, setUser] = useState(null);
+
+  // Check if user is logged in
+  useEffect(() => {
+    const checkLoggedIn = () => {
+      try {
+        const storedUser = localStorage.getItem("user") || sessionStorage.getItem("user");
+        const accessToken = localStorage.getItem("accessToken") || sessionStorage.getItem("accessToken");
+
+        if (storedUser && accessToken) {
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+        } else {
+          setUser(null);
+          setError("Vui lòng đăng nhập để xem giỏ hàng.");
+        }
+      } catch (err) {
+        console.error("Error checking user login:", err);
+        setUser(null);
+        setError("Vui lòng đăng nhập để xem giỏ hàng.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkLoggedIn();
+
+    window.addEventListener("storage", checkLoggedIn);
+    return () => window.removeEventListener("storage", checkLoggedIn);
+  }, []);
 
   // Calculate total price of selected items
   const totalPrice = cartItems
-    .filter((item) => selectedItems.includes(item.id))
+    .filter((item) => item && item.id && selectedItems.includes(String(item.id)))
     .reduce((sum, item) => {
-      const game = games.find((g) => g.id === item.id);
+      const game = games.find((g) => String(g.id) === String(item.id));
       return sum + (game ? game.price : 0);
     }, 0);
 
   // Fetch cart items and game details
   useEffect(() => {
     const fetchCartData = async () => {
+      if (!user) return;
       try {
-        // Fetch all games
-        const allGames = await getGames();
-        setGames(allGames);
-
         // Fetch cart items
-        const cart = await getCart(userId);
-        setCartItems(cart);
+        const cart = await getCart(user.id);
+        console.log("Fetched cart items:", cart);
 
-        // Initialize selected items (all items selected by default)
-        setSelectedItems(cart.map((item) => item.id));
+        // Validate cart items (item is an object with id)
+        const validCartItems = cart.filter((item, index) => {
+          if (!item || typeof item !== "object" || !item.id || isNaN(item.id) || item.id <= 0) {
+            console.warn(`Invalid cart item at index ${index}:`, item);
+            toast.warning(`Một sản phẩm không hợp lệ trong giỏ hàng đã bị bỏ qua.`);
+            return false;
+          }
+          return true;
+        });
+
+        console.log("Valid cart items:", validCartItems);
+        setCartItems(validCartItems);
+
+        // Fetch game details for each cart item
+        const gamePromises = validCartItems.map(async (item) => {
+          try {
+            const game = await getGameById(item.id);
+            console.log(`Fetched game for ID ${item.id}:`, game);
+            return game;
+          } catch (err) {
+            console.warn(`Failed to fetch game with ID ${item.id}:`, err);
+            toast.warning(`Sản phẩm với ID ${item.id} không tồn tại và đã bị xóa khỏi giỏ hàng.`);
+            return null;
+          }
+        });
+
+        const fetchedGames = (await Promise.all(gamePromises)).filter((game) => game !== null);
+        console.log("Fetched games:", fetchedGames);
+        setGames(fetchedGames);
+
+        // Initialize selected items (all valid items selected by default)
+        setSelectedItems(validCartItems.map((item) => String(item.id)));
         setLoading(false);
       } catch (err) {
         console.error("Error fetching cart data:", err);
-        setError("Không thể tải dữ liệu giỏ hàng. Vui lòng thử lại sau.");
+        setError(`Không thể tải dữ liệu giỏ hàng: ${err.message}`);
         setLoading(false);
       }
     };
 
     fetchCartData();
-  }, [userId]);
+  }, [user]);
 
   // Remove game from cart
   const handleRemoveFromCart = async (gameId) => {
     try {
-      const updatedCart = await removeFromCart(userId, gameId);
-      setCartItems(updatedCart);
-      setSelectedItems(selectedItems.filter((id) => id !== gameId));
+      const updatedCart = await removeFromCart(user.id, gameId);
+      // Validate updated cart
+      const validUpdatedCart = updatedCart.filter((item) => item && typeof item === "object" && item.id && !isNaN(item.id) && item.id > 0);
+      setCartItems(validUpdatedCart);
+      setSelectedItems(selectedItems.filter((id) => id !== String(gameId)));
+      toast.success("Đã xóa game khỏi giỏ hàng.");
     } catch (error) {
-      alert("Không thể xóa game khỏi giỏ hàng.");
+      console.error("Error removing from cart:", error);
+      toast.error("Không thể xóa game khỏi giỏ hàng.");
     }
   };
 
   // Toggle selection of a game
   const handleToggleSelect = (gameId) => {
-    if (selectedItems.includes(gameId)) {
-      setSelectedItems(selectedItems.filter((id) => id !== gameId));
+    const normalizedId = String(gameId);
+    if (selectedItems.includes(normalizedId)) {
+      setSelectedItems(selectedItems.filter((id) => id !== normalizedId));
     } else {
-      setSelectedItems([...selectedItems, gameId]);
+      setSelectedItems([...selectedItems, normalizedId]);
     }
   };
 
   // Checkout selected items
   const handleCheckoutSelected = async () => {
     if (selectedItems.length === 0) {
-      alert("Vui lòng chọn ít nhất một game để thanh toán!");
+      toast.error("Vui lòng chọn ít nhất một game để thanh toán!");
       return;
     }
     try {
       const selectedGames = cartItems
-        .filter((item) => selectedItems.includes(item.id))
+        .filter((item) => item && item.id && selectedItems.includes(String(item.id)))
         .map((item) => {
-          const game = games.find((g) => g.id === item.id);
+          const game = games.find((g) => String(g.id) === String(item.id));
           return { id: item.id, name: game ? game.name : "Unknown", price: game ? game.price : 0 };
         });
-      await checkoutCart(userId, selectedItems);
-      alert(`Thanh toán các game: ${selectedGames.map((g) => g.name).join(", ")} với tổng giá ${totalPrice.toLocaleString("vi-VN")} VND`);
+      await checkoutCart(user.id, selectedItems.map((id) => String(id)));
+      toast.success("Thanh toán thành công!", {
+        description: `Các game: ${selectedGames.map((g) => g.name).join(", ")} - Tổng giá: ${totalPrice.toLocaleString("vi-VN")} VND`,
+      });
       // Refresh cart
-      const updatedCart = await getCart(userId);
-      setCartItems(updatedCart);
+      const updatedCart = await getCart(user.id);
+      const validUpdatedCart = updatedCart.filter((item) => item && typeof item === "object" && item.id && !isNaN(item.id) && item.id > 0);
+      setCartItems(validUpdatedCart);
       setSelectedItems([]);
     } catch (error) {
-      alert("Thanh toán thất bại. Vui lòng thử lại.");
+      console.error("Error during checkout:", error);
+      toast.error("Thanh toán thất bại. Vui lòng thử lại.");
     }
   };
 
   // Checkout all items
   const handleCheckoutAll = async () => {
     if (cartItems.length === 0) {
-      alert("Giỏ hàng trống!");
+      toast.error("Giỏ hàng trống!");
       return;
     }
     try {
-      const allGames = cartItems.map((item) => {
-        const game = games.find((g) => g.id === item.id);
-        return { id: item.id, name: game ? game.name : "Unknown", price: game ? game.price : 0 };
+      const allGames = cartItems
+        .filter((item) => item && item.id)
+        .map((item) => {
+          const game = games.find((g) => String(g.id) === String(item.id));
+          return { id: item.id, name: game ? game.name : "Unknown", price: game ? game.price : 0 };
+        });
+      await checkoutAllCart(user.id);
+      toast.success("Thanh toán toàn bộ giỏ hàng thành công!", {
+        description: `Các game: ${allGames.map((g) => g.name).join(", ")} - Tổng giá: ${totalPrice.toLocaleString("vi-VN")} VND`,
       });
-      await checkoutAllCart(userId);
-      alert(`Thanh toán toàn bộ giỏ hàng: ${allGames.map((g) => g.name).join(", ")} với tổng giá ${totalPrice.toLocaleString("vi-VN")} VND`);
       // Refresh cart
-      const updatedCart = await getCart(userId);
-      setCartItems(updatedCart);
+      const updatedCart = await getCart(user.id);
+      const validUpdatedCart = updatedCart.filter((item) => item && typeof item === "object" && item.id && !isNaN(item.id) && item.id > 0);
+      setCartItems(validUpdatedCart);
       setSelectedItems([]);
     } catch (error) {
-      alert("Thanh toán thất bại. Vui lòng thử lại.");
+      console.error("Error during checkout all:", error);
+      toast.error("Thanh toán thất bại. Vui lòng thử lại.");
     }
   };
 
@@ -129,10 +201,10 @@ function CartPage() {
         <p className="text-xl mb-4">{error}</p>
         <Button
           variant="outline"
-          className="border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"
-          onClick={() => navigate("/")}
+          className="bg-transparent border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"
+          onClick={() => navigate("/login")}
         >
-          Quay về Trang chủ
+          Đăng nhập
         </Button>
       </div>
     );
@@ -140,6 +212,7 @@ function CartPage() {
 
   return (
     <div className="container mx-auto py-10">
+      <Toaster richColors position="top-right" />
       <h1 className="text-4xl font-bold mb-8 text-white">Giỏ Hàng</h1>
 
       {cartItems.length === 0 ? (
@@ -147,8 +220,8 @@ function CartPage() {
           <p className="text-purple-300 text-lg mb-4">Giỏ hàng của bạn đang trống.</p>
           <Button
             variant="outline"
-            className="border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"
-            onClick={() => navigate("/")}
+            className="bg-transparent border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"
+            onClick={() => navigate("/products")}
           >
             Tiếp tục mua sắm
           </Button>
@@ -161,16 +234,20 @@ function CartPage() {
               <h2 className="text-2xl font-bold mb-4 text-white">Sản Phẩm Trong Giỏ Hàng</h2>
               <div className="space-y-4">
                 {cartItems.map((item) => {
-                  const game = games.find((g) => g.id === item.id);
+                  if (!item || !item.id) {
+                    console.warn("Skipping invalid item:", item);
+                    return null;
+                  }
+                  const game = games.find((g) => String(g.id) === String(item.id));
                   return (
                     <div
-                      key={item.id}
+                      key={String(item.id)}
                       className="flex items-center bg-purple-800/30 p-4 rounded-lg border border-purple-500/20 hover:bg-purple-700/20"
                     >
                       {/* Checkbox for selection */}
                       <input
                         type="checkbox"
-                        checked={selectedItems.includes(item.id)}
+                        checked={selectedItems.includes(String(item.id))}
                         onChange={() => handleToggleSelect(item.id)}
                         className="mr-4 h-5 w-5 text-purple-600 focus:ring-purple-500 border-purple-400 rounded"
                       />
@@ -194,7 +271,7 @@ function CartPage() {
                       {/* Remove Button */}
                       <Button
                         variant="outline"
-                        className="border-red-400 text-red-200 hover:bg-red-600 hover:text-white"
+                        className="bg-transparent border-red-400 text-red-200 hover:bg-red-600 hover:text-white"
                         onClick={() => handleRemoveFromCart(item.id)}
                       >
                         <Trash2 className="h-5 w-5" />
@@ -232,8 +309,8 @@ function CartPage() {
                 </Button>
                 <Button
                   variant="outline"
-                  className="w-full border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"
-                  onClick={() => navigate("/")}
+                  className="bg-transparent border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"
+                  onClick={() => navigate("/products")}
                 >
                   <XCircle className="h-5 w-5 mr-2" />
                   Tiếp Tục Mua Sắm
