@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Trash2, ShoppingCart, CheckCircle, XCircle, CreditCard } from "lucide-react";
-import { Button } from "../components/ui/Button";
+import { Button } from "../components/ui/button";
 import { Toaster, toast } from "../components/ui/sonner";
 import { getGameById } from "../api/games";
 import { getCart, addToCart, removeFromCart, checkoutCart, checkoutAllCart } from "../api/cart";
