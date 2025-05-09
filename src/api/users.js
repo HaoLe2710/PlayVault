@@ -1,6 +1,6 @@
 import { id } from "date-fns/locale";
 
-const API_URL = "http://localhost:3001/users";
+const API_URL = "https://playvaultdatadeloy-production.up.railway.app/users";
 
 export async function checkIfUserExists(username) {
   try {

@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/wishlist"
+const API_URL = "https://playvaultdatadeloy-production.up.railway.app/wishlist"
 
 // Lấy danh sách wishlist
 export async function getWishlist() {

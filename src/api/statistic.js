@@ -1,9 +1,9 @@
-const API_URL = 'http://localhost:3001/monthly_statistic';
-const PURCHASES_URL = 'http://localhost:3001/purchases';
-const WISHLIST_URL = 'http://localhost:3001/wishlist';
-const USERS_URL = 'http://localhost:3001/users';
-const GAMES_URL = 'http://localhost:3001/games';
-const COMMENTS_URL = 'http://localhost:3001/comments';
+const API_URL = 'https://playvaultdatadeloy-production.up.railway.app/monthly_statistic';
+const PURCHASES_URL = 'https://playvaultdatadeloy-production.up.railway.app/purchases';
+const WISHLIST_URL = 'https://playvaultdatadeloy-production.up.railway.app/wishlist';
+const USERS_URL = 'https://playvaultdatadeloy-production.up.railway.app/users';
+const GAMES_URL = 'https://playvaultdatadeloy-production.up.railway.app/games';
+const COMMENTS_URL = 'https://playvaultdatadeloy-production.up.railway.app/comments';
 
 // Helper to check if a date is in the specified month and year
 const isInMonth = (dateString, year, month) => {

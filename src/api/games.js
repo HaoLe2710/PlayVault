@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3001/games'
+const API_URL = 'https://playvaultdatadeloy-production.up.railway.app/games'
 
 export async function getGames() {
   try {
