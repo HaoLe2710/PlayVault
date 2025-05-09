@@ -13,7 +13,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "sonner";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getUsers } from "../../api/users"; // Import users API
+import { getUsers, updateUser } from "../../api/users"; // Import users API
+import { getPurchases } from "../../api/purchases"; // Import games and purchases API
+import { getGames } from "../../api/games"; // Import games API
 
 // Define the form schema with validation rules
 const formSchema = z
@@ -71,47 +73,45 @@ export default function UserProfile() {
     });
 
     // Load user data from API and storage on mount
+    // Load user data from API and storage on mount
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                // Lấy thông tin đăng nhập từ local/session storage
                 const storedUser = localStorage.getItem("user") || sessionStorage.getItem("user");
                 if (storedUser) {
                     const userData = JSON.parse(storedUser);
+                    const userId = userData.id || userData._id;
 
-                    // Nếu có userId, thử lấy thông tin chi tiết từ API
-                    if (userData.id || userData._id) {
+                    if (userId) {
                         try {
-                            const userId = userData.id || userData._id;
-                            const users = await getUsers();
-                            const userFromApi = users.find(user => user.id === userId || user._id === userId);
+                            const userFromApi = await getUsers();
+                            const matchedUser = userFromApi.find(user => user.id === userId || user._id === userId);
 
-                            // Merge dữ liệu từ API với dữ liệu từ storage
-                            if (userFromApi) {
-                                userData.avatar = userFromApi.avatar || userData.avatar;
-                                userData.email = userFromApi.email || userData.email;
-                                userData.address = userFromApi.address || userData.address;
-                                // Có thể bổ sung thêm các trường khác
+                            if (matchedUser) {
+                                userData.f_name = matchedUser.f_name || userData.f_name;
+                                userData.l_name = matchedUser.l_name || userData.l_name;
+                                userData.avatar = matchedUser.avatar || userData.avatar;
+                                userData.email = matchedUser.email || userData.email;
+                                userData.phone = matchedUser.phone || userData.phone;
+                                userData.gender = matchedUser.gender || userData.gender;
+                                userData.address = matchedUser.address || userData.address;
+                                userData.dob = matchedUser.dob || userData.dob;
                             }
                         } catch (apiError) {
-                            console.warn("Could not fetch user data from API:", apiError);
-                            // Tiếp tục với dữ liệu từ storage nếu API gặp lỗi
+                            console.warn("Không thể lấy dữ liệu người dùng từ API:", apiError);
                         }
                     }
 
-                    // Xử lý avatar URL
                     if (userData.avatar) {
                         setAvatarUrl(userData.avatar);
                     } else {
-                        // Generate avatar từ initials nếu không có avatar
                         const fullName = `${userData.f_name || ""} ${userData.l_name || ""}`.trim();
                         if (fullName) {
                             setAvatarUrl(`https://ui-avatars.com/api/?name=${encodeURIComponent(fullName)}&background=9333ea&color=ffffff&size=200`);
                         }
                     }
 
-                    // Parse date of birth
                     let birthDay = "";
                     let birthMonth = "";
                     let birthYear = "";
@@ -124,7 +124,6 @@ export default function UserProfile() {
                         }
                     }
 
-                    // Reset form với dữ liệu mới
                     form.reset({
                         name: `${userData.f_name || ""} ${userData.l_name || ""}`.trim() || "Unknown",
                         phone: userData.phone || "",
@@ -135,9 +134,12 @@ export default function UserProfile() {
                         birthMonth,
                         birthYear,
                     });
+
+                    // Lưu dữ liệu cập nhật vào localStorage
+                    localStorage.setItem("user", JSON.stringify(userData));
                 }
             } catch (error) {
-                console.error("Error loading user data:", error);
+                console.error("Lỗi khi tải dữ liệu người dùng:", error);
                 toast.error("Lỗi", {
                     description: "Không thể tải dữ liệu người dùng.",
                 });
@@ -149,6 +151,74 @@ export default function UserProfile() {
         fetchData();
     }, [form]);
 
+    // Handle form submission
+    async function onSubmit(values) {
+        setIsSubmitting(true);
+        try {
+            const nameParts = values.name.trim().split(" ");
+            const f_name = nameParts[0] || "Unknown";
+            const l_name = nameParts.slice(1).join(" ") || "";
+
+            let dob = null;
+            if (values.birthDay && values.birthMonth && values.birthYear) {
+                const date = new Date(
+                    Date.UTC(
+                        parseInt(values.birthYear),
+                        parseInt(values.birthMonth) - 1,
+                        parseInt(values.birthDay),
+                    ),
+                );
+                if (!isNaN(date.getTime())) {
+                    dob = { $date: date.toISOString() };
+                } else {
+                    throw new Error("Ngày không hợp lệ");
+                }
+            }
+
+            const storedUser = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user") || "{}");
+            const userId = storedUser.id || storedUser._id;
+
+            const updatedUser = {
+                f_name,
+                l_name,
+                phone: values.phone || storedUser.phone,
+                email: values.email || storedUser.email,
+                gender: values.gender || storedUser.gender,
+                address: values.address || storedUser.address,
+                dob: dob || storedUser.dob || null,
+                avatar: avatarUrl,
+                username: storedUser.username,
+                password: storedUser.password,
+                role: storedUser.role,
+                status: storedUser.status,
+                created_at: storedUser.created_at,
+                last_login: storedUser.last_login,
+            };
+
+            // Cập nhật dữ liệu lên server
+            const response = await updateUser(userId, updatedUser);
+
+            if (!response.ok) {
+                throw new Error(`Không thể cập nhật dữ liệu: ${response.statusText}`);
+            }
+
+            // Lưu dữ liệu vào localStorage
+            const storage = localStorage.getItem("user") ? localStorage : sessionStorage;
+            storage.setItem("user", JSON.stringify(updatedUser));
+
+            toast.success("Thành công", {
+                description: "Hồ sơ đã được cập nhật thành công.",
+            });
+        } catch (error) {
+            console.error("Lỗi khi lưu hồ sơ:", error);
+            toast.error("Lỗi", {
+                description: "Không thể cập nhật hồ sơ. Vui lòng thử lại.",
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
+
     // Fetch order history when tab changes to orders
     useEffect(() => {
         if (activeTab === "orders") {
@@ -157,11 +227,9 @@ export default function UserProfile() {
     }, [activeTab]);
 
     // Fetch order history from API
-    // Fetch order history from API
     const fetchOrderHistory = async () => {
         setOrdersLoading(true);
         try {
-            // Lấy thông tin người dùng từ localStorage
             const storedUser = localStorage.getItem("user") || sessionStorage.getItem("user");
             if (!storedUser) {
                 throw new Error('Thông tin người dùng không tồn tại');
@@ -174,129 +242,86 @@ export default function UserProfile() {
                 throw new Error('ID người dùng không tồn tại');
             }
 
-            // Fetch all data in parallel - Lấy song song cả games và đơn hàng
-            const [gamesResponse, boughtResponse] = await Promise.all([
-                fetch("http://localhost:3001/games").then(res => res.json()),
-                fetch("http://localhost:3001/bought").then(res => res.json())
+            // Fetch games and purchases in parallel
+            const [gamesResponse, purchasesResponse] = await Promise.all([
+                getGames(),
+                getPurchases()
             ]);
 
-            console.log("Dữ liệu đơn hàng:", boughtResponse);
+            console.log("Dữ liệu đơn hàng:", purchasesResponse);
             console.log("Dữ liệu games:", gamesResponse);
 
-            // Tìm đơn hàng của người dùng
-            const userBoughtItems = boughtResponse.filter(item =>
+            // Find user's purchases
+            const userPurchase = purchasesResponse.find(item =>
                 item.user_id?.toString() === userId?.toString() ||
                 item.user_id === Number(userId) ||
                 item.userId === userId
             );
 
-            console.log("Đơn hàng của người dùng:", userBoughtItems);
+            console.log("Đơn hàng của người dùng:", userPurchase);
 
-            if (!userBoughtItems || userBoughtItems.length === 0) {
+            if (!userPurchase || !userPurchase.games_purchased || userPurchase.games_purchased.length === 0) {
                 console.log("Không tìm thấy đơn hàng cho người dùng");
                 setUserOrders([]);
                 setOrdersLoading(false);
                 return;
             }
 
-            // Mảng chứa đơn hàng đã xử lý (mỗi game = 1 đơn hàng)
-            let processedOrders = [];
+            // Process each purchased game into an order
+            const processedOrders = userPurchase.games_purchased.map((purchase, index) => {
+                const game = gamesResponse.find(g =>
+                    g.id.toString() === purchase.game_id.toString() ||
+                    g.id === Number(purchase.game_id)
+                );
 
-            // Xử lý từng đơn hàng
-            userBoughtItems.forEach((order, orderIndex) => {
-                const orderDate = new Date(order.createdAt || order.date || Date.now()).toLocaleDateString("vi-VN");
-                const baseOrderStatus = order.status || "Đã giao";
+                // Generate unique order ID
+                const orderId = `${userPurchase.id}-${purchase.game_id}-${index + 1}`;
 
-                // Kiểm tra cả bought_game_id và boughtGameId
-                const bought_game_ids = order.bought_game_id || order.boughtGameId || [];
+                // Format purchase date
+                const purchaseDate = purchase.purchased_at?.$date
+                    ? new Date(purchase.purchased_at.$date).toLocaleDateString("vi-VN")
+                    : new Date().toLocaleDateString("vi-VN");
 
-                if (!bought_game_ids || !Array.isArray(bought_game_ids) || bought_game_ids.length === 0) {
-                    // Xử lý đơn hàng có một game
-                    const gameId = order.gameId || order.game_id;
-                    if (gameId) {
-                        const game = gamesResponse.find(g => {
-                            const gId = g.id.toString();
-                            const oId = gameId.toString();
-                            return gId === oId || gId.includes(oId) || oId.includes(gId);
-                        });
+                // Default status
+                const status = "Đã giao";
 
-                        if (game) {
-                            // Lấy giá tiền từ API hoặc từ đơn hàng
-                            const price = game.price || order.total || 0;
+                // Use price from purchase
+                const price = purchase.price || 0;
+                const priceFormatted = new Intl.NumberFormat('vi-VN', {
+                    style: 'currency',
+                    currency: 'VND'
+                }).format(price);
 
-                            // Tạo mã đơn hàng mới
-                            const orderId = order.id || `ORD-${Math.floor(Math.random() * 1000000)}`;
-
-                            // Thêm đơn hàng mới cho game
-                            processedOrders.push({
-                                id: orderId,
-                                date: orderDate,
-                                status: baseOrderStatus,
-                                price: price,
-                                priceFormatted: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price),
-                                name: game.name,
-                                image: game.imageUrl || game.img,
-                                gameId: game.id,
-                                tags: game.tags || [],
-                                publisher: game.details?.publisher || game.publisher,
-                                published_date: game.details?.published_date?.$date || game.published_date,
-                                age_limit: game.details?.["age-limit"] || game.age_limit
-                            });
-                        }
-                    }
-                } else {
-                    // Xử lý đơn hàng có nhiều game - tạo 1 đơn hàng riêng cho mỗi game
-                    const pricePerGame = Math.round((order.total || 0) / bought_game_ids.length);
-
-                    bought_game_ids.forEach((gameId, index) => {
-                        const game = gamesResponse.find(g => {
-                            const gId = g.id.toString();
-                            const oId = gameId.toString();
-                            return gId === oId || gId.includes(oId) || oId.includes(gId);
-                        });
-
-                        if (game) {
-                            // Giá riêng cho từng game hoặc dùng giá trung bình
-                            const price = game.price || pricePerGame;
-
-                            // Tạo mã đơn hàng độc nhất cho mỗi game
-                            const orderId = `${order.id || 'ORD'}-${index + 1}` || `ORD-${Math.floor(Math.random() * 1000000)}-${index + 1}`;
-
-                            // Thêm đơn hàng mới cho game
-                            processedOrders.push({
-                                id: orderId,
-                                date: orderDate,
-                                status: baseOrderStatus,
-                                price: price,
-                                priceFormatted: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price),
-                                name: game.name,
-                                image: game.imageUrl || game.img,
-                                gameId: game.id,
-                                tags: game.tags || [],
-                                publisher: game.details?.publisher || game.publisher,
-                                published_date: game.details?.published_date?.$date || game.published_date,
-                                age_limit: game.details?.["age-limit"] || game.age_limit
-                            });
-                        }
-                    });
-                }
+                return {
+                    id: orderId,
+                    date: purchaseDate,
+                    status,
+                    price,
+                    priceFormatted,
+                    name: game?.name || "Unknown Game",
+                    image: game?.thumbnail_image || game?.imageUrl || game?.img || "https://placehold.co/100x100/3a1a5e/ffffff?text=Game",
+                    gameId: purchase.game_id,
+                    tags: game?.tags || [],
+                    publisher: game?.details?.publisher || game?.publisher || "Unknown Publisher",
+                    published_date: game?.details?.published_date?.$date || game?.published_date || "",
+                    age_limit: game?.details?.["age-limit"] || game?.age_limit || ""
+                };
             });
 
-            // Sắp xếp theo ngày mua mới nhất lên đầu
+            // Sort orders by date (newest first)
             processedOrders.sort((a, b) => new Date(b.date) - new Date(a.date));
 
             console.log("Đơn hàng đã xử lý:", processedOrders);
 
             setUserOrders(processedOrders);
 
-            // Lưu lịch sử đơn hàng vào localStorage để có thể sử dụng offline
+            // Save to localStorage for offline use
             localStorage.setItem('user_orders', JSON.stringify(processedOrders));
         } catch (error) {
             console.error("Error fetching order history:", error);
             toast.error("Lỗi", {
                 description: "Không thể tải lịch sử đơn hàng. Vui lòng thử lại sau.",
             });
-            // Nếu lỗi, giữ lại dữ liệu lịch sử đơn hàng trong localStorage (nếu có)
             const savedOrders = localStorage.getItem('user_orders');
             if (savedOrders) {
                 setUserOrders(JSON.parse(savedOrders));
@@ -306,12 +331,12 @@ export default function UserProfile() {
         }
     };
 
-    // Xử lý click vào nút upload avatar
+    // Handle avatar upload click
     const handleAvatarUploadClick = () => {
         fileInputRef.current?.click();
     };
 
-    // Xử lý khi file avatar được chọn
+    // Handle avatar file change
     const handleAvatarChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -319,7 +344,6 @@ export default function UserProfile() {
             reader.onload = (e) => {
                 setAvatarUrl(e.target.result);
 
-                // Update avatar trong storage
                 const storedUser = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user") || "{}");
                 const updatedUser = {
                     ...storedUser,
@@ -339,12 +363,10 @@ export default function UserProfile() {
     async function onSubmit(values) {
         setIsSubmitting(true);
         try {
-            // Split name into f_name and l_name
             const nameParts = values.name.trim().split(" ");
             const f_name = nameParts[0] || "Unknown";
             const l_name = nameParts.slice(1).join(" ") || "";
 
-            // Construct dob if birth date fields are provided
             let dob = null;
             if (values.birthDay && values.birthMonth && values.birthYear) {
                 const date = new Date(
@@ -357,25 +379,38 @@ export default function UserProfile() {
                 if (!isNaN(date.getTime())) {
                     dob = { $date: date.toISOString() };
                 } else {
-                    throw new Error("Invalid date");
+                    throw new Error("Ngày không hợp lệ");
                 }
             }
 
-            // Update user data
             const storedUser = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user") || "{}");
+            const userId = storedUser.id || storedUser._id;
+
             const updatedUser = {
-                ...storedUser,
                 f_name,
                 l_name,
-                phone: values.phone,
-                email: values.email,
-                gender: values.gender,
-                address: values.address,
+                phone: values.phone || storedUser.phone,
+                email: values.email || storedUser.email,
+                gender: values.gender || storedUser.gender,
+                address: values.address || storedUser.address,
                 dob: dob || storedUser.dob || null,
-                avatar: avatarUrl, // Include the avatar URL
+                avatar: avatarUrl,
+                username: storedUser.username,
+                password: storedUser.password,
+                role: storedUser.role,
+                status: storedUser.status,
+                created_at: storedUser.created_at,
+                last_login: storedUser.last_login,
             };
 
-            // Update storage
+            // Gọi API để cập nhật dữ liệu
+            const response = await updateUser(userId, updatedUser);
+
+            if (!response.ok) {
+                throw new Error(`Không thể cập nhật dữ liệu: ${response.statusText}`);
+            }
+
+            // Lưu dữ liệu vào localStorage
             const storage = localStorage.getItem("user") ? localStorage : sessionStorage;
             storage.setItem("user", JSON.stringify(updatedUser));
 
@@ -383,7 +418,7 @@ export default function UserProfile() {
                 description: "Hồ sơ đã được cập nhật thành công.",
             });
         } catch (error) {
-            console.error("Error saving profile:", error);
+            console.error("Lỗi khi lưu hồ sơ:", error);
             toast.error("Lỗi", {
                 description: "Không thể cập nhật hồ sơ. Vui lòng thử lại.",
             });
@@ -391,6 +426,7 @@ export default function UserProfile() {
             setIsSubmitting(false);
         }
     }
+
 
     if (isLoading) {
         return (
@@ -712,10 +748,7 @@ export default function UserProfile() {
                                                         key={order.id}
                                                         className={`border-b border-purple-700/20 hover:bg-purple-800/10 transition-colors ${index > 0 && userOrders[index - 1].date === order.date ? '' : 'border-t-4 border-t-purple-800'}`}
                                                     >
-                                                        {/* Mã đơn hàng */}
                                                         <td className="py-4 px-4 text-white font-medium">{order.id}</td>
-
-                                                        {/* Thông tin game */}
                                                         <td className="py-4 px-4">
                                                             <div className="flex items-center gap-3">
                                                                 {order.image && (
@@ -729,13 +762,11 @@ export default function UserProfile() {
                                                                 )}
                                                                 <div className="flex flex-col">
                                                                     <span className="text-purple-200 font-medium">{order.name}</span>
-
                                                                     {order.publisher && (
                                                                         <span className="text-purple-300 text-xs mt-1">
                                                                             <span className="font-medium">Nhà phát hành:</span> {order.publisher}
                                                                         </span>
                                                                     )}
-
                                                                     {order.tags && order.tags.length > 0 && (
                                                                         <div className="flex flex-wrap gap-1 mt-1">
                                                                             {order.tags.map((tag, idx) => (
@@ -745,7 +776,6 @@ export default function UserProfile() {
                                                                             ))}
                                                                         </div>
                                                                     )}
-
                                                                     {order.age_limit && (
                                                                         <span className="text-purple-300 text-xs mt-1">
                                                                             <span className="font-medium">Độ tuổi:</span> {order.age_limit}
@@ -754,18 +784,12 @@ export default function UserProfile() {
                                                                 </div>
                                                             </div>
                                                         </td>
-
-                                                        {/* Ngày mua */}
                                                         <td className="py-4 px-4 text-purple-200">{order.date}</td>
-
-                                                        {/* Trạng thái */}
                                                         <td className="py-4 px-4">
                                                             <span className="inline-block px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-xs">
                                                                 {order.status}
                                                             </span>
                                                         </td>
-
-                                                        {/* Giá tiền */}
                                                         <td className="py-4 px-4 text-right text-white font-medium">
                                                             {order.priceFormatted}
                                                         </td>

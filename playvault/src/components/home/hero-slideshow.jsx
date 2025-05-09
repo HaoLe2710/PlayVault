@@ -1,27 +1,25 @@
 import { useState, useEffect, useCallback } from "react"
+import { useNavigate } from "react-router-dom" // Thêm useNavigate
 import { LazyLoadImage } from "react-lazy-load-image-component"
 import { ChevronLeft, ChevronRight, Star, Award } from "lucide-react"
-import { getGames } from "../../api/games" // Đảm bảo đường dẫn đúng đến file games.js
-import { getCommentsByGameId } from "../../api/comments" // Import hàm để lấy comments
+import { getGames } from "../../api/games"
+import { getCommentsByGameId } from "../../api/comments"
 
 export default function HeroSlideshow() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const [slides, setSlides] = useState([])
   const [loading, setLoading] = useState(true)
+  const navigate = useNavigate() // Khởi tạo useNavigate
 
-  // Tính rating trung bình từ danh sách comment (trên thang điểm 5)
+  // Tính rating trung bình từ danh sách comment
   const calculateAverageRating = (comments) => {
     if (!comments || comments.length === 0) return 0
-
-    const sum = comments.reduce((total, comment) => {
-      return total + (comment.rating || 0)
-    }, 0)
-
+    const sum = comments.reduce((total, comment) => total + (comment.rating || 0), 0)
     return (sum / comments.length).toFixed(1)
   }
 
-  // Fetch games và lọc 4 game có rating cao nhất từ comments
+  // Fetch games và lọc 4 game có rating cao nhất
   useEffect(() => {
     const fetchTopGames = async () => {
       try {
@@ -29,52 +27,48 @@ export default function HeroSlideshow() {
         const allGames = await getGames()
         const gamesWithRatings = []
 
-        // Lấy rating từ comments cho từng game
         for (const game of allGames) {
           try {
             const comments = await getCommentsByGameId(game.id)
             const avgRating = calculateAverageRating(comments)
-
             gamesWithRatings.push({
               ...game,
               avgRating: parseFloat(avgRating) || 0,
-              commentCount: comments.length
+              commentCount: comments.length,
             })
           } catch (error) {
             console.error(`Error fetching comments for game ${game.id}:`, error)
-            // Thêm game không có rating (hoặc lỗi khi lấy rating)
             gamesWithRatings.push({
               ...game,
               avgRating: 0,
-              commentCount: 0
+              commentCount: 0,
             })
           }
         }
 
-        // Xử lý dữ liệu games để tạo ra slides
-        const processedGames = gamesWithRatings.map(game => ({
+        const processedGames = gamesWithRatings.map((game) => ({
           id: game.id,
           title: game.name,
           subtitle: game.tags?.length > 0 ? `${game.tags[0]} Adventure` : "Epic Adventure",
-          description: game.details?.describe ?
-            (game.details.describe.length > 150 ? game.details.describe.substring(0, 150) + "..." : game.details.describe)
+          description: game.details?.describe
+            ? game.details.describe.length > 150
+              ? game.details.describe.substring(0, 150) + "..."
+              : game.details.describe
             : "An exciting gaming experience",
           image: game.thumbnail_image || game.images?.[0] || "/placeholder.svg?height=600&width=1200",
-          rating: game.avgRating, // Rating thực từ comments (thang điểm 5)
+          rating: game.avgRating,
           commentCount: game.commentCount,
-          price: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(game.price || 0),
-          originalPrice: new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format((game.price || 0) * 1.2),
-          isNew: game.isNew || false, // Sử dụng isNew từ dữ liệu nếu có
+          price: new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(game.price || 0),
+          originalPrice: new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(
+            (game.price || 0) * 1.2
+          ),
+          isNew: game.isNew || false,
           badge: game.details?.publisher || "Featured",
           genres: game.tags || ["Action", "Adventure"],
-          publisher: game.details?.publisher || "Unknown Publisher"
+          publisher: game.details?.publisher || "Unknown Publisher",
         }))
 
-        // Sắp xếp theo rating giảm dần và lấy 4 game đầu tiên
-        const topGames = processedGames
-          .sort((a, b) => b.rating - a.rating)
-          .slice(0, 4)
-
+        const topGames = processedGames.sort((a, b) => b.rating - a.rating).slice(0, 4)
         setSlides(topGames)
         setLoading(false)
       } catch (error) {
@@ -106,6 +100,17 @@ export default function HeroSlideshow() {
     return () => clearInterval(interval)
   }, [isAutoPlaying, nextSlide, slides.length])
 
+  // Hàm xử lý khi nhấn "Xem Chi Tiết"
+  const handleViewDetails = (gameId) => {
+    navigate(`/game/${gameId}`) // Điều hướng đến trang chi tiết
+  }
+
+  // Hàm xử lý khi nhấn "Mua Ngay"
+  const handleBuyNow = (gameId, gameTitle) => {
+    alert(`Bạn đã chọn mua ${gameTitle}!`)
+    navigate(`/game/${gameId}`) // Điều hướng đến trang chi tiết (hoặc có thể đến trang thanh toán)
+  }
+
   if (loading) {
     return (
       <div className="relative h-[500px] rounded-2xl overflow-hidden mb-12 bg-gradient-to-r from-purple-900/50 to-indigo-900/50 flex items-center justify-center">
@@ -134,17 +139,13 @@ export default function HeroSlideshow() {
           <div
             key={slide.id}
             className={`absolute inset-0 transition-all duration-700 ease-in-out transform ${index === currentSlide
-              ? "opacity-100 translate-x-0 z-10"
-              : index < currentSlide
-                ? "opacity-0 -translate-x-full z-0"
-                : "opacity-0 translate-x-full z-0"
+                ? "opacity-100 translate-x-0 z-10"
+                : index < currentSlide
+                  ? "opacity-0 -translate-x-full z-0"
+                  : "opacity-0 translate-x-full z-0"
               }`}
           >
-            <LazyLoadImage
-              src={slide.image || "/placeholder.svg"}
-              alt={slide.title}
-              className="object-cover w-full h-full"
-            />
+            <LazyLoadImage src={slide.image || "/placeholder.svg"} alt={slide.title} className="object-cover w-full h-full" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
 
             {/* Content */}
@@ -180,18 +181,24 @@ export default function HeroSlideshow() {
                 <div className="flex flex-col">
                   <span className="text-white text-2xl font-bold">{slide.price}</span>
                   {slide.discount && (
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x shore-2">
                       <span className="text-gray-400 text-sm line-through">{slide.originalPrice}</span>
                       <span className="text-green-500 text-sm font-medium">-{slide.discount}</span>
                     </div>
                   )}
                 </div>
 
-                <button className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-3 rounded-full font-medium transition-all transform hover:scale-105 duration-200">
+                <button
+                  onClick={() => handleBuyNow(slide.id, slide.title)}
+                  className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-3 rounded-full font-medium transition-all transform hover:scale-105 duration-200"
+                >
                   Mua Ngay
                 </button>
 
-                <button className="bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-full font-medium transition-all transform hover:scale-105 duration-200">
+                <button
+                  onClick={() => handleViewDetails(slide.id)}
+                  className="bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-full font-medium transition-all transform hover:scale-105 duration-200"
+                >
                   Xem Chi Tiết
                 </button>
               </div>
@@ -220,8 +227,7 @@ export default function HeroSlideshow() {
         {slides.map((_, index) => (
           <button
             key={index}
-            className={`w-3 h-3 rounded-full transition-all ${index === currentSlide ? "bg-white w-8" : "bg-white/40"
-              }`}
+            className={`w-3 h-3 rounded-full transition-all ${index === currentSlide ? "bg-white w-8" : "bg-white/40"}`}
             onClick={() => setCurrentSlide(index)}
           />
         ))}
