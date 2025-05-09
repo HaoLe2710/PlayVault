@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button } from "../components/ui/Button";
+import { Button } from "../components/ui/button";
 import { Trash2, Edit } from "lucide-react";
 import { getGames, addGame, updateGame, deleteGame } from "../api/games";
 import { uploadImagesToCloudinary } from "../api/cloudinary";

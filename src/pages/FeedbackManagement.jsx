@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Button } from "../components/ui/Button";
+import { Button } from "../components/ui/button";
 import { MessageSquare, Trash2, Send } from "lucide-react";
 import io from "socket.io-client";
 

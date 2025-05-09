@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { Button } from "../components/ui/Button";
+import { Button } from "../components/ui/button";
 import { Edit, Trash2, X, Eye, Search } from "lucide-react";
 import { getUsers, updateUser, createUser } from "../api/users";
 import { uploadImagesToCloudinary } from "../api/cloudinary";
