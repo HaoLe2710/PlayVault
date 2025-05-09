@@ -2487,8 +2487,8 @@
       "dob": {
         "$date": "2004-08-14T00:00:00Z"
       },
-      "username": "do18",
-      "password": "!n_d@KRjPa(n+fkJ0l0m(*",
+      "username": "admin",
+      "password": "admin123",
       "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
       "role": "admin",
       "status": "active",
@@ -2707,6 +2707,24 @@
       "role": "user",
       "status": "active",
       "created_at": "2025-05-08T19:26:53.274Z"
+    },
+    {
+      "f_name": "Hoàng",
+      "l_name": "Phạm",
+      "phone": "0971749199",
+      "email": "tanghoangpro2@gmail.com",
+      "gender": "male",
+      "address": "35 duong so 5",
+      "dob": {
+        "$date": "2000-01-19T00:00:00.000Z"
+      },
+      "avatar": "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg",
+      "username": "hoangdz",
+      "password": "00000000",
+      "role": "user",
+      "status": "active",
+      "created_at": "2025-05-09T04:58:24.859Z",
+      "id": "33"
     }
   ],
   "wishlist": [
@@ -2737,9 +2755,49 @@
       "wishlist": [
         "1"
       ]
+    },
+    {
+      "id": "47dc",
+      "user_id": 33,
+      "fav_game_id": [
+        3,
+        10,
+        18,
+        7,
+        7,
+        14
+      ]
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "id": "1",
+      "user_id": 1,
+      "cart_items": [
+        {
+          "id": 1
+        },
+        {
+          "id": 2
+        },
+        {
+          "id": 3
+        }
+      ]
+    },
+    {
+      "id": "f54c",
+      "user_id": 33,
+      "cart_items": [
+        {
+          "id": 3
+        },
+        {
+          "id": 18
+        }
+      ]
+    }
+  ],
   "monthly_statistic": [
     {
       "id": "1",
@@ -2774,7 +2832,7 @@
   ],
   "purchases": [
     {
-      "id": 1,
+      "id": "1",
       "user_id": 17,
       "games_purchased": [
         {
@@ -2815,7 +2873,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "user_id": 2,
       "games_purchased": [
         {
@@ -2856,7 +2914,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": "3",
       "user_id": 3,
       "games_purchased": [
         {
@@ -2897,7 +2955,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": "4",
       "user_id": 17,
       "games_purchased": [
         {
@@ -2938,7 +2996,7 @@
       ]
     },
     {
-      "id": 5,
+      "id": "5",
       "user_id": 5,
       "games_purchased": [
         {

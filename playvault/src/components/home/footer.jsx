@@ -39,17 +39,15 @@ export default function Footer() {
 
   const quickLinks = [
     { name: "Trang chủ", path: "/" },
-    { name: "Cửa hàng", path: "/store" },
-    { name: "Phần cứng", path: "/hardware" },
-    { name: "Tin tức", path: "/news" },
-    { name: "Hỗ trợ", path: "/support" },
-    { name: "Liên hệ", path: "/contact" }
+    { name: "Sản phẩm", path: "/products" },
+    { name: "Ưa thích", path: "/favorites" },
+    { name: "Đã mua", path: "/bought" },
+    { name: "Giỏ hàng", path: "/cart" },
   ];
 
   const services = [
     { name: "Game đã mua", path: "/bought", icon: <ShoppingCart className="w-4 h-4" /> },
     { name: "Yêu thích", path: "/favorites", icon: <Heart className="w-4 h-4" /> },
-    { name: "Bình luận", path: "/comments", icon: <MessageCircle className="w-4 h-4" /> },
   ];
 
   return (
@@ -144,13 +142,15 @@ export default function Footer() {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link href={link.path}>
-                    <a className="text-gray-300 hover:text-white transition-colors flex items-center group">
-                      <span className="w-5 h-5 mr-2 flex justify-center items-center">
-                        <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </span>
-                      {link.name}
-                    </a>
+                  <Link
+                    to={link.path}
+                    className="text-gray-300 hover:text-white transition-colors flex items-center group"
+                    onClick={() => console.log(`Navigating to ${link.path}`)}
+                  >
+                    <span className="w-5 h-5 mr-2 flex justify-center items-center">
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                    {link.name}
                   </Link>
                 </li>
               ))}
@@ -163,13 +163,15 @@ export default function Footer() {
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service.name}>
-                  <Link href={service.path}>
-                    <a className="text-gray-300 hover:text-white transition-colors flex items-center group">
-                      <span className="w-5 h-5 mr-2 flex justify-center items-center text-purple-400 group-hover:text-pink-400 transition-colors">
-                        {service.icon}
-                      </span>
-                      {service.name}
-                    </a>
+                  <Link
+                    to={service.path}
+                    className="text-gray-300 hover:text-white transition-colors flex items-center group"
+                    onClick={() => console.log(`Navigating to ${service.path}`)}
+                  >
+                    <span className="w-5 h-5 mr-2 flex justify-center items-center text-purple-400 group-hover:text-pink-400 transition-colors">
+                      {service.icon}
+                    </span>
+                    {service.name}
                   </Link>
                 </li>
               ))}
@@ -184,14 +186,15 @@ export default function Footer() {
             </h3>
             <div className="grid grid-cols-1 gap-y-3">
               {categories.map((category) => (
-                <a
+                <Link
                   key={category}
-                  href="#"
+                  to={`/products?category=${encodeURIComponent(category)}`}
                   className="text-gray-300 hover:text-white transition-colors bg-white/5 hover:bg-white/10 rounded-md px-3 py-2 flex items-center justify-between group"
+                  onClick={() => console.log(`Navigating to /products?category=${category}`)}
                 >
                   <span>{category}</span>
                   <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </a>
+                </Link>
               ))}
             </div>
           </div>

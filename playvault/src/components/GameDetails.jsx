@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { Heart, ShoppingCart, Share2, ThumbsUp, ThumbsDown, MessageSquare, Clock, User } from "lucide-react"
+import { Heart, ShoppingCart, ThumbsUp, ThumbsDown, Clock, User } from "lucide-react"
 import GameCarousel from "../components/GameCarousel"
 import GameConfig from "../components/GameConfig"
 import RelatedGames from "../components/RelatedGames"
@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { getGameById, getGames } from "../api/games"
 import { getCommentsByGameIdWithUsers } from "../api/comments"
 import { getWishlist, updateWishlist, createWishlist } from "../api/wishlist"
+import { addToCart } from "../api/cart"
 
 function GameDetail() {
   const { id } = useParams()
@@ -18,6 +19,7 @@ function GameDetail() {
   const [isFavorite, setIsFavorite] = useState(false)
   const [loading, setLoading] = useState(true)
   const [wishlistLoading, setWishlistLoading] = useState(false)
+  const [cartLoading, setCartLoading] = useState(false)
   const [error, setError] = useState(null)
   const [reviews, setReviews] = useState([])
   const [user, setUser] = useState(null)
@@ -164,6 +166,25 @@ function GameDetail() {
     // Implement actual purchase logic here
   }
 
+  const handleAddToCart = async () => {
+    if (!user || !user.id) {
+      alert("Vui lòng đăng nhập để thêm game vào giỏ hàng!")
+      navigate("/login")
+      return
+    }
+
+    try {
+      setCartLoading(true)
+      await addToCart(Number(user.id), Number(game.id))
+      alert(`${game.name} đã được thêm vào giỏ hàng!`)
+      setCartLoading(false)
+    } catch (err) {
+      console.error("Error adding to cart:", err)
+      alert(err.message || "Không thể thêm game vào giỏ hàng. Vui lòng thử lại sau.")
+      setCartLoading(false)
+    }
+  }
+
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96">
@@ -281,8 +302,8 @@ function GameDetail() {
                   disabled={wishlistLoading}
                   aria-label={isFavorite ? `Xóa ${game.name} khỏi danh sách yêu thích` : `Thêm ${game.name} vào danh sách yêu thích`}
                   className={`flex items-center justify-center ${isFavorite
-                      ? "bg-purple-600 hover:bg-purple-700 text-white"
-                      : "border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"
+                    ? "bg-purple-600 hover:bg-purple-700 text-white"
+                    : "border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"
                     }`}
                 >
                   <Heart className={`h-5 w-5 ${isFavorite ? "fill-current" : ""} mr-2`} />
@@ -292,9 +313,11 @@ function GameDetail() {
                 <Button
                   variant="outline"
                   className="border-purple-400 text-purple-200 hover:bg-purple-700 hover:text-white"
+                  onClick={handleAddToCart}
+                  disabled={cartLoading}
                 >
-                  <Share2 className="h-5 w-5 mr-2" />
-                  Share
+                  <ShoppingCart className="h-5 w-5 mr-2" />
+                  {cartLoading ? "Đang xử lý..." : "Thêm vào giỏ hàng"}
                 </Button>
               </div>
             </div>
