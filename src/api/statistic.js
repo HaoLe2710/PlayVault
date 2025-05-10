@@ -139,6 +139,7 @@ export async function calculateCurrentStatistics() {
     // Process purchases
     let revenue = 0;
     const purchaseCounts = {};
+    const gameRevenues = {};
     const uniqueBuyers = new Set();
 
     currentPurchases.forEach(purchase => {
@@ -146,6 +147,7 @@ export async function calculateCurrentStatistics() {
       purchase.games_purchased.forEach(gp => {
         revenue += gp.price || 0;
         purchaseCounts[gp.game_id] = (purchaseCounts[gp.game_id] || 0) + 1;
+        gameRevenues[gp.game_id] = (gameRevenues[gp.game_id] || 0) + (gp.price || 0);
       });
     });
 
@@ -180,6 +182,8 @@ export async function calculateCurrentStatistics() {
           id: game_id,
           name: game ? game.name : 'Unknown',
           purchaseCount,
+          totalRevenue: gameRevenues[game_id] || 0,
+          thumbnail_image: game ? game.thumbnail_image : 'https://placehold.co/40x40/3a1a5e/ffffff?text=No+Image',
         };
       })
       .sort((a, b) => b.purchaseCount - a.purchaseCount)
@@ -207,19 +211,26 @@ export async function calculateCurrentStatistics() {
           name: game ? game.name : 'Unknown',
           commentCount,
           comments: commentDetails[game_id] || [],
+          thumbnail_image: game ? game.thumbnail_image : 'https://placehold.co/40x40/3a1a5e/ffffff?text=No+Image',
         };
       })
       .sort((a, b) => b.commentCount - a.commentCount)
       .slice(0, 5);
 
-    // Collect all comments for the current month
-    const allComments = currentComments.map(c => ({
-      game_id: c.game_id,
-      user_id: c.user_id,
-      rating: c.rating,
-      comment: c.comment,
-      commented_date: c.commented_date,
-    }));
+    // Collect all comments for the current month with usernames and game names
+    const allComments = currentComments.map(c => {
+      const game = games.find(g => g.id === c.game_id.toString());
+      const user = users.find(u => u.id === c.user_id.toString());
+      return {
+        game_id: c.game_id,
+        game_name: game ? game.name : 'Unknown',
+        user_id: c.user_id,
+        username: user ? user.username : 'Unknown',
+        rating: c.rating,
+        comment: c.comment,
+        commented_date: c.commented_date,
+      };
+    });
 
     // Debug: Log calculated statistics
     console.log('Calculated statistics:', {

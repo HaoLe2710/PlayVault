@@ -107,7 +107,6 @@ export default function HeroSlideshow() {
 
   // Hàm xử lý khi nhấn "Mua Ngay"
   const handleBuyNow = (gameId, gameTitle) => {
-    alert(`Bạn đã chọn mua ${gameTitle}!`)
     navigate(`/game/${gameId}`) // Điều hướng đến trang chi tiết (hoặc có thể đến trang thanh toán)
   }
 

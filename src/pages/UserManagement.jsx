@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { Button } from "../components/ui/button";
 import { Edit, Trash2, Eye, Search } from "lucide-react";
-import { getUsers, updateUser, createUser } from "../api/users";
+import { getUsers, updateUser, createUser, getUserById } from "../api/users";
 import { uploadImagesToCloudinary } from "../api/cloudinary";
-import { motion } from "framer-motion";
+import { color, motion } from "framer-motion";
 import { Input } from "../components/ui/input";
 
 function UserManagement() {
@@ -90,19 +90,30 @@ function UserManagement() {
       avatarUrl = uploadedUrls[0] || "https://res.cloudinary.com/dqnj8bsgu/image/upload/v1746630940/avatar_f6yerg.jpg";
     }
 
-    const newUser = {
-      ...formData,
-      avatar: avatarUrl,
-      dob: formData.dob ? { $date: new Date(formData.dob).toISOString() } : "",
-      id: formData.id || String(users.length + 1),
-      status: formData.status || "active",
-    };
-
     try {
       if (formData.id) {
-        await updateUser(formData.id, newUser);
-        setUsers(users.map((u) => (u.id === formData.id ? newUser : u)));
+        // Updating an existing user
+        const existingUser = await getUserById(formData.id);
+        const updatedUser = {
+          ...existingUser, // Preserve all existing fields
+          f_name: formData.f_name,
+          l_name: formData.l_name,
+          username: formData.username,
+          dob: formData.dob ? { $date: new Date(formData.dob).toISOString() } : "",
+          avatar: avatarUrl,
+          status: formData.status || "active",
+        };
+        await updateUser(formData.id, updatedUser);
+        setUsers(users.map((u) => (u.id === formData.id ? updatedUser : u)));
       } else {
+        // Creating a new user
+        const newUser = {
+          ...formData,
+          avatar: avatarUrl,
+          dob: formData.dob ? { $date: new Date(formData.dob).toISOString() } : "",
+          id: String(users.length + 1),
+          status: formData.status || "active",
+        };
         const createdUser = await createUser(newUser);
         setUsers([...users, createdUser]);
       }
@@ -289,7 +300,7 @@ function UserManagement() {
       style: {
         backgroundColor: "hsl(266, 46%, 15%)",
         color: "#ffffff",
-        borderTop: "1px solid hsl(266, 46%, 20%)",
+        border_top: "1px solid hsl(266, 46%, 20%)",
         fontFamily: "Inter, sans-serif",
       },
       pageButtonsStyle: {

@@ -12,7 +12,6 @@ const GameCard = ({ game }) => {
   // Hàm xử lý khi nhấn "Mua Ngay"
   const handleBuyNow = () => {
     if (!game?.id) return
-    alert(`Bạn đã chọn mua ${game.title}!`)
     navigate(`/game/${game.id}`) // Điều hướng đến trang chi tiết
   }
 

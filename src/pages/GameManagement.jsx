@@ -9,6 +9,7 @@ import { Input } from "../components/ui/input";
 
 function GameManagement() {
   const [games, setGames] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search input
   const [newGame, setNewGame] = useState({
     name: "",
     price: "",
@@ -42,6 +43,11 @@ function GameManagement() {
       setLoading(false);
     }
   };
+
+  // Filter games based on search query
+  const filteredGames = games.filter((game) =>
+    game.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   const validateInputs = (game) => {
     const newErrors = {};
@@ -377,7 +383,7 @@ function GameManagement() {
       style: {
         backgroundColor: "hsl(266, 46%, 15%)",
         color: "#ffffff",
-        border_top: "1px solid hsl(266, 46%, 20%)",
+        borderTop: "1px solid hsl(266, 46%, 20%)",
         fontFamily: "Inter, sans-serif",
       },
       pageButtonsStyle: {
@@ -497,7 +503,7 @@ function GameManagement() {
                         details: { ...newGame.details, describe: e.target.value },
                       })
                 }
-                className={`bg-purple-800/80 border industriali-700/50 text-white rounded-lg w-full p-2 ${errors.describe ? "border-red-500" : ""}`}
+                className={`bg-purple-800/80 border-purple-700/50 text-white rounded-lg w-full p-2 ${errors.describe ? "border-red-500" : ""}`}
                 rows="4"
               />
               {errors.describe && <p className="text-red-500 text-sm mt-1">{errors.describe}</p>}
@@ -798,14 +804,23 @@ function GameManagement() {
           transition={{ duration: 0.3, delay: 0.1 }}
         >
           <h2 className="text-xl font-semibold text-white mb-4">Danh Sách Game</h2>
+          <div className="mb-4">
+            <Input
+              type="text"
+              placeholder="Tìm kiếm theo tên game..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="bg-purple-800/80 border-purple-700/50 text-white rounded-lg w-full max-w-md"
+            />
+          </div>
           {loading ? (
-            <div className="flex justify-center items-center h-64">
+            <div className="flex justify-center Pada-item-center h-64">
               <div className="text-purple-300 animate-pulse">Đang tải dữ liệu...</div>
             </div>
           ) : (
             <DataTable
               columns={columns}
-              data={games}
+              data={filteredGames}
               pagination
               paginationPerPage={10}
               customStyles={customStyles}

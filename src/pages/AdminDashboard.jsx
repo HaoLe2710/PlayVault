@@ -7,6 +7,9 @@ import {
   autoSaveStatistics,
 } from "../api/statistic";
 import { motion } from "framer-motion";
+import DataTable from "react-data-table-component";
+import { Input } from "../components/ui/input";
+import { Search } from "lucide-react";
 
 function AdminDashboard() {
   const [currentStats, setCurrentStats] = useState({
@@ -28,6 +31,8 @@ function AdminDashboard() {
     top_commented_games: [],
   });
   const [error, setError] = useState(null);
+  const [commentSearchTerm, setCommentSearchTerm] = useState("");
+  const [soldGamesSearchTerm, setSoldGamesSearchTerm] = useState("");
 
   const fetchStatistics = async () => {
     try {
@@ -51,6 +56,164 @@ function AdminDashboard() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleCommentSearch = (e) => {
+    setCommentSearchTerm(e.target.value);
+  };
+
+  const handleSoldGamesSearch = (e) => {
+    setSoldGamesSearchTerm(e.target.value);
+  };
+
+  const filteredComments = currentStats.all_comments.filter((comment) => {
+    const search = commentSearchTerm.toLowerCase();
+    return (
+      comment.game_name.toLowerCase().includes(search) ||
+      comment.username.toLowerCase().includes(search)
+    );
+  });
+
+  const filteredSoldGames = currentStats.top_purchased_games.filter((game) => {
+    const search = soldGamesSearchTerm.toLowerCase();
+    return game.name.toLowerCase().includes(search);
+  });
+
+  const commentColumns = [
+    {
+      name: "Tên Game",
+      selector: (row) => row.game_name,
+      sortable: true,
+      cell: (row) => <span className="text-white">{row.game_name}</span>,
+    },
+    {
+      name: "Người Dùng",
+      selector: (row) => row.username,
+      sortable: true,
+      cell: (row) => <span className="text-white">{row.username}</span>,
+    },
+    {
+      name: "Điểm Đánh Giá",
+      selector: (row) => row.rating,
+      sortable: true,
+      cell: (row) => <span className="text-white">{row.rating}</span>,
+    },
+    {
+      name: "Bình Luận",
+      selector: (row) => row.comment,
+      cell: (row) => <span className="text-white">{row.comment}</span>,
+    },
+    {
+      name: "Ngày",
+      selector: (row) => row.commented_date,
+      sortable: true,
+      cell: (row) => {
+        const commentDate = row.commented_date?.$date
+          ? new Date(row.commented_date.$date)
+          : new Date(row.commented_date);
+        return (
+          <span className="text-white">
+            {isNaN(commentDate.getTime()) ? "N/A" : commentDate.toLocaleDateString("vi-VN")}
+          </span>
+        );
+      },
+    },
+  ];
+
+  const soldGamesColumns = [
+    {
+      name: "Tên Game",
+      selector: (row) => row.name,
+      sortable: true,
+      cell: (row) => <span className="text-white">{row.name}</span>,
+    },
+    {
+      name: "Số Lượt Mua",
+      selector: (row) => row.purchaseCount,
+      sortable: true,
+      cell: (row) => <span className="text-white">{row.purchaseCount}</span>,
+    },
+    {
+      name: "Tổng Doanh Thu",
+      selector: (row) => row.totalRevenue,
+      sortable: true,
+      cell: (row) => (
+        <span className="text-white">{row.totalRevenue.toLocaleString("vi-VN")} VND</span>
+      ),
+    },
+  ];
+
+  const customStyles = {
+    table: {
+      style: {
+        backgroundColor: "transparent",
+        borderRadius: "8px",
+        border: "1px solid hsl(266, 46%, 20%)",
+        fontFamily: "Inter, sans-serif",
+      },
+    },
+    tableWrapper: {
+      style: {
+        backgroundColor: "transparent",
+        borderRadius: "8px",
+      },
+    },
+    head: {
+      style: {
+        backgroundColor: "hsl(266, 46%, 15%)",
+        borderBottom: "1px solid hsl(266, 46%, 20%)",
+      },
+    },
+    headRow: {
+      style: {
+        backgroundColor: "transparent",
+      },
+    },
+    headCells: {
+      style: {
+        color: "#ffffff",
+        fontWeight: "600",
+        fontSize: "16px",
+        fontFamily: "Inter, sans-serif",
+        padding: "12px",
+      },
+    },
+    cells: {
+      style: {
+        color: "#ffffff",
+        backgroundColor: "transparent",
+        padding: "12px",
+        borderTop: "1px solid hsl(266, 46%, 20%)",
+        fontFamily: "Inter, sans-serif",
+        fontSize: "14px",
+      },
+    },
+    rows: {
+      style: {
+        backgroundColor: "hsl(266, 46%, 10%)",
+        "&:hover": {
+          backgroundColor: "hsl(266, 60%, 15%)", // Darker, richer purple on hover
+        },
+      },
+    },
+    pagination: {
+      style: {
+        backgroundColor: "hsl(266, 46%, 15%)",
+        color: "#ffffff",
+        borderTop: "1px solid hsl(266, 46%, 20%)",
+        fontFamily: "Inter, sans-serif",
+      },
+      pageButtonsStyle: {
+        color: "#ffffff",
+        backgroundColor: "transparent",
+        "&:hover:not(:disabled)": {
+          backgroundColor: "hsl(266, 46%, 20%)",
+        },
+        "&:disabled": {
+          color: "hsl(266, 46%, 50%)",
+        },
+      },
+    },
+  };
+
   if (error) {
     return (
       <div className="container mx-auto p-4">
@@ -65,41 +228,6 @@ function AdminDashboard() {
       </div>
     );
   }
-
-  // Note for BarChart component update:
-  // The BarChart component should be modified to:
-  // 1. Accept a `thumbnails` array in the `data` prop to display images at the top of each bar.
-  // 2. Support text wrapping for `labels` using CSS (e.g., `white-space: normal; word-wrap: break-word;`).
-  // 3. Use gradient fill for bars (e.g., `linear-gradient(to top, #db2777, #9333ea)`).
-  // 4. Ensure bars have hover effects (e.g., slight scale increase or brightness change).
-  // Example pseudo-implementation:
-  /*
-  function BarChart({ title, data }) {
-    return (
-      <div className="bg-zinc-900/90 rounded-lg p-6 border border-purple-700/50">
-        <h2 className="text-xl font-semibold text-white mb-4">{title}</h2>
-        <div className="relative">
-          {data.values.map((value, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <img
-                src={data.thumbnails[index] || "https://placehold.co/40x40"}
-                alt={data.labels[index]}
-                className="w-10 h-10 object-cover rounded-md mb-2"
-              />
-              <div
-                className="bg-gradient-to-t from-pink-600 to-purple-600 hover:brightness-125"
-                style={{ height: `${value * 10}px`, width: "40px" }}
-              />
-              <span className="text-white text-sm mt-2 text-center break-words w-24">
-                {data.labels[index]}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-  */
 
   return (
     <div className="container mx-auto">
@@ -177,18 +305,26 @@ function AdminDashboard() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <BarChart
               title="Top 5 Game Được Bình Luận Nhiều Nhất"
+              dataType={"Lượt bình luận"}
               data={{
                 labels: currentStats.top_commented_games?.map((game) => game.name) || [],
                 values: currentStats.top_commented_games?.map((game) => game.commentCount) || [],
-                thumbnails: currentStats.top_commented_games?.map((game) => game.thumbnail_image || "https://placehold.co/40x40/3a1a5e/ffffff?text=No+Image") || [],
+                thumbnails:
+                  currentStats.top_commented_games?.map(
+                    (game) => game.thumbnail_image || "https://placehold.co/40x40/3a1a5e/ffffff?text=No+Image"
+                  ) || [],
               }}
             />
             <BarChart
               title="Top 5 Game Bán Chạy Nhất"
+              dataType={"Lượt bán"}
               data={{
                 labels: currentStats.top_purchased_games?.map((game) => game.name) || [],
                 values: currentStats.top_purchased_games?.map((game) => game.purchaseCount) || [],
-                thumbnails: currentStats.top_purchased_games?.map((game) => game.thumbnail_image || "https://placehold.co/40x40/3a1a5e/ffffff?text=No+Image") || [],
+                thumbnails:
+                  currentStats.top_purchased_games?.map(
+                    (game) => game.thumbnail_image || "https://placehold.co/40x40/3a1a5e/ffffff?text=No+Image"
+                  ) || [],
               }}
             />
           </div>
@@ -197,61 +333,71 @@ function AdminDashboard() {
         {/* Separator */}
         <hr className="my-8 border-0 h-1 bg-gradient-to-r from-transparent via-purple-600 to-transparent" />
 
-        {/* All Comments */}
+        {/* Sold Games Table */}
         <motion.div
-          className="bg-zinc-900/95 rounded-lg p-6 border border-purple-700/50"
+          className="bg-zinc-900/95 rounded-lg p-6 border border-purple-700/50 mb-8"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, delay: 0.2 }}
         >
-          <h2 className="text-xl font-semibold text-white mb-4">Bình Luận Tháng Này ({currentStats.time})</h2>
-          {currentStats.all_comments?.length > 0 ? (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left text-white">
-                <thead>
-                  <tr className="bg-purple-800/30">
-                    <th className="p-3">Tên Game</th>
-                    <th className="p-3">Người Dùng</th>
-                    <th className="p-3">Điểm Đánh Giá</th>
-                    <th className="p-3">Bình Luận</th>
-                    <th className="p-3">Ngày</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentStats.all_comments.map((comment, idx) => {
-                    // Fetch game name (assuming game data is available in top_purchased_games or top_commented_games)
-                    const game = [
-                      ...currentStats.top_purchased_games,
-                      ...currentStats.top_commented_games,
-                    ].find((g) => g.id === comment.game_id);
-                    const gameName = game ? game.name : comment.game_id;
-                    const commentDate = comment.commented_date?.$date
-                      ? new Date(comment.commented_date.$date)
-                      : new Date(comment.commented_date);
-
-                    return (
-                      <tr
-                        key={idx}
-                        className="border-b border-purple-500/20 hover:bg-purple-700/20"
-                      >
-                        <td className="p-3">{gameName}</td>
-                        <td className="p-3">{comment.user_id}</td>
-                        <td className="p-3">{comment.rating}</td>
-                        <td className="p-3">{comment.comment}</td>
-                        <td className="p-3">
-                          {isNaN(commentDate.getTime())
-                            ? "N/A"
-                            : commentDate.toLocaleDateString("vi-VN")}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold text-white">Game Đã Bán Trong Tháng ({currentStats.time})</h2>
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Tìm theo tên game"
+                value={soldGamesSearchTerm}
+                onChange={handleSoldGamesSearch}
+                className="bg-purple-800/80 border-purple-700/50 text-white rounded-lg pl-10"
+              />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-purple-400" />
             </div>
-          ) : (
-            <p className="text-purple-300">Không có bình luận nào trong tháng này.</p>
-          )}
+          </div>
+          <DataTable
+            columns={soldGamesColumns}
+            data={filteredSoldGames}
+            customStyles={customStyles}
+            pagination
+            paginationPerPage={10}
+            highlightOnHover
+            pointerOnHover
+            noDataComponent={<span className="text-white py-4">Không có game nào được bán trong tháng này</span>}
+          />
+        </motion.div>
+
+        {/* Separator */}
+        <hr className="my-8 border-0 h-1 bg-gradient-to-r from-transparent via-purple-600 to-transparent" />
+
+        {/* Comments Table */}
+        <motion.div
+          className="bg-zinc-900/95 rounded-lg p-6 border border-purple-700/50"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3, delay: 0.3 }}
+        >
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold text-white">Bình Luận Tháng Này ({currentStats.time})</h2>
+            <div className="relative">
+              <Input
+                type="text"
+                placeholder="Tìm theo tên game hoặc người dùng"
+                value={commentSearchTerm}
+                onChange={handleCommentSearch}
+                className="bg-purple-800/80 border-purple-700/50 text-white rounded-lg pl-10"
+              />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-purple-400" />
+            </div>
+          </div>
+          <DataTable
+            columns={commentColumns}
+            data={filteredComments}
+            customStyles={customStyles}
+            pagination
+            paginationPerPage={10}
+            highlightOnHover
+            pointerOnHover
+            noDataComponent={<span className="text-white py-4">Không có bình luận nào trong tháng này</span>}
+          />
         </motion.div>
       </motion.div>
     </div>
